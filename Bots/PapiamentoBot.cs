@@ -54,7 +54,7 @@ namespace RedditBots.Bots
             //    subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
             //}
 
-            var subreddit = _redditClient.Subreddit("AskReddit");
+            var subreddit = _redditClient.Subreddit(_monitorSettings.Subreddits.First());
 
             subreddit.Comments.GetNew();
             subreddit.Comments.MonitorNew();
@@ -161,7 +161,7 @@ namespace RedditBots.Bots
             }
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
-            _logger.LogInformation($"{DateTime.Now} {percentageRounded}% of {allWords.Count()} words matched, checking for grammar mistakes");
+            _logger.LogInformation($"{DateTime.Now} {percentageRounded}% of {allWords.Count()} words matched from user, checking for grammar mistakes");
 
             return true;
         }
