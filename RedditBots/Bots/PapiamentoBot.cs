@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using RedditBots.Settings;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
+using RedditBots.Settings;
 using System;
 using System.Linq;
 using System.Threading;

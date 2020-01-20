@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RedditBots.Bots;
 using RedditBots.Settings;
-using Reddit;
 
 namespace RedditBots
 {

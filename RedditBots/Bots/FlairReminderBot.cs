@@ -1,17 +1,17 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using RedditBots.Settings;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
+using RedditBots.Settings;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace RedditBots.Bots
-{ 
+{
     /// <summary>
     /// FlairReminderBots replies to all new post with a 'Reminder' message to set a flair
     /// Than it checks if a flair has been added to new posts, if so it deletes its own 'Reminder' message
