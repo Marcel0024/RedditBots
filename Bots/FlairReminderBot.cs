@@ -39,7 +39,7 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
-            var subreddit = _redditClient.Subreddit(_monitorSettings.Subreddits.First().Name);
+            var subreddit = _redditClient.Subreddit(_monitorSettings.Subreddits.First());
 
             subreddit.Posts.GetNew();
             subreddit.Posts.MonitorNew();
@@ -48,19 +48,19 @@ namespace RedditBots.Bots
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var newSubreddits = subreddit.Posts.New;
+                var newPosts = subreddit.Posts.New;
 
-                foreach (var newSubreddit in newSubreddits)
+                foreach (var newPost in newPosts)
                 {
-                    if (!string.IsNullOrWhiteSpace(newSubreddit.Listing.LinkFlairText))
+                    if (!string.IsNullOrWhiteSpace(newPost.Listing.LinkFlairText))
                     {
-                        var oldComments = newSubreddit.Comments.Old;
+                        var oldComments = newPost.Comments.Old;
 
                         foreach (var oldComment in oldComments)
                         {
-                            if (oldComment.Author == _monitorSettings.BotName)
+                            if (string.Equals(oldComment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
                             {
-                                _logger.LogInformation($"Flair detected removing own comment.");
+                                _logger.LogInformation($"{DateTime.Now} flair detected removing own comment in post of {newPost.Author}");
 
                                 oldComment.Delete();
                             }
@@ -69,14 +69,14 @@ namespace RedditBots.Bots
                 }
             }
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         private void C_NewPostsUpdated(object sender, PostsUpdateEventArgs e)
         {
             foreach (Post post in e.Added)
             {
-                _logger.LogInformation($"New Post from {post.Author} in /r/{post.Subreddit} leaving comment");
+                _logger.LogInformation($"{DateTime.Now} new post from {post.Author} in /r/{post.Subreddit} leaving comment");
 
                 post.Reply(string.Format(_monitorSettings.DefaultReplyMessage, post.Author) + _monitorSettings.MessageFooter);
             }

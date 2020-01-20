@@ -23,11 +23,6 @@ namespace RedditBots.Settings
 
         public string DefaultReplyMessage { get; set; }
 
-        public List<SubredditSetting> Subreddits { get; set; }
-    }
-
-    public class SubredditSetting
-    {
-        public string Name { get; set; }
+        public List<string> Subreddits { get; set; }
     }
 }

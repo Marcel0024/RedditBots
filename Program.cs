@@ -22,11 +22,11 @@ namespace RedditBots
             })
             .ConfigureServices((hostContext, services) =>
             {
-                services.AddHostedService<PapiamentoBot>();
-                services.AddHostedService<FlairReminderBot>();
-
                 services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
                 services.Configure<PapiamentoBotSettings>(hostContext.Configuration.GetSection(nameof(PapiamentoBotSettings)));
+
+                services.AddHostedService<PapiamentoBot>();
+                services.AddHostedService<FlairReminderBot>();
             });
     }
 }

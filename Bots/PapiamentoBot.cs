@@ -45,30 +45,31 @@ namespace RedditBots.Bots
 
             //foreach (var subredditToMonitor in _monitorSettings.Subreddits)
             //{
-            //    _logger.LogInformation($"Started monitoring {subredditToMonitor.Name}");
+            //    _logger.LogInformation($"Started monitoring {subredditToMonitor}");
 
-            //    var subreddit = _redditClient.Subreddit(subredditToMonitor.Name);
+            //    var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
             //    subreddit.Comments.GetNew();
             //    subreddit.Comments.MonitorNew();
             //    subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
             //}
 
-
-            var subreddit = _redditClient.Subreddit("Aruba");
+            var subreddit = _redditClient.Subreddit("AskReddit");
 
             subreddit.Comments.GetNew();
             subreddit.Comments.MonitorNew();
 
             subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         private void C_NewCommentsUpdated(object sender, CommentsUpdateEventArgs e)
         {
             foreach (Comment comment in e.Added)
             {
+                _logger.LogDebug($"{DateTime.Now} New comment detected of {comment.Author} in {comment.Subreddit}");
+
                 _handleComment(comment);
             }
         }
@@ -76,7 +77,7 @@ namespace RedditBots.Bots
         private void _handleComment(Comment comment)
         {
             // Look under the bot for "Good bot", then don't continue recursively under the bot
-            if (comment.Author == nameof(PapiamentoBot))
+            if (string.Equals(comment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
             {
                 //if (comment.Comments.GetComments().Any())
                 //{
@@ -160,7 +161,7 @@ namespace RedditBots.Bots
             }
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
-            _logger.LogInformation($"{percentageRounded}% of {allWords.Count()} words matched, checking for grammar mistakes");
+            _logger.LogInformation($"{DateTime.Now} {percentageRounded}% of {allWords.Count()} words matched, checking for grammar mistakes");
 
             return true;
         }
@@ -198,7 +199,7 @@ namespace RedditBots.Bots
 
         private void _writeReplyAsync(Comment comment, string text)
         {
-            _logger.LogInformation($"Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {text}", ConsoleColor.Magenta);
+            _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {text}", ConsoleColor.Magenta);
 
             comment.Reply(text += _monitorSettings.MessageFooter);
         }
