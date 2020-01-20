@@ -1,0 +1,204 @@
+{
+  "PapiamentoBotSettings": {
+    "LanguageDetectionPercentage": "40",
+
+    "WordsToDetectLanguage": [
+      "a",
+      "abo",
+      "aki",
+      "algo",
+      "ami",
+      "anto",
+      "awe",
+      "awo",
+      "baha",
+      "bai",
+      "ban",
+      "basta",
+      "bin",
+      "bisa",
+      "bo",
+      "bon",
+      "boso",
+      "cabi",
+      "cambia",
+      "chupa",
+      "con",
+      "cu",
+      "di",
+      "dje",
+      "dushi",
+      "e",
+      "esaki",
+      "esey",
+      "esun",
+      "fe",
+      "gana",
+      "gani",
+      "haci",
+      "hende",
+      "hopi",
+      "ken",
+      "kere",
+      "kermen",
+      "ki",
+      "laga",
+      "lo",
+      "manera",
+      "mare",
+      "mas",
+      "mes",
+      "mester",
+      "mi",
+      "mustra",
+      "mustrami",
+      "na",
+      "nan",
+      "no",
+      "nobo",
+      "nos",
+      "nunca",
+      "ohm",
+      "om",
+      "ora",
+      "otro",
+      "pa",
+      "pasa",
+      "pensa",
+      "porta",
+      "riba",
+      "sa",
+      "sali",
+      "segun",
+      "serio",
+      "si",
+      "sin",
+      "so",
+      "su",
+      "ta",
+      "tambe",
+      "tin",
+      "trip",
+      "tuma",
+      "tur",
+      "un",
+      "unda",
+      "wak",
+      "wordo",
+      "y"
+    ],
+
+    "WordsToCorrect": [
+      {
+        "gravity": 10,
+        "wrong": "mariku",
+        "right": "marico"
+      },
+      {
+        "gravity": 20,
+        "wrong": "ku",
+        "right": "cu"
+      },
+      {
+        "gravity": 30,
+        "wrong": "algu",
+        "right": "algo"
+      },
+      {
+        "gravity": 40,
+        "wrong": "kiko",
+        "right": "kico"
+      },
+      {
+        "gravity": 50,
+        "wrong": "plaka",
+        "right": "placa"
+      },
+      {
+        "gravity": 60,
+        "wrong": "kada",
+        "right": "cada"
+      },
+      {
+        "gravity": 70,
+        "wrong": "kon",
+        "right": "con"
+      },
+      {
+        "gravity": 80,
+        "wrong": "korda",
+        "right": "corda"
+      },
+      {
+        "gravity": 90,
+        "wrong": "splika",
+        "right": "splica"
+      },
+      {
+        "gravity": 100,
+        "wrong": "splikami",
+        "right": "splicami"
+      },
+      {
+        "gravity": 110,
+        "wrong": "dikon",
+        "right": "dicon"
+      },
+      {
+        "gravity": 120,
+        "wrong": "djies",
+        "right": "djis"
+      },
+      {
+        "gravity": 130,
+        "wrong": "skol",
+        "right": "scol"
+      },
+      {
+        "gravity": 140,
+        "wrong": "conjo",
+        "right": "coño"
+      },
+      {
+        "gravity": 150,
+        "wrong": "anja",
+        "right": "aña"
+      },
+      {
+        "gravity": 160,
+        "wrong": "hanja",
+        "right": "haña"
+      },
+      {
+        "gravity": 170,
+        "wrong": "ganja",
+        "right": "gaña"
+      },
+      {
+        "gravity": 180,
+        "wrong": "senjora",
+        "right": "señora"
+      },
+      {
+        "gravity": 190,
+        "wrong": "donjo",
+        "right": "doño"
+      },
+      {
+        "gravity": 200,
+        "wrong": "sinja",
+        "right": "siña"
+      },
+      {
+        "gravity": 210,
+        "wrong": "korsou",
+        "right": "Curaçao"
+      },
+      {
+        "gravity": 220,
+        "wrong": "corsou",
+        "right": "Curaçao"
+      }
+    ]
+  }
+}
