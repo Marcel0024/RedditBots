@@ -60,7 +60,7 @@ namespace RedditBots.Bots
                         {
                             if (string.Equals(oldComment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
                             {
-                                _logger.LogInformation($"{DateTime.Now} flair detected removing own comment in post of {newPost.Author}");
+                                _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of {newPost.Author}");
 
                                 oldComment.Delete();
                             }

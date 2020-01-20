@@ -87,6 +87,8 @@ namespace RedditBots.Bots
                 return;
             }
 
+            _logger.LogDebug($"{DateTime.Now} Comment's parent: {comment.ParentFullname}");
+
             //// Repeat recursive, unless looking for compliments
             //if (!lookForCompliments && comment?.Data?.Replies?.Data?.Children != null)
             //{
@@ -139,9 +141,6 @@ namespace RedditBots.Bots
             }
         }
 
-        /// <summary>
-        /// Tries to verify language
-        /// </summary>
         private bool _verifyLanguage(string[] allWords)
         {
             double totalMatchingWords = allWords.Count(commentWord =>
@@ -161,7 +160,7 @@ namespace RedditBots.Bots
             }
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
-            _logger.LogInformation($"{DateTime.Now} {percentageRounded}% of {allWords.Count()} words matched from user, checking for grammar mistakes");
+            _logger.LogInformation($"{DateTime.Now} {percentageRounded}% of {allWords.Count()} words matched, checking for grammar mistakes");
 
             return true;
         }
