@@ -1,3 +1,3 @@
-# Reddit Bots
-Reddit Bots is a Console Application that runs multiple Reddit bot instances
+# RedditBots
+RedditBots is a Console Application written in C# .NET Core that runs multiple Reddit bot instances.
 
