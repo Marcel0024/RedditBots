@@ -23,6 +23,7 @@ namespace RedditBots.Bots
         private readonly RedditClient _redditClient;
         private readonly MonitorSetting _monitorSettings;
         private readonly PapiamentoBotSettings _papiamentoBotSettings;
+
         private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ' };
 
         public PapiamentoBot(
@@ -43,23 +44,16 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
-            //foreach (var subredditToMonitor in _monitorSettings.Subreddits)
-            //{
-            //    _logger.LogInformation($"Started monitoring {subredditToMonitor}");
+            foreach (var subredditToMonitor in _monitorSettings.Subreddits)
+            {
+                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
 
-            //    var subreddit = _redditClient.Subreddit(subredditToMonitor);
+                var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
-            //    subreddit.Comments.GetNew();
-            //    subreddit.Comments.MonitorNew();
-            //    subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
-            //}
-
-            var subreddit = _redditClient.Subreddit(_monitorSettings.Subreddits.First());
-
-            subreddit.Comments.GetNew();
-            subreddit.Comments.MonitorNew();
-
-            subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
+                subreddit.Comments.GetNew();
+                subreddit.Comments.MonitorNew();
+                subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
+            }
 
             return Task.CompletedTask;
         }
@@ -78,12 +72,10 @@ namespace RedditBots.Bots
         {
             if (string.Equals(comment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
             {
+                // TODO check for compliment e.g. 'Good bot' under a comment by the bot
+
                 return;
             }
-
-            // TODO check for compliment e.g. 'Good bot' under a comment by the bot
-
-            _logger.LogDebug($"{DateTime.Now} Comment's parent: {comment.ParentFullname}");
 
             _checkCommentGrammar(comment);
         }

@@ -4,9 +4,10 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
+using Reddit.Exceptions;
 using RedditBots.Settings;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,6 +23,8 @@ namespace RedditBots.Bots
         private readonly IHostEnvironment _env;
         private readonly MonitorSetting _monitorSettings;
         private readonly RedditClient _redditClient;
+
+        private readonly List<Subreddit> _monitoringSubreddits = new List<Subreddit>();
 
         public FlairReminderBot(
             ILogger<FlairReminderBot> logger,
@@ -39,14 +42,42 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
-            var subreddit = _redditClient.Subreddit(_monitorSettings.Subreddits.First());
+            foreach (var subredditToMonitor in _monitorSettings.Subreddits)
+            {
+                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
 
-            subreddit.Posts.GetNew();
-            subreddit.Posts.MonitorNew();
+                var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
-            subreddit.Posts.NewUpdated += C_NewPostsUpdated;
+                subreddit.Posts.GetNew();
+                subreddit.Posts.MonitorNew();
+
+                subreddit.Posts.NewUpdated += C_NewPostsUpdated;
+
+                _monitoringSubreddits.Add(subreddit);
+            }
 
             while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    _monitorPostsForAddedFlair();
+                }
+                catch (Exception e) 
+                    when (e is RedditBadGatewayException 
+                        || e is RedditInternalServerErrorException
+                        || e is RedditBadGatewayException)
+                {
+                    _logger.LogWarning(e.ToString());
+                    Task.Delay(20000);
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private void _monitorPostsForAddedFlair()
+        {
+            foreach (var subreddit in _monitoringSubreddits)
             {
                 var newPosts = subreddit.Posts.New;
 
@@ -60,7 +91,7 @@ namespace RedditBots.Bots
                         {
                             if (string.Equals(oldComment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
                             {
-                                _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of {newPost.Author}");
+                                _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of /u/{newPost.Author}");
 
                                 oldComment.Delete();
                             }
@@ -68,15 +99,13 @@ namespace RedditBots.Bots
                     }
                 }
             }
-
-            return Task.CompletedTask;
         }
 
         private void C_NewPostsUpdated(object sender, PostsUpdateEventArgs e)
         {
             foreach (Post post in e.Added)
             {
-                _logger.LogInformation($"{DateTime.Now} new post from {post.Author} in /r/{post.Subreddit} leaving comment");
+                _logger.LogInformation($"{DateTime.Now} new post from /u/{post.Author} in /r/{post.Subreddit} leaving comment");
 
                 post.Reply(string.Format(_monitorSettings.DefaultReplyMessage, post.Author) + _monitorSettings.MessageFooter);
             }
