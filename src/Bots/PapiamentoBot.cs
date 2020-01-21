@@ -76,49 +76,16 @@ namespace RedditBots.Bots
 
         private void _handleComment(Comment comment)
         {
-            // Look under the bot for "Good bot", then don't continue recursively under the bot
             if (string.Equals(comment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
             {
-                //if (comment.Comments.GetComments().Any())
-                //{
-                //    await _processCommentsAsync(comment?.Data?.Replies?.Data?.Children, true);
-                //}
-
                 return;
             }
 
+            // TODO check for compliment e.g. 'Good bot' under a comment by the bot
+
             _logger.LogDebug($"{DateTime.Now} Comment's parent: {comment.ParentFullname}");
 
-            //// Repeat recursive, unless looking for compliments
-            //if (!lookForCompliments && comment?.Data?.Replies?.Data?.Children != null)
-            //{
-            //    await _processCommentsAsync(comment.Data.Replies.Data.Children);
-            //}
-
-            //// Skip deleted comments
-            //if (string.IsNullOrEmpty(comment?.Data?.Body) || string.IsNullOrEmpty(comment?.Data?.Author))
-            //{
-            //    return;
-            //}
-
-            // Check if already processed
-            //if (_processedComments.TryGetValue(comment.Data.Subreddit.ToLowerInvariant(), out ConcurrentBag<string> comments))
-            //{
-            //    if (comments.Any(c => c == comment.Data.Id))
-            //    {
-            //        return;
-            //    }
-            //}
-
-            // Check comment if a reply is needed
-            //if (lookForCompliments)
-            //{
-            //    await _lookForComplimentsAsync(comment.Data);
-            //}
-            //else
-            //{
             _checkCommentGrammar(comment);
-            //}
         }
 
         /// <summary>
@@ -137,7 +104,9 @@ namespace RedditBots.Bots
 
             if (_canReply(comment, allWords, out string replyText))
             {
-                _writeReplyAsync(comment, replyText);
+                _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {text}", ConsoleColor.Magenta);
+
+                comment.Reply(replyText += _monitorSettings.MessageFooter);
             }
         }
 
@@ -194,13 +163,6 @@ namespace RedditBots.Bots
             }
 
             return false;
-        }
-
-        private void _writeReplyAsync(Comment comment, string text)
-        {
-            _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {text}", ConsoleColor.Magenta);
-
-            comment.Reply(text += _monitorSettings.MessageFooter);
         }
     }
 }
