@@ -104,7 +104,7 @@ namespace RedditBots.Bots
 
             if (_canReply(comment, allWords, out string replyText))
             {
-                _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {text}", ConsoleColor.Magenta);
+                _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {replyText}");
 
                 comment.Reply(replyText += _monitorSettings.MessageFooter);
             }
@@ -129,7 +129,7 @@ namespace RedditBots.Bots
             }
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
-            _logger.LogInformation($"{DateTime.Now} {percentageRounded}% of {allWords.Count()} words matched, checking for grammar mistakes");
+            _logger.LogInformation($"{DateTime.Now} Papiamento detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
 
             return true;
         }
