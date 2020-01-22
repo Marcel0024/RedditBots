@@ -41,25 +41,16 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
-            foreach (var subredditToMonitor in _monitorSettings.Subreddits)
-            {
-                var subreddit = _redditClient.Subreddit(subredditToMonitor);
-
-                subreddit.Posts.GetNew();
-                subreddit.Posts.MonitorNew();
-
-                subreddit.Posts.NewUpdated += C_NewPostsUpdated;
-
-                _monitoringSubreddits.Add(subreddit);
-
-                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
-            }
+            _configureMonitoring();
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
-                    _monitorPostsForAddedFlair();
+                    foreach (var subreddit in _monitoringSubreddits)
+                    {
+                        _monitorPostsForAddedFlair(subreddit);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -73,28 +64,47 @@ namespace RedditBots.Bots
             return Task.CompletedTask;
         }
 
-        private void _monitorPostsForAddedFlair()
+        private void _configureMonitoring()
         {
-            foreach (var subreddit in _monitoringSubreddits)
+            foreach (var subredditToMonitor in _monitorSettings.Subreddits)
             {
-                var newPosts = subreddit.Posts.New;
+                var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
-                foreach (var newPost in newPosts)
+                subreddit.Posts.GetNew();
+                subreddit.Posts.MonitorNew();
+
+                subreddit.Posts.NewUpdated += C_NewPostsUpdated;
+
+                _monitoringSubreddits.Add(subreddit);
+
+                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
+            }
+        }
+
+        private void _monitorPostsForAddedFlair(Subreddit subreddit)
+        {
+            var newPosts = subreddit.Posts.New;
+
+            foreach (var newPost in newPosts)
+            {
+                if (!string.IsNullOrWhiteSpace(newPost.Listing.LinkFlairText))
                 {
-                    if (!string.IsNullOrWhiteSpace(newPost.Listing.LinkFlairText))
-                    {
-                        var oldComments = newPost.Comments.Old;
+                    _checkForReminderComment(newPost);
+                }
+            }
+        }
 
-                        foreach (var oldComment in oldComments)
-                        {
-                            if (string.Equals(oldComment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
-                            {
-                                _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of /u/{newPost.Author}");
+        private void _checkForReminderComment(Post newPost)
+        {
+            var oldComments = newPost.Comments.Old;
 
-                                oldComment.Delete();
-                            }
-                        }
-                    }
+            foreach (var oldComment in oldComments)
+            {
+                if (string.Equals(oldComment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
+                {
+                    _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of /u/{newPost.Author}");
+
+                    oldComment.Delete();
                 }
             }
         }
