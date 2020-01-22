@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using Reddit.Exceptions;
 using RedditBots.Settings;
 using System;
 using System.Collections.Generic;
@@ -44,8 +43,6 @@ namespace RedditBots.Bots
 
             foreach (var subredditToMonitor in _monitorSettings.Subreddits)
             {
-                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
-
                 var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
                 subreddit.Posts.GetNew();
@@ -54,6 +51,8 @@ namespace RedditBots.Bots
                 subreddit.Posts.NewUpdated += C_NewPostsUpdated;
 
                 _monitoringSubreddits.Add(subreddit);
+
+                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
             }
 
             while (!stoppingToken.IsCancellationRequested)
@@ -62,14 +61,13 @@ namespace RedditBots.Bots
                 {
                     _monitorPostsForAddedFlair();
                 }
-                catch (Exception e) 
-                    when (e is RedditBadGatewayException 
-                        || e is RedditInternalServerErrorException
-                        || e is RedditBadGatewayException)
+                catch (Exception e)
                 {
-                    _logger.LogWarning(e.ToString());
+                    _logger.LogWarning($"{DateTime.Now} Reddit threw {e.GetType().Name}");
                     Task.Delay(20000);
                 }
+
+                Task.Delay(2000);
             }
 
             return Task.CompletedTask;

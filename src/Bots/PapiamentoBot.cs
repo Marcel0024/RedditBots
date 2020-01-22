@@ -44,25 +44,30 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
+            _configureMonitoring();
+
+            return Task.CompletedTask;
+        }
+
+        private void _configureMonitoring()
+        {
             foreach (var subredditToMonitor in _monitorSettings.Subreddits)
             {
-                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
-
                 var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
                 subreddit.Comments.GetNew();
                 subreddit.Comments.MonitorNew();
                 subreddit.Comments.NewUpdated += C_NewCommentsUpdated;
-            }
 
-            return Task.CompletedTask;
+                _logger.LogDebug($"Started monitoring {subredditToMonitor}");
+            }
         }
 
         private void C_NewCommentsUpdated(object sender, CommentsUpdateEventArgs e)
         {
             foreach (Comment comment in e.Added)
             {
-                _logger.LogDebug($"{DateTime.Now} New comment detected of {comment.Author} in {comment.Subreddit}");
+                _logger.LogTrace($"{DateTime.Now} New comment detected of {comment.Author} in {comment.Subreddit}");
 
                 _handleComment(comment);
             }
@@ -84,22 +89,32 @@ namespace RedditBots.Bots
         /// Checks if the comment is eligible for reply 
         /// If so write reply to the author, otherwise do nothing
         /// </summary>
-        /// <param name="data">The reddit listing</param>
         private void _checkCommentGrammar(Comment comment)
         {
             var allWords = comment.Body.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            if (allWords.Count() <= 2)
+            {
+                return;
+            }
 
             if (!_verifyLanguage(allWords))
             {
                 return;
             }
 
-            if (_canReply(comment, allWords, out string replyText))
-            {
-                _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {replyText}");
+            _logger.LogTrace($"Verified papiamento: \"{comment.Body}\"");
 
-                comment.Reply(replyText += _monitorSettings.MessageFooter);
+            if (!_containsGrammarMistake(allWords, out Word mistake))
+            {
+                return;
             }
+
+            var replyText = string.Format(_monitorSettings.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
+
+            _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {replyText}");
+
+            comment.Reply(replyText += _monitorSettings.MessageFooter);
         }
 
         private bool _verifyLanguage(string[] allWords)
@@ -121,20 +136,18 @@ namespace RedditBots.Bots
             }
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
-            _logger.LogInformation($"{DateTime.Now} Papiamento detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
+
+            _logger.LogDebug($"{DateTime.Now} Papiamento detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
 
             return true;
         }
 
         /// <summary>
-        /// Checks if any mistake are present in allwords
-        /// Returns the formated message to reply
-        /// If no mistakes are found return null.
+        /// Checks if any mistake is detected in the array
         /// </summary>
-        private bool _canReply(Comment comment, string[] allWords, out string replyText)
+        private bool _containsGrammarMistake(string[] allWords, out Word mistake)
         {
-            Word mistake = null;
-            replyText = "";
+            mistake = null;
 
             foreach (var word in _papiamentoBotSettings.WordsToCorrect)
             {
@@ -149,10 +162,12 @@ namespace RedditBots.Bots
 
             if (mistake != null)
             {
-                replyText = string.Format(_monitorSettings.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
+                _logger.LogTrace($"Grammar mistake found: {mistake.Wrong}");
 
                 return true;
             }
+
+            _logger.LogTrace($"No grammar mistake found");
 
             return false;
         }
