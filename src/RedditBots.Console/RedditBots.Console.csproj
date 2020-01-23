@@ -12,11 +12,17 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
 
-    <PackageReference Include="reddit" Version="1.3.4" />
-
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Reddit.NET\src\Reddit.NET\Reddit.NET.csproj" />
+    <ProjectReference Include="..\Libraries\RedditBots.Logging\RedditBots.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="papiamentobotsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

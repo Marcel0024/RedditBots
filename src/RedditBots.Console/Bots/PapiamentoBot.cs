@@ -44,12 +44,12 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
-            _configureMonitoring();
+            _startMonitoringSubreddits();
 
             return Task.CompletedTask;
         }
 
-        private void _configureMonitoring()
+        private void _startMonitoringSubreddits()
         {
             foreach (var subredditToMonitor in _monitorSettings.Subreddits)
             {
@@ -67,7 +67,7 @@ namespace RedditBots.Bots
         {
             foreach (Comment comment in e.Added)
             {
-                _logger.LogTrace($"{DateTime.Now} New comment detected of {comment.Author} in {comment.Subreddit}");
+                _logger.LogDebug($"{DateTime.Now} New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
 
                 _handleComment(comment);
             }
@@ -103,7 +103,7 @@ namespace RedditBots.Bots
                 return;
             }
 
-            _logger.LogTrace($"Verified papiamento: \"{comment.Body}\"");
+            _logger.LogDebug($"Verified papiamento: \"{comment.Body}\"");
 
             if (!_containsGrammarMistake(allWords, out Word mistake))
             {
@@ -112,7 +112,7 @@ namespace RedditBots.Bots
 
             var replyText = string.Format(_monitorSettings.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
 
-            _logger.LogInformation($"{DateTime.Now} Writing reply to u/{comment.Author} in r/{comment.Subreddit} text: {replyText}");
+            _logger.LogInformation($"{DateTime.Now} Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
 
             comment.Reply(replyText += _monitorSettings.MessageFooter);
         }

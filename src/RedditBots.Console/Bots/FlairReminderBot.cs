@@ -41,7 +41,7 @@ namespace RedditBots.Bots
         {
             _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
 
-            _configureMonitoring();
+            _startMonitoringSubreddits();
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -64,7 +64,7 @@ namespace RedditBots.Bots
             return Task.CompletedTask;
         }
 
-        private void _configureMonitoring()
+        private void _startMonitoringSubreddits()
         {
             foreach (var subredditToMonitor in _monitorSettings.Subreddits)
             {
