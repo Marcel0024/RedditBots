@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging.Configuration;
 using System;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Http;
 
 namespace RedditBots.Logging
 {
@@ -19,6 +20,8 @@ namespace RedditBots.Logging
             builder.Services.Configure<RedditBotsLoggerOptions>(config.GetSection("RedditBotsLogging"));
 
             builder.Services.AddHostedService<RedditBotsLoggingProcessor>();
+
+            builder.Services.RemoveAll<IHttpMessageHandlerBuilderFilter>();
 
             return builder;
         }
