@@ -26,27 +26,37 @@ connection.on("LogAsync", (log) => {
 
     var borderClass = '';
     if (log.logLevel === 'Information') {
+        borderClass = 'border-success';
+    } else if (log.logLevel === 'Warning') {
         borderClass = 'border-warning';
     }
 
     var mainDiv = document.createElement('div');
     mainDiv.className = 'card ' + borderClass;
+    mainDiv.style.border = '3px solid black';
+
+    setTimeout(() => {
+        mainDiv.style.border = '';
+    }, 4000);
 
     var headerDiv = document.createElement('div');
     headerDiv.className = 'card-header d-flex justify-content-between';
 
-    var firstP = document.createElement('p');
-    firstP.innerHTML = log.logName;
+    var firstP = document.createElement('span');
+    var namearray = log.logName.split('.');
+
+    firstP.innerHTML = namearray[namearray.length - 1];
     headerDiv.appendChild(firstP);
 
-    var secondP = document.createElement('p');
+    var secondP = document.createElement('div');
+    secondP.className = 'badge ' + (log.logLevel === "Information" ? 'badge-success' : log.logLevel === "Warning" ? 'badge-Warning' : 'badge-light');
     secondP.innerHTML = log.logLevel;
     headerDiv.appendChild(secondP);
 
     var bodyDiv = document.createElement('div');
     bodyDiv.className = 'card-body';
 
-    var thirdP = document.createElement('p');
+    var thirdP = document.createElement('span');
     thirdP.innerHTML = log.message;
     bodyDiv.appendChild(thirdP);
 
@@ -60,7 +70,9 @@ connection.on("LogAsync", (log) => {
 });
 
 function notifyMe(log) {
-    new Notification(log.logName, {
+    var namearray = log.logName.split('.');
+
+    new Notification(namearray[namearray.length - 1], {
         body: log.message
     });
 }

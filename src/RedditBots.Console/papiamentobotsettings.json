@@ -1,4 +1,4 @@
-{
+﻿{
   "PapiamentoBotSettings": {
     "LanguageDetectionPercentage": "40",
 
@@ -157,47 +157,47 @@
       {
         "gravity": 140,
         "wrong": "conjo",
-        "right": "co�o"
+        "right": "coño"
       },
       {
         "gravity": 150,
         "wrong": "anja",
-        "right": "a�a"
+        "right": "aña"
       },
       {
         "gravity": 160,
         "wrong": "hanja",
-        "right": "ha�a"
+        "right": "haña"
       },
       {
         "gravity": 170,
         "wrong": "ganja",
-        "right": "ga�a"
+        "right": "gaña"
       },
       {
         "gravity": 180,
         "wrong": "senjora",
-        "right": "se�ora"
+        "right": "señora"
       },
       {
         "gravity": 190,
         "wrong": "donjo",
-        "right": "do�o"
+        "right": "doño"
       },
       {
         "gravity": 200,
         "wrong": "sinja",
-        "right": "si�a"
+        "right": "siña"
       },
       {
         "gravity": 210,
         "wrong": "korsou",
-        "right": "Cura�ao"
+        "right": "Curaçao"
       },
       {
         "gravity": 220,
         "wrong": "corsou",
-        "right": "Cura�ao"
+        "right": "Curaçao"
       }
     ]
   }
