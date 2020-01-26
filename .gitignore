@@ -117,3 +117,4 @@ src/.vs/config/applicationhost.config
 
 *AppSettings.Production.json
 *AppSettings.Development.json
+*.pubxml

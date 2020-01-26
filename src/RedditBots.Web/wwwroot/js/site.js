@@ -12,8 +12,8 @@ if (Notification.permission !== "denied") {
 }
 
 connection.on("LogAsync", (log) => {
-    if (log.logLevel === 'Information') {
-        notify(log);
+    if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
+        notifyMe(log);
     }
     var topdiv = document.createElement('div');
     topdiv.className = 'p-2';
