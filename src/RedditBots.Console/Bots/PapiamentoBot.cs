@@ -21,7 +21,7 @@ namespace RedditBots.Bots
         private readonly ILogger<PapiamentoBot> _logger;
         private readonly IHostEnvironment _env;
         private readonly RedditClient _redditClient;
-        private readonly MonitorSetting _monitorSettings;
+        private readonly BotSetting _botSetting;
         private readonly PapiamentoBotSettings _papiamentoBotSettings;
 
         private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ' };
@@ -34,15 +34,15 @@ namespace RedditBots.Bots
         {
             _logger = logger;
             _env = env;
-            _monitorSettings = monitorSettings.Value.Settings.Find(ms => ms.Bot == nameof(PapiamentoBot)) ?? throw new ArgumentNullException("No bot settings found");
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.Bot == nameof(PapiamentoBot)) ?? throw new ArgumentNullException("No bot settings found");
             _papiamentoBotSettings = papiamentoBotSettings.Value;
 
-            _redditClient = new RedditClient(_monitorSettings.AppId, _monitorSettings.RefreshToken, _monitorSettings.AppSecret);
+            _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
+            _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             _startMonitoringSubreddits();
 
@@ -51,7 +51,7 @@ namespace RedditBots.Bots
 
         private void _startMonitoringSubreddits()
         {
-            foreach (var subredditToMonitor in _monitorSettings.Subreddits)
+            foreach (var subredditToMonitor in _botSetting.Subreddits)
             {
                 var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
@@ -75,7 +75,7 @@ namespace RedditBots.Bots
 
         private void _handleComment(Comment comment)
         {
-            if (string.Equals(comment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(comment.Author, _botSetting.BotName, StringComparison.OrdinalIgnoreCase))
             {
                 // TODO check for compliment e.g. 'Good bot' under a comment by the bot
 
@@ -110,11 +110,11 @@ namespace RedditBots.Bots
                 return;
             }
 
-            var replyText = string.Format(_monitorSettings.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
+            var replyText = string.Format(_botSetting.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
 
             _logger.LogInformation($"{DateTime.Now} Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
 
-            comment.Reply(replyText += _monitorSettings.MessageFooter);
+            comment.Reply(replyText += _botSetting.MessageFooter);
         }
 
         private bool _verifyLanguage(string[] allWords)
@@ -124,12 +124,12 @@ namespace RedditBots.Bots
                 var word = commentWord.Trim(_charactersToTrim).ToLowerInvariant();
 
                 return _papiamentoBotSettings.WordsToDetectLanguage.Contains(word)
-                || _papiamentoBotSettings.WordsToCorrect.Any(wtc => wtc.Wrong.ToLowerInvariant() == word
-                || wtc.Right.ToLowerInvariant() == word);
+                    || _papiamentoBotSettings.WordsToCorrect.Any(wtc => wtc.Wrong.ToLowerInvariant() == word || wtc.Right.ToLowerInvariant() == word);
             });
 
             // Language is verified if more then LanguageDetectionPercentage (percentage) of the words match the know words
             var percentageMatchWords = totalMatchingWords * 100 / allWords.Count();
+
             if (percentageMatchWords <= _papiamentoBotSettings.LanguageDetectionPercentage)
             {
                 return false;
@@ -158,16 +158,16 @@ namespace RedditBots.Bots
                         mistake = word;
                     }
                 }
-            };
+            }
 
             if (mistake != null)
             {
-                _logger.LogTrace($"Grammar mistake found: {mistake.Wrong}");
+                _logger.LogDebug($"Grammar mistake found: {mistake.Wrong}");
 
                 return true;
             }
 
-            _logger.LogTrace($"No grammar mistake found");
+            _logger.LogDebug($"No grammar mistake found");
 
             return false;
         }

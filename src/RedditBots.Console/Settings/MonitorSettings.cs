@@ -4,10 +4,10 @@ namespace RedditBots.Settings
 {
     public class MonitorSettings
     {
-        public List<MonitorSetting> Settings { get; set; }
+        public List<BotSetting> Settings { get; set; }
     }
 
-    public class MonitorSetting
+    public class BotSetting
     {
         public string Bot { get; set; }
 

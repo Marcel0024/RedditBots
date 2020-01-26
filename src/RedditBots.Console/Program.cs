@@ -23,7 +23,7 @@ namespace RedditBots
             })
             .ConfigureLogging((hostingContext, loggingBuilder) =>
             {
-                loggingBuilder.AddRedditBots(hostingContext.Configuration);
+                loggingBuilder.AddUrl(hostingContext.Configuration);
             })
             .ConfigureServices((hostContext, services) =>
             {

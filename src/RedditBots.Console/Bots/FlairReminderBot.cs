@@ -20,7 +20,7 @@ namespace RedditBots.Bots
     {
         private readonly ILogger<FlairReminderBot> _logger;
         private readonly IHostEnvironment _env;
-        private readonly MonitorSetting _monitorSettings;
+        private readonly BotSetting _botSetting;
         private readonly RedditClient _redditClient;
 
         private readonly List<Subreddit> _monitoringSubreddits = new List<Subreddit>();
@@ -32,14 +32,14 @@ namespace RedditBots.Bots
         {
             _logger = logger;
             _env = env;
-            _monitorSettings = monitorSettings.Value.Settings.Find(ms => ms.Bot == nameof(FlairReminderBot)) ?? throw new ArgumentNullException("No bot settings found");
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.Bot == nameof(FlairReminderBot)) ?? throw new ArgumentNullException("No bot settings found");
 
-            _redditClient = new RedditClient(_monitorSettings.AppId, _monitorSettings.RefreshToken, _monitorSettings.AppSecret);
+            _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation($"Started {_monitorSettings.BotName} in {_env.EnvironmentName}");
+            _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             _startMonitoringSubreddits();
 
@@ -52,10 +52,11 @@ namespace RedditBots.Bots
                         _monitorPostsForAddedFlair(subreddit);
                     }
                 }
-                catch (Exception e)
+                catch (Exception e) when (e.GetType().Name.StartsWith("Reddit"))
                 {
                     _logger.LogWarning($"{DateTime.Now} Reddit threw {e.GetType().Name}");
-                    Task.Delay(20000);
+
+                    Task.Delay(1000 * 60); // wait a minute, reddit is probably down
                 }
 
                 Task.Delay(2000);
@@ -66,7 +67,7 @@ namespace RedditBots.Bots
 
         private void _startMonitoringSubreddits()
         {
-            foreach (var subredditToMonitor in _monitorSettings.Subreddits)
+            foreach (var subredditToMonitor in _botSetting.Subreddits)
             {
                 var subreddit = _redditClient.Subreddit(subredditToMonitor);
 
@@ -100,7 +101,7 @@ namespace RedditBots.Bots
 
             foreach (var oldComment in oldComments)
             {
-                if (string.Equals(oldComment.Author, _monitorSettings.BotName, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(oldComment.Author, _botSetting.BotName, StringComparison.OrdinalIgnoreCase))
                 {
                     _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of /u/{newPost.Author}");
 
@@ -115,7 +116,7 @@ namespace RedditBots.Bots
             {
                 _logger.LogInformation($"{DateTime.Now} new post from /u/{post.Author} in /r/{post.Subreddit} leaving comment");
 
-                post.Reply(string.Format(_monitorSettings.DefaultReplyMessage, post.Author) + _monitorSettings.MessageFooter);
+                post.Reply(string.Format(_botSetting.DefaultReplyMessage, post.Author) + _botSetting.MessageFooter);
             }
         }
     }

@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using RedditBots.Web.Helpers;
+using RedditBots.Web.Hubs;
+using RedditBots.Web.Models;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace RedditBots.Web.Controllers
 {
-    [ApiController]
-    [Route("Api")]
+    [ApiController, Route("[controller]/[action]")]
+    [ApiKeyRequired]
     public class ApiController : ControllerBase
     {
-        [HttpPost("Log")]
-        public IActionResult Index()
+        private IHubContext<LogHub, ILogClient> _hubContext;
+
+        public ApiController(IHubContext<LogHub, ILogClient> hubContext)
         {
-            Console.WriteLine("LOGGED");
+            _hubContext = hubContext;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Log([FromBody] LogEntry entry)
+        {
+            await _hubContext.Clients.All.LogAsync(entry);
 
             return Ok();
         }
