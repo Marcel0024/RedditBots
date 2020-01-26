@@ -7,6 +7,12 @@ connection.start().then(function () {
     console.log("connected");
 });
 
+connection.onclose(() => {
+    document.getElementById('alert').classList.remove('alert-success');
+    document.getElementById('alert').classList.add('alert-danger');
+    setTimeout(window.location.reload, 3000);
+});
+
 if (Notification.permission !== "denied") {
     Notification.requestPermission();
 }

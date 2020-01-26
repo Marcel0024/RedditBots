@@ -21,7 +21,7 @@ namespace RedditBots.Logging
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            return logLevel == _config.LogLevel
+            return logLevel >= _config.LogLevel
                 && !string.IsNullOrWhiteSpace(_config.Url);
         }
 
