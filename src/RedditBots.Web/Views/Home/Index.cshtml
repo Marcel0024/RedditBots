@@ -9,9 +9,23 @@
 <body class="pg-light">
     <div class="container">
         <div class="pt-4">
-            <div class="alert alert-success d-flex justify-content-between" id="alert">
-                <span class="blink_me">Connected. Streaming logs LIVE...</span>
-                <span><a href="https://github.com/Marcel0024/RedditBots">https://github.com/Marcel0024/RedditBots</a></span>
+            <div class="alert alert-success" id="alert">
+                <div class="row d-flex justify-content-between align-content-center">
+                    <div class="col-lg-4 col-12 align-self-center text-center">
+                        <span class="flikker" id="flikker">Connected. Streaming logs LIVE... </span>
+                    </div>
+                    <div class="col-lg-4 col-12 text-center">
+                        <div class="col-12">
+                            <span id="viewers">Viewers: </span>
+                        </div>
+                        <div class="col-12">
+                            <span id="lastUpdate">Last log: @ViewData["LastTimeUpdated"]</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-12 align-self-center text-center">
+                        <span><a href="https://github.com/Marcel0024/RedditBots">https://github.com/marcel0024/RedditBots</a></span>
+                    </div>
+                </div>
             </div>
         </div>
         <hr />
@@ -29,8 +43,8 @@
 </body>
 </html>
 <style>
-    .blink_me {
-        animation: blinker 2s linear infinite;
+    .flikker {
+        animation: blinker 2.5s linear infinite;
     }
 
     @@keyframes blinker {

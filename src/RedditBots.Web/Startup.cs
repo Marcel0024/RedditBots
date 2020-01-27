@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RedditBots.Web.Helpers;
 using RedditBots.Web.Hubs;
 using RedditBots.Web.Settings;
 
@@ -21,6 +22,7 @@ namespace RedditBots.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
+            services.AddSingleton<LogsHelper>();
 
             services.AddSignalR();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
