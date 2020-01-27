@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using RedditBots.Web.Helpers;
 using RedditBots.Web.Hubs;
 using RedditBots.Web.Settings;
+using System;
 
 namespace RedditBots.Web
 {
@@ -43,7 +46,18 @@ namespace RedditBots.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = (cnt) =>
+                {
+                    cnt.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromDays(env.IsDevelopment() ? 0 : 7)
+                    };
+                }
+            });
 
             app.UseRouting();
 

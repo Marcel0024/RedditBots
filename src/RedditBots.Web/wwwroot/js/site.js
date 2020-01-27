@@ -24,7 +24,7 @@
         document.getElementById('alert').classList.remove('alert-warning');
         document.getElementById('alert').classList.add('alert-success');
 
-        document.getElementById('flikker').innerHTML = 'Connected.. Streaming logs LIVE';
+        document.getElementById('flikker').innerHTML = 'Streaming logs...';
     });
 
     connection.onclose(() => {

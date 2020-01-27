@@ -26,7 +26,7 @@ namespace RedditBots.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Log([FromBody] LogEntry entry)
         {
-            _logsHelper.LastLogDateTime = DateTime.Now;
+            _logsHelper.Log(entry);
 
             await _hubContext.Clients.All.Log(entry);
             await _hubContext.Clients.All.UpdateLastDateTime(_logsHelper.LastLogDateTime.Value.ToShortTimeString());
