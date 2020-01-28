@@ -6,7 +6,7 @@ namespace RedditBots.Web.Helpers
 {
     public class LogsHelper
     {
-        private static readonly int _totalLogsHistory = 20;
+        private const int _totalLogsHistory = 20;
 
         public DateTime? LastLogDateTime { get; set; }
 

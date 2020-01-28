@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Logging", "src\Libraries\RedditBots.Logging\RedditBots.Logging.csproj", "{D4DF6799-AD32-402F-8C9E-39435F1B1B78}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.NET", "..\Reddit.NET\src\Reddit.NET\Reddit.NET.csproj", "{53E0FD50-0445-4BC6-8BD5-8EF8A35C3739}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
