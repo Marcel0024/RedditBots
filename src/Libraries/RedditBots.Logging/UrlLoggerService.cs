@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RedditBots.Logging
@@ -21,11 +22,11 @@ namespace RedditBots.Logging
             }
         }
 
-        public async Task PostLogAsync(string json)
+        public async Task PostLogAsync(string json, CancellationToken cancellationToken)
         {
             using StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            (await _client.PostAsync(_options.Url, content))
+            (await _client.PostAsync(_options.Url, content, cancellationToken))
                 .EnsureSuccessStatusCode();
         }
     }

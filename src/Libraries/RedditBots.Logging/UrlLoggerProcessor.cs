@@ -26,7 +26,7 @@ namespace RedditBots.Logging
                 {
                     if (_queue.Messages.TryDequeue(out UrlLogEntry message))
                     {
-                        await _service.PostLogAsync(JsonSerializer.Serialize(message));
+                        await _service.PostLogAsync(JsonSerializer.Serialize(message), stoppingToken);
                     }
                 }
                 catch { }
