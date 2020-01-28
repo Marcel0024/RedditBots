@@ -1,4 +1,7 @@
 ﻿(function abc() {
+    var notify = false;
+    var showDebug = true;
+
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/loghub")
         .withAutomaticReconnect()
@@ -12,8 +15,8 @@
     connection.onreconnecting(() => {
         console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
 
-        document.getElementById('alert').classList.remove('alert-success');
-        document.getElementById('alert').classList.add('alert-warning');
+        document.getElementById('alert').classList.remove('alert-light-success');
+        document.getElementById('alert').classList.add('alert-light-warning');
 
         document.getElementById('flikker').innerHTML = 'Reconnecting';
     });
@@ -21,15 +24,15 @@
     connection.onreconnected(() => {
         console.assert(connection.state === signalR.HubConnectionState.Connected);
 
-        document.getElementById('alert').classList.remove('alert-warning');
-        document.getElementById('alert').classList.add('alert-success');
+        document.getElementById('alert').classList.remove('alert-light-warning');
+        document.getElementById('alert').classList.add('alert-light-success');
 
         document.getElementById('flikker').innerHTML = 'Streaming logs...';
     });
 
     connection.onclose(() => {
-        document.getElementById('alert').classList.remove('alert-warning');
-        document.getElementById('alert').classList.remove('alert-success');
+        document.getElementById('alert').classList.remove('alert-light-warning');
+        document.getElementById('alert').classList.remove('alert-light-success');
         document.getElementById('alert').classList.add('alert-danger');
         document.getElementById('flikker').innerHTML = 'Disconnected..';
 
@@ -37,10 +40,6 @@
             location.reload();
         }, 4000);
     });
-
-    if (Notification.permission !== "denied") {
-        Notification.requestPermission();
-    }
 
     connection.on("UpdateLastDateTime", (time) => {
         document.getElementById('lastUpdate').innerHTML = 'Last log: ' + time;
@@ -51,6 +50,11 @@
     });
 
     connection.on("Log", (log) => {
+        if (log.logLevel === 'Debug'
+            && !showDebug) {
+            return;
+        }
+
         var topdiv = document.createElement('div');
         topdiv.className = 'p-2';
 
@@ -99,8 +103,10 @@
         var messages = document.getElementById('messages');
         messages.prepend(topdiv);
 
-        if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
-            notifyMe(log);
+        if (notify === true) {
+            if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
+                notifyMe(log);
+            }
         }
     });
 
@@ -110,8 +116,19 @@
         new Notification(namearray[namearray.length - 1], {
             body: log.message,
             icon: '/bot.png',
-            tag: 'renotify',
-            renotify: true
+            silent: true
         });
     }
+
+    document.getElementById("notification").addEventListener("change", (event) => {
+        notify = event.srcElement.checked;
+
+        if (Notification.permission !== "denied") {
+            Notification.requestPermission();
+        }
+    });
+
+    document.getElementById("showdebug").addEventListener("change", (event) => {
+        showDebug = event.srcElement.checked;
+    });
 })();

@@ -5,31 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monitor Reddit bots</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/shards-ui@@latest/dist/css/shards.min.css">
 </head>
 <body class="pg-light">
-    <div class="container">
-        <div class="pt-4">
-            <div class="alert alert-success" id="alert">
-                <div class="row d-flex justify-content-between align-content-center">
-                    <div class="col-lg-4 col-12 align-self-center text-center">
-                        <span class="flikker" id="flikker">Streaming logs... </span>
-                    </div>
-                    <div class="col-lg-4 col-12 text-center">
-                        <div class="col-12">
-                            <span id="viewers">Viewers: </span>
+    <div class="container-fluid">
+        <div class="row pt-4">
+            <div class="col-lg-3 col-12"></div>
+            <div class="col-lg-6 col-12">
+                <div class="alert alert-light-success" id="alert">
+                    <div class="row d-flex justify-content-between align-content-center w-100">
+                        <div class="col-lg-4 col-12 align-self-center text-center">
+                            <span class="flikker" id="flikker">Streaming logs... </span>
                         </div>
-                        <div class="col-12">
-                            <span id="lastUpdate">Last log: @ViewData["LastTimeUpdated"]</span>
+                        <div class="col-lg-4 col-12 text-center">
+                            <div class="col-12">
+                                <span id="viewers">Viewers: </span>
+                            </div>
+                            <div class="col-12">
+                                <span id="lastUpdate">Last log: @ViewData["LastTimeUpdated"]</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12 align-self-center text-center">
+                            <span class="text-wrap"><a href="https://github.com/Marcel0024/RedditBots" target="_blank">https://github.com/marcel0024/RedditBots</a></span>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-12 align-self-center text-center">
-                        <span><a href="https://github.com/Marcel0024/RedditBots">https://github.com/marcel0024/RedditBots</a></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 w-100">
+                <div class="p-1 w-100">
+                    <div class="custom-control custom-toggle my-2">
+                        <input type="checkbox" id="notification" name="notification" class="custom-control-input">
+                        <label class="custom-control-label" for="notification">Receive desktop notification</label>
+                    </div>
+                    <div class="custom-control custom-toggle my-2">
+                        <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="showdebug">Receive debug logs</label>
                     </div>
                 </div>
             </div>
         </div>
         <hr />
-        <div id="messages">
+        <div class="container">
+            <div id="messages">
+            </div>
         </div>
     </div>
 
@@ -37,6 +55,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js" integrity="sha256-rg2KSyzQ1v1QcXOuY50TdGTmfsnAmd50eTwhtKzie74=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/shards-ui@@latest/dist/js/shards.min.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
@@ -51,6 +70,21 @@
         50% {
             opacity: 0;
         }
+    }
+
+    .alert-light-information {
+        background-color: #f0f9ff;
+        border-left: 4px solid #7bc7ff;
+    }
+
+    .alert-light-success {
+        background-color: #f0fff1;
+        border-left: 4px solid #aeff7b;
+    }
+
+    .alert-light-warning {
+        background-color: #fffcf0;
+        border-left: 4px solid #ffe97b;
     }
 </style>
 
