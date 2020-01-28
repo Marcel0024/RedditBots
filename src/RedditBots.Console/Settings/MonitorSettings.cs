@@ -9,8 +9,6 @@ namespace RedditBots.Settings
 
     public class BotSetting
     {
-        public string Bot { get; set; }
-
         public string BotName { get; set; }
 
         public string AppSecret { get; set; }

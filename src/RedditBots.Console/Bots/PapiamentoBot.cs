@@ -34,7 +34,7 @@ namespace RedditBots.Bots
         {
             _logger = logger;
             _env = env;
-            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.Bot == nameof(PapiamentoBot)) ?? throw new ArgumentNullException("No bot settings found");
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PapiamentoBot)) ?? throw new ArgumentNullException("No bot settings found");
             _papiamentoBotSettings = papiamentoBotSettings.Value;
 
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);

@@ -16,23 +16,23 @@ namespace RedditBots.Bots
     /// FlairReminderBots replies to all new post with a 'Reminder' message to set a flair
     /// Than it checks if a flair has been added to new posts, if so it deletes its own 'Reminder' message
     /// </summary>
-    public class FlairReminderBot : BackgroundService
+    public class HanzeMemesBot : BackgroundService
     {
-        private readonly ILogger<FlairReminderBot> _logger;
+        private readonly ILogger<HanzeMemesBot> _logger;
         private readonly IHostEnvironment _env;
         private readonly BotSetting _botSetting;
         private readonly RedditClient _redditClient;
 
         private readonly List<Subreddit> _monitoringSubreddits = new List<Subreddit>();
 
-        public FlairReminderBot(
-            ILogger<FlairReminderBot> logger,
+        public HanzeMemesBot(
+            ILogger<HanzeMemesBot> logger,
             IHostEnvironment env,
             IOptions<MonitorSettings> monitorSettings)
         {
             _logger = logger;
             _env = env;
-            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.Bot == nameof(FlairReminderBot)) ?? throw new ArgumentNullException("No bot settings found");
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(HanzeMemesBot)) ?? throw new ArgumentNullException("No bot settings found");
 
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }

@@ -31,7 +31,7 @@ namespace RedditBots
                 services.Configure<PapiamentoBotSettings>(hostContext.Configuration.GetSection(nameof(PapiamentoBotSettings)));
 
                 services.AddHostedService<PapiamentoBot>();
-                services.AddHostedService<FlairReminderBot>();
+                services.AddHostedService<HanzeMemesBot>();
             });
     }
 }
