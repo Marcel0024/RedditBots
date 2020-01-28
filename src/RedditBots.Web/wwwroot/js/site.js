@@ -74,8 +74,9 @@
 
         var firstP = document.createElement('span');
         var namearray = log.logName.split('.');
+        var botName = namearray[namearray.length - 1];
 
-        firstP.innerHTML = namearray[namearray.length - 1];
+        firstP.innerHTML = `<a href='https://www.reddit.com/u/${botName}' target="_blank">/u/${botName}</a>`;
         headerDiv.appendChild(firstP);
 
         var secondP = document.createElement('div');
