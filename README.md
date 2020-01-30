@@ -1,3 +1,5 @@
+![](https://github.com/Marcel0024/RedditBots/workflows/build/badge.svg)
+
 # RedditBots
 This repo contains two projects. RedditBots.Console and RedditBots.Web - The actual bots run on RedditBots.Console and RedditBots.Web is a web app that displays all incoming logs from the bots.
 
