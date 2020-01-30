@@ -11,11 +11,11 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
-    <PackageReference Include="Reddit" Version="1.3.4" />
 
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Reddit.NET\src\Reddit.NET\Reddit.NET.csproj" />
     <ProjectReference Include="..\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj" />
   </ItemGroup>
 
