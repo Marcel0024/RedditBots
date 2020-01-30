@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RedditBots.Bots
+namespace RedditBots.Console.Bots
 {
     /// <summary>
     /// FlairReminderBots replies to all new post with a 'Reminder' message to set a flair
@@ -37,8 +37,10 @@ namespace RedditBots.Bots
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Yield(); // https://github.com/dotnet/extensions/issues/2149
+
             _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             _startMonitoringSubreddits();
@@ -56,13 +58,11 @@ namespace RedditBots.Bots
                 {
                     _logger.LogWarning($"{DateTime.Now} Reddit threw {e.GetType().Name}");
 
-                    Task.Delay(1000 * 60, stoppingToken); // wait a minute, reddit is probably down
+                    await Task.Delay(1000 * 60, stoppingToken); // wait a minute, reddit is probably down
                 }
 
-                Task.Delay(2000, stoppingToken);
+                await Task.Delay(2000, stoppingToken);
             }
-
-            return Task.CompletedTask;
         }
 
         private void _startMonitoringSubreddits()

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RedditBots.Bots
+namespace RedditBots.Console.Bots
 {
     /// <summary>
     /// PapiamentoBot monitors all new comments and check if a grammer mistake has been made.
