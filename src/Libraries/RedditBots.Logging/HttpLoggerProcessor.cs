@@ -3,14 +3,14 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RedditBots.Logging
+namespace RedditBots.Libraries.Logging
 {
-    public class UrlLoggerProcessor : BackgroundService
+    public class HttpLoggerProcessor : BackgroundService
     {
-        private readonly UrlLoggerQueue _queue;
-        private readonly UrlLoggerService _service;
+        private readonly HttpLoggerQueue _queue;
+        private readonly HttpLoggerService _service;
 
-        public UrlLoggerProcessor(UrlLoggerQueue queue, UrlLoggerService service)
+        public HttpLoggerProcessor(HttpLoggerQueue queue, HttpLoggerService service)
         {
             _queue = queue;
             _service = service;
@@ -24,7 +24,7 @@ namespace RedditBots.Logging
             {
                 try
                 {
-                    if (_queue.Messages.TryDequeue(out UrlLogEntry message))
+                    if (_queue.Messages.TryDequeue(out HttpLogEntry message))
                     {
                         await _service.PostLogAsync(JsonSerializer.Serialize(message), stoppingToken);
                     }

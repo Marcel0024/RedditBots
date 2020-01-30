@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Libraries\RedditBots.Logging\RedditBots.Logging.csproj" />
+    <ProjectReference Include="..\Libraries\RedditBots.Logging\RedditBots.Libraries.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

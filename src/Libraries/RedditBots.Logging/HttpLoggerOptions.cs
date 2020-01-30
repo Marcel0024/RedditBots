@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace RedditBots.Logging
+namespace RedditBots.Libraries.Logging
 {
-    public class UrlLoggerOptions
+    public class HttpLoggerOptions
     {
         public LogLevel LogLevel { get; set; } = LogLevel.Debug;
 

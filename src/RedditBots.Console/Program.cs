@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RedditBots.Bots;
-using RedditBots.Logging;
+using RedditBots.Libraries.Logging;
 using RedditBots.Settings;
 
 namespace RedditBots
@@ -21,9 +20,9 @@ namespace RedditBots
             {
                 configHost.AddJsonFile("papiamentobotsettings.json");
             })
-            .ConfigureLogging((hostingContext, loggingBuilder) =>
+            .ConfigureLogging((loggingBuilder) =>
             {
-                loggingBuilder.AddUrl(hostingContext.Configuration);
+                loggingBuilder.AddHttp();
             })
             .ConfigureServices((hostContext, services) =>
             {

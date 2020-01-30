@@ -1,26 +1,24 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using System;
+using System.Net.Http;
 
-namespace RedditBots.Logging
+namespace RedditBots.Libraries.Logging
 {
     public static class ILoggingBuilderExtensions
     {
-        public static ILoggingBuilder AddUrl(this ILoggingBuilder builder, IConfiguration config)
+        public static ILoggingBuilder AddHttp(this ILoggingBuilder builder)
         {
-            builder.Services.TryAddSingleton<UrlLoggerQueue>();
-            builder.Services.AddHostedService<UrlLoggerProcessor>();
-            builder.Services.Configure<UrlLoggerOptions>(config.GetSection("Logging:Url"));
-            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, UrlLoggerProvider>());
-            builder.Services.AddHttpClient<UrlLoggerService>(options => options.Timeout = TimeSpan.FromSeconds(3));
+            builder.Services.TryAddSingleton<HttpLoggerQueue>();
+            builder.Services.AddHostedService<HttpLoggerProcessor>();
+            builder.Services.AddHttpClient<HttpLoggerService>(options => options.Timeout = TimeSpan.FromSeconds(3));
 
-            LoggerProviderOptions.RegisterProviderOptions<UrlLoggerOptions, UrlLoggerProvider>(builder.Services);
+            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, HttpLoggerProvider>());
+            LoggerProviderOptions.RegisterProviderOptions<HttpLoggerOptions, HttpLoggerProvider>(builder.Services);
 
-            builder.Services.RemoveAll<IHttpMessageHandlerBuilderFilter>();
+            builder.AddFilter<HttpLoggerProvider>($"{typeof(HttpClient).FullName}.{nameof(HttpLoggerService)}", LogLevel.None);
 
             return builder;
         }

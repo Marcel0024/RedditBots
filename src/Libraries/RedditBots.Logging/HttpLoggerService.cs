@@ -4,14 +4,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RedditBots.Logging
+namespace RedditBots.Libraries.Logging
 {
-    public class UrlLoggerService
+    public class HttpLoggerService
     {
         private readonly HttpClient _client;
-        private readonly UrlLoggerOptions _options;
+        private readonly HttpLoggerOptions _options;
 
-        public UrlLoggerService(HttpClient client, IOptions<UrlLoggerOptions> options)
+        public HttpLoggerService(HttpClient client, IOptions<HttpLoggerOptions> options)
         {
             _client = client;
             _options = options.Value;

@@ -1,6 +1,6 @@
-﻿namespace RedditBots.Logging
+﻿namespace RedditBots.Libraries.Logging
 {
-    public class UrlLogEntry
+    public class HttpLogEntry
     {
         public string Message { get; set; }
 

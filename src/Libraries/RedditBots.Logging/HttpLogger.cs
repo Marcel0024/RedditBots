@@ -1,16 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace RedditBots.Logging
+namespace RedditBots.Libraries.Logging
 {
-    class UrlLogger : ILogger
+    class HttpLogger : ILogger
     {
         private readonly string _name;
-        private readonly UrlLoggerQueue _queue;
-        private readonly UrlLoggerOptions _config;
+        private readonly HttpLoggerQueue _queue;
+        private readonly HttpLoggerOptions _config;
 
 
-        public UrlLogger(string name, UrlLoggerQueue queue, UrlLoggerOptions config)
+        public HttpLogger(string name, HttpLoggerQueue queue, HttpLoggerOptions config)
         {
             _name = name;
             _queue = queue;
@@ -48,7 +48,7 @@ namespace RedditBots.Logging
         public virtual void LogMessage(LogLevel logLevel, string logName, int eventId, string message, Exception exception)
         {
             // Queue log message
-            _queue.Messages.Enqueue(new UrlLogEntry
+            _queue.Messages.Enqueue(new HttpLogEntry
             {
                 LogName = logName,
                 LogLevel = logLevel.ToString(),
