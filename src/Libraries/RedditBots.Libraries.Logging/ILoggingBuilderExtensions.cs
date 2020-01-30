@@ -13,7 +13,7 @@ namespace RedditBots.Libraries.Logging
         {
             builder.Services.TryAddSingleton<HttpLoggerQueue>();
             builder.Services.AddHostedService<HttpLoggerProcessor>();
-            builder.Services.AddHttpClient<HttpLoggerService>(options => options.Timeout = TimeSpan.FromSeconds(3));
+            builder.Services.AddHttpClient<HttpLoggerService>(options => options.Timeout = TimeSpan.FromMilliseconds(500));
 
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, HttpLoggerProvider>());
             LoggerProviderOptions.RegisterProviderOptions<HttpLoggerOptions, HttpLoggerProvider>(builder.Services);

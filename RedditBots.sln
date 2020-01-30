@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Libraries.Logging", "src\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj", "{D4DF6799-AD32-402F-8C9E-39435F1B1B78}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.NET", "..\Reddit.NET\src\Reddit.NET\Reddit.NET.csproj", "{8A483B45-5432-45B6-9CAF-C77C28944070}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +29,6 @@ Global
 		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A483B45-5432-45B6-9CAF-C77C28944070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A483B45-5432-45B6-9CAF-C77C28944070}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A483B45-5432-45B6-9CAF-C77C28944070}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A483B45-5432-45B6-9CAF-C77C28944070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
