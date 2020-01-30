@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RedditBots.Bots;
+using RedditBots.Console.Bots;
 using RedditBots.Libraries.Logging;
 using RedditBots.Settings;
 
@@ -31,6 +31,7 @@ namespace RedditBots
 
                 services.AddHostedService<PapiamentoBot>();
                 services.AddHostedService<HanzeMemesBot>();
+                services.AddHostedService<CheerfulBot>();
             });
     }
 }

@@ -57,6 +57,7 @@
 
         var topdiv = document.createElement('div');
         topdiv.className = 'p-2';
+        topdiv.setAttribute('data-log', log.logLevel);
 
         var borderClass = '';
         if (log.logLevel === 'Information') {
@@ -103,6 +104,14 @@
         var messages = document.getElementById('messages');
         messages.prepend(topdiv);
 
+        var logcards = document.querySelectorAll('[data-log]');
+
+        if (logcards.length >= 100) {
+            for (var i = 100; i < logcards.length; i++) {
+                logcards[0].parentNode.removeChild(logcards[i]);
+            }
+        }
+
         if (notify === true) {
             if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
                 notifyMe(log);
@@ -135,5 +144,9 @@
 
     document.getElementById("showdebug").addEventListener("change", (event) => {
         showDebug = event.srcElement.checked;
+
+        if (!showDebug) {
+            document.querySelectorAll("[data-log='Debug']").forEach(e => e.parentNode.removeChild(e));
+        }
     });
 })();

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using RedditBots.Web.Helpers;
-using RedditBots.Web.Hubs;
 using RedditBots.Web.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace RedditBots.Web.Controllers
@@ -12,24 +9,17 @@ namespace RedditBots.Web.Controllers
     [ApiKeyRequired]
     public class ApiController : ControllerBase
     {
-        private IHubContext<LogHub, ILogClient> _hubContext;
-        private readonly LogsHelper _logsHelper;
+        private readonly LogHandler _logHandler;
 
-        public ApiController(
-            IHubContext<LogHub, ILogClient> hubContext,
-            LogsHelper logsHelper)
+        public ApiController(LogHandler logsHelper)
         {
-            _hubContext = hubContext;
-            _logsHelper = logsHelper;
+            _logHandler = logsHelper;
         }
 
         [HttpPost]
         public async Task<IActionResult> Log([FromBody] LogEntry entry)
         {
-            _logsHelper.Log(entry);
-
-            await _hubContext.Clients.All.Log(entry);
-            await _hubContext.Clients.All.UpdateLastDateTime(_logsHelper.LastLogDateTime.Value.ToShortTimeString());
+            await _logHandler.LogAsync(entry);
 
             return Ok();
         }

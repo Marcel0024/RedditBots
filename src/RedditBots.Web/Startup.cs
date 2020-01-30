@@ -25,7 +25,7 @@ namespace RedditBots.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
-            services.AddSingleton<LogsHelper>();
+            services.AddSingleton<LogHandler>();
 
             services.AddSignalR();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

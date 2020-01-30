@@ -5,9 +5,9 @@ namespace RedditBots.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly LogsHelper _logsHelper;
+        private readonly LogHandler _logsHelper;
 
-        public HomeController(LogsHelper logsHelper)
+        public HomeController(LogHandler logsHelper)
         {
             _logsHelper = logsHelper;
         }

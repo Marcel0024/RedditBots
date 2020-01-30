@@ -7,10 +7,10 @@ namespace RedditBots.Web.Hubs
 {
     public class LogHub : Hub<ILogClient>
     {
-        private readonly LogsHelper _logsHelpder;
+        private readonly LogHandler _logsHelpder;
         public static int TotalViewers { get; private set; }
 
-        public LogHub(LogsHelper logsHelper)
+        public LogHub(LogHandler logsHelper)
         {
             _logsHelpder = logsHelper;
         }
