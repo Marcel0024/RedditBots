@@ -128,6 +128,11 @@
         }
     });
 
+    if (Notification.permission === "granted") {
+        notify = true;
+        document.getElementById('notification').checked = true;
+    }
+
     document.getElementById("showdebug").addEventListener("change", (event) => {
         showDebug = event.srcElement.checked;
     });
