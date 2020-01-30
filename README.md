@@ -1,4 +1,6 @@
-# RedditBots
-RedditBots is a Console Application written in C# .NET Core that runs multiple Reddit bot instances.
+![](https://github.com/Marcel0024/RedditBots/workflows/build/badge.svg)
 
-The actual bots run on RedditBots.Console. RedditBots.Web is a web app that displays all incoming logs from the bots
+# RedditBots
+This repo contains two projects. RedditBots.Console and RedditBots.Web - The actual bots run on RedditBots.Console and RedditBots.Web is a web app that displays all incoming logs from the bots.
+
+You can view the live stream of the logs here: https://reddit.croes.io
