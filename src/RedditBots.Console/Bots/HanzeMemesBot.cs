@@ -56,10 +56,10 @@ namespace RedditBots.Bots
                 {
                     _logger.LogWarning($"{DateTime.Now} Reddit threw {e.GetType().Name}");
 
-                    Task.Delay(1000 * 60); // wait a minute, reddit is probably down
+                    Task.Delay(1000 * 60, stoppingToken); // wait a minute, reddit is probably down
                 }
 
-                Task.Delay(2000);
+                Task.Delay(2000, stoppingToken);
             }
 
             return Task.CompletedTask;
