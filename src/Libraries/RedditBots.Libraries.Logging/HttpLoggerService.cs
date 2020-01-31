@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -16,6 +17,9 @@ namespace RedditBots.Libraries.Logging
             _client = client;
             _options = options.Value;
 
+            _client.BaseAddress = new Uri(_options.Uri);
+            _client.Timeout = TimeSpan.FromSeconds(1);
+            
             if (!string.IsNullOrWhiteSpace(_options.ApiKey))
             {
                 _client.DefaultRequestHeaders.Add("X-APIKEY", _options.ApiKey);
@@ -26,7 +30,7 @@ namespace RedditBots.Libraries.Logging
         {
             using StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            (await _client.PostAsync(_options.Url, content, cancellationToken))
+            (await _client.PostAsync("", content, cancellationToken))
                 .EnsureSuccessStatusCode();
         }
     }

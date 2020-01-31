@@ -22,7 +22,7 @@ namespace RedditBots.Libraries.Logging
         public bool IsEnabled(LogLevel logLevel)
         {
             return logLevel >= _config.LogLevel
-                && !string.IsNullOrWhiteSpace(_config.Url);
+                && !string.IsNullOrWhiteSpace(_config.Uri);
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
-using System;
 using System.Net.Http;
 
 namespace RedditBots.Libraries.Logging
@@ -13,7 +12,7 @@ namespace RedditBots.Libraries.Logging
         {
             builder.Services.TryAddSingleton<HttpLoggerQueue>();
             builder.Services.AddHostedService<HttpLoggerProcessor>();
-            builder.Services.AddHttpClient<HttpLoggerService>(options => options.Timeout = TimeSpan.FromMilliseconds(500));
+            builder.Services.AddHttpClient<HttpLoggerService>();
 
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, HttpLoggerProvider>());
             LoggerProviderOptions.RegisterProviderOptions<HttpLoggerOptions, HttpLoggerProvider>(builder.Services);

@@ -6,7 +6,7 @@ namespace RedditBots.Libraries.Logging
     {
         public LogLevel LogLevel { get; set; } = LogLevel.Debug;
 
-        public string Url { get; set; }
+        public string Uri { get; set; }
 
         public string ApiKey { get; set; }
     }
