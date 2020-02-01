@@ -50,12 +50,12 @@
     });
 
     connection.on("Log", (log) => {
+        logs++;
+
         if (log.logLevel === 'Debug'
             && !showDebug) {
             return;
         }
-
-        logs++;
 
         var topdiv = document.createElement('div');
         topdiv.className = 'p-2';
@@ -155,10 +155,56 @@
 
 
     var logs = 0;
+    var history = [];
     setInterval(() => {
         document.getElementById('lps').innerHTML = 'LPS: ' + logs;
+        history.push({ x: Date.now(), y: logs });
+
         logs = 0;
     }, 1000);
 
+    var ctx = document.getElementById('chart');
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                backgroundColor: '#f0fff1',
+                borderColor: '#aeff7b',
+                data: [],
+                label: 'Logs received'
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'realtime',  
+                    realtime: {        
+                        duration: 20000,  
+                        refresh: 1000,     
+                        delay: 1000,    
+                        pause: false,      
+                        ttl: undefined,   
 
+                        onRefresh: function (chart) {
+                            var data = history.shift();
+
+                            if (data) {
+                                Array.prototype.push.apply(chart.data.datasets[0].data, [data]);
+                            }
+                        }
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            },
+            plugins: {
+                streaming: {           
+                    frameRate: 30 
+                }
+            }
+        }
+    });
 })();

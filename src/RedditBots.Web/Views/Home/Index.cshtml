@@ -6,6 +6,7 @@
     <title>Monitor Reddit bots</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/shards-ui@@latest/dist/css/shards.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
 </head>
 <body class="pg-light">
     <div class="container-fluid">
@@ -47,9 +48,11 @@
                 </div>
             </div>
         </div>
-        <hr />
         <div class="container">
-            <div id="messages">
+            <div class="chart border-bottom">
+                <canvas id="chart" width="800" height="100"></canvas>
+            </div>
+            <div id="messages" class="pt-2">
             </div>
         </div>
     </div>
@@ -59,9 +62,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js" integrity="sha256-rg2KSyzQ1v1QcXOuY50TdGTmfsnAmd50eTwhtKzie74=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/shards-ui@@latest/dist/js/shards.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/chartjs-plugin-streaming@@latest/dist/chartjs-plugin-streaming.min.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-
 </body>
 </html>
 <style>
