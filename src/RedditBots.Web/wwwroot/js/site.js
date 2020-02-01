@@ -171,7 +171,7 @@
                 backgroundColor: '#f0fff1',
                 borderColor: '#aeff7b',
                 data: [],
-                label: 'Logs received'
+                label: 'Logs processed'
             }]
         },
         options: {
