@@ -61,7 +61,7 @@ namespace RedditBots.Libraries.Logging
                         }
                         catch (BrokenCircuitException)
                         {
-                            if (message.LogLevel > LogLevel.Debug)
+                            if (Enum.Parse<LogLevel>(message.LogLevel) > LogLevel.Debug)
                             {
                                 _queue.Messages.Enqueue(message);
                             }
