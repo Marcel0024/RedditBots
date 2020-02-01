@@ -51,7 +51,7 @@ namespace RedditBots.Libraries.Logging
             _queue.Messages.Enqueue(new HttpLogEntry
             {
                 LogName = logName,
-                LogLevel = logLevel.ToString(),
+                LogLevel = logLevel,
                 Message = message,
             });
         }
