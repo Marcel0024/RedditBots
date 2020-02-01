@@ -7,5 +7,7 @@
         public string Message { get; set; }
 
         public string LogLevel { get; set; }
+
+        public bool Notify { get; set; } = true;
     }
 }

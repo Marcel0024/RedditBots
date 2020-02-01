@@ -1,6 +1,6 @@
 ﻿(function abc() {
     var notify = false;
-    var showDebug = true;
+    var showDebug = false;
 
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/loghub")
@@ -114,7 +114,8 @@
             }
         }
 
-        if (notify === true) {
+        if (notify === true
+            && log.notify === true) {
             if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
                 notifyMe(log);
             }

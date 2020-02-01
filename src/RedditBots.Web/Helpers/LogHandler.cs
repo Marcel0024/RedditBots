@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using RedditBots.Web.Hubs;
 using RedditBots.Web.Models;
 using System;
@@ -30,7 +31,11 @@ namespace RedditBots.Web.Helpers
                 LastLogs.RemoveAt(0);
             }
 
-            LastLogs.Add(entry);
+            if (Enum.Parse<LogLevel>(entry.LogLevel) > LogLevel.Debug)
+            {
+                entry.Notify = false;
+                LastLogs.Add(entry);
+            }
 
             await _hubContext.Clients.All.Log(entry);
             await _hubContext.Clients.All.UpdateLastDateTime(LastLogDateTime.Value.ToShortTimeString());
