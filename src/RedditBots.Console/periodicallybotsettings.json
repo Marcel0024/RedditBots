@@ -1,0 +1,10 @@
+﻿{
+  "PeriodicallyBotSettings": {
+    "PeriodicTasks": [
+      {
+        "DayOfTheMonth": 1,
+        "TaskType": "PostToCSharpMonthlyThread"
+      }
+    ]
+  }
+}

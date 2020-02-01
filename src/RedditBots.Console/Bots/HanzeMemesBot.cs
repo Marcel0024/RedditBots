@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using RedditBots.Settings;
+using RedditBots.Console.Settings;
 using System;
 using System.Collections.Generic;
 using System.Threading;

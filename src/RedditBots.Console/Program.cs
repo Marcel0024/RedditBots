@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RedditBots.Console.Bots;
+using RedditBots.Console.Settings;
 using RedditBots.Libraries.Logging;
-using RedditBots.Settings;
 
 namespace RedditBots
 {
@@ -19,6 +19,7 @@ namespace RedditBots
             .ConfigureHostConfiguration(configHost =>
             {
                 configHost.AddJsonFile("papiamentobotsettings.json");
+                configHost.AddJsonFile("periodicallybotsettings.json");
             })
             .ConfigureLogging((loggingBuilder) =>
             {
@@ -28,10 +29,12 @@ namespace RedditBots
             {
                 services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
                 services.Configure<PapiamentoBotSettings>(hostContext.Configuration.GetSection(nameof(PapiamentoBotSettings)));
+                services.Configure<PeriodicallyBotSettings>(hostContext.Configuration.GetSection(nameof(PeriodicallyBotSettings)));
 
                 services.AddHostedService<PapiamentoBot>();
                 services.AddHostedService<HanzeMemesBot>();
                 services.AddHostedService<CheerfulBot>();
+                services.AddHostedService<PeriodicallyBot>();
             });
     }
 }

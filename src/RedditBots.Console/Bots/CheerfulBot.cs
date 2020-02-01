@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using RedditBots.Settings;
+using RedditBots.Console.Settings;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -95,11 +95,11 @@ namespace RedditBots.Console.Bots
             StringBuilder builder = new StringBuilder();
 
             builder
-                .Append("> I'm sad that...")
+                .Append("> I'm sad that ...")
                 .Append("\n\n")
                 .Append(string.Format(_botSetting.DefaultReplyMessage, comment.Author))
                 .Append("\n\n")
-                .Append($"> {_getRandomQuote()}")
+                .Append($"> *{_getRandomQuote()}*")
                 .Append("\n\n")
                 .Append(_botSetting.MessageFooter);
 

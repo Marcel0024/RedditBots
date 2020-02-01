@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using RedditBots.Settings;
+using RedditBots.Console.Settings;
 using System;
 using System.Linq;
 using System.Threading;
@@ -40,13 +40,13 @@ namespace RedditBots.Console.Bots
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Yield(); // https://github.com/dotnet/extensions/issues/2149
+
             _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             _startMonitoringSubreddits();
-
-            return Task.CompletedTask;
         }
 
         private void _startMonitoringSubreddits()
