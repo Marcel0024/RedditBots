@@ -79,7 +79,7 @@ namespace RedditBots.Console.Bots
         {
             foreach (Comment comment in e.Added)
             {
-                _logger.LogDebug($"{DateTime.Now} New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
+                _logger.LogDebug($"New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
 
                 if (comment.Body.StartsWith("I'm sad that", StringComparison.OrdinalIgnoreCase))
                 {
@@ -90,7 +90,7 @@ namespace RedditBots.Console.Bots
 
         private void _buildReplyComment(Comment comment)
         {
-            _logger.LogInformation($"{DateTime.Now} Sad user ({comment.Author}) detected in /r/{comment.Subreddit}, leaving cheerful comment");
+            _logger.LogInformation($"Sad user ({comment.Author}) detected in /r/{comment.Subreddit}, leaving cheerful comment");
 
             StringBuilder builder = new StringBuilder();
 

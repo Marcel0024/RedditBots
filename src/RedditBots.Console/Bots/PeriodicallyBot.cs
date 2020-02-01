@@ -107,6 +107,8 @@ namespace RedditBots.Console.Bots
                 .ToString();
 
             post.Reply(replyText);
+
+            _logger.LogInformation($"Posted comment in r/{post.Subreddit} - {post.Title}");
         }
     }
 }

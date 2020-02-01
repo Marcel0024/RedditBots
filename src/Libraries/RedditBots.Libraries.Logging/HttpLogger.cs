@@ -52,7 +52,7 @@ namespace RedditBots.Libraries.Logging
             {
                 LogName = logName,
                 LogLevel = logLevel.ToString(),
-                Message = message,
+                Message = $"{DateTime.Now} - {message}",
             });
         }
     }

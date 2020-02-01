@@ -67,7 +67,7 @@ namespace RedditBots.Console.Bots
         {
             foreach (Comment comment in e.Added)
             {
-                _logger.LogDebug($"{DateTime.Now} New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
+                _logger.LogDebug($"New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
 
                 _handleComment(comment);
             }
@@ -112,7 +112,7 @@ namespace RedditBots.Console.Bots
 
             var replyText = string.Format(_botSetting.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
 
-            _logger.LogInformation($"{DateTime.Now} Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
+            _logger.LogInformation($"Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
 
             comment.Reply(replyText += _botSetting.MessageFooter);
         }
@@ -137,7 +137,7 @@ namespace RedditBots.Console.Bots
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
 
-            _logger.LogDebug($"{DateTime.Now} Papiamento detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
+            _logger.LogDebug($"Papiamento detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
 
             return true;
         }

@@ -56,7 +56,7 @@ namespace RedditBots.Console.Bots
                 }
                 catch (Exception e) when (e.GetType().Name.StartsWith("Reddit"))
                 {
-                    _logger.LogWarning($"{DateTime.Now} Reddit threw {e.GetType().Name}");
+                    _logger.LogWarning($"Reddit threw {e.GetType().Name}");
 
                     await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken); // wait a minute, reddit is probably down
                 }
@@ -103,7 +103,7 @@ namespace RedditBots.Console.Bots
             {
                 if (string.Equals(oldComment.Author, _botSetting.BotName, StringComparison.OrdinalIgnoreCase))
                 {
-                    _logger.LogInformation($"{DateTime.Now} flair detected, removing own comment in post of /u/{newPost.Author}");
+                    _logger.LogInformation($"Flair detected, removing own comment in post of /u/{newPost.Author}");
 
                     oldComment.Delete();
                 }
@@ -114,7 +114,7 @@ namespace RedditBots.Console.Bots
         {
             foreach (Post post in e.Added)
             {
-                _logger.LogInformation($"{DateTime.Now} new post from /u/{post.Author} in /r/{post.Subreddit} leaving comment");
+                _logger.LogInformation($"New post from /u/{post.Author} in /r/{post.Subreddit} leaving comment");
 
                 post.Reply(string.Format(_botSetting.DefaultReplyMessage, post.Author) + _botSetting.MessageFooter);
             }
