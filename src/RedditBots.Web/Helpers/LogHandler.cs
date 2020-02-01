@@ -26,6 +26,9 @@ namespace RedditBots.Web.Helpers
         {
             LastLogDateTime = DateTime.Now;
 
+            await _hubContext.Clients.All.Log(entry);
+            await _hubContext.Clients.All.UpdateLastDateTime(LastLogDateTime.Value.ToShortTimeString());
+
             if (LastLogs.Count == _totalLogsHistory)
             {
                 LastLogs.RemoveAt(0);
@@ -36,9 +39,6 @@ namespace RedditBots.Web.Helpers
                 entry.Notify = false;
                 LastLogs.Add(entry);
             }
-
-            await _hubContext.Clients.All.Log(entry);
-            await _hubContext.Clients.All.UpdateLastDateTime(LastLogDateTime.Value.ToShortTimeString());
         }
     }
 }

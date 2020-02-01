@@ -24,11 +24,11 @@ namespace RedditBots.Console.Bots
         private readonly Random _random = new Random(69);
 
         private readonly string[] _quotes = new string[] {
-            "Don’t give up when dark times come. The more storms you face in life, the stronger you’ll be.Hold on.Your greater is coming.",
+            "Don’t give up when dark times come. The more storms you face in life, the stronger you’ll be. Hold on. Your greater is coming.",
             "The sky is everywhere, it begins at your feet.",
             "Stop feeling sorry for yourself and you will be happy.",
             "I’ve got nothing to do today but smile.",
-            "Nobody is superior, nobody is inferior, but nobody is equal either. People are simply unique, incomparable.You are you, I am I.",
+            "Nobody is superior, nobody is inferior, but nobody is equal either. People are simply unique, incomparable. You are you, I am I.",
             "Let us be of good cheer, however, remembering that the misfortunes hardest to bear are those which never come.",
             "Laugh now, cry later.",
             "Cheer up, my dear. After every storm comes the sun. Happiness is waiting for you ahead.",
