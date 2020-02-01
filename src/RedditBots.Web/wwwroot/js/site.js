@@ -55,6 +55,8 @@
             return;
         }
 
+        logs++;
+
         var topdiv = document.createElement('div');
         topdiv.className = 'p-2';
         topdiv.setAttribute('data-log', log.logLevel);
@@ -149,4 +151,13 @@
             document.querySelectorAll("[data-log='Debug']").forEach(e => e.parentNode.removeChild(e));
         }
     });
+
+
+    var logs = 0;
+    setInterval(() => {
+        document.getElementById('lps').innerHTML = 'LPS: ' + logs;
+        logs = 0;
+    }, 1000);
+
+
 })();
