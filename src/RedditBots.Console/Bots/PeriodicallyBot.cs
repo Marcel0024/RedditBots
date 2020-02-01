@@ -48,7 +48,7 @@ namespace RedditBots.Console.Bots
 
                 _logger.LogInformation($"I have awoken");
 
-                _doStuff();
+                _executeTasks();
             }
         }
 
@@ -70,7 +70,7 @@ namespace RedditBots.Console.Bots
             await Task.Delay(timeUntilNextRun, stoppingToken);
         }
 
-        private void _doStuff()
+        private void _executeTasks()
         {
             var now = DateTime.Now;
 
