@@ -104,6 +104,8 @@ namespace RedditBots.Console.Bots
                 .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything .NET Core 3.1")
                 .Append("\n\n")
                 .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://reddit.croes.io")
+                .Append("\n\n")
+                .Append($"Any feedback is welcome!")
                 .ToString();
 
             post.Reply(replyText);

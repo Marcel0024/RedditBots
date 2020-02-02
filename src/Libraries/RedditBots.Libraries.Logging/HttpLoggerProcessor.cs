@@ -18,7 +18,7 @@ namespace RedditBots.Libraries.Logging
         private readonly ILogger<HttpLoggerProcessor> _logger;
         private readonly AsyncPolicyWrap _policy;
 
-        private readonly int _maxQueue = 10000;
+        private readonly int _maxQueue = 50000;
 
         public HttpLoggerProcessor(HttpLoggerQueue queue, HttpLoggerService service, ILogger<HttpLoggerProcessor> logger)
         {
@@ -26,17 +26,17 @@ namespace RedditBots.Libraries.Logging
             _service = service;
             _logger = logger;
 
-            var retry = Policy
+            var retryPolicy = Policy
                 .Handle<HttpRequestException>()
                 .Or<OperationCanceledException>()
-                .WaitAndRetryAsync(new[] { TimeSpan.FromMilliseconds(500), TimeSpan.FromSeconds(4) });
+                .WaitAndRetryAsync(new[] { TimeSpan.FromMilliseconds(500), TimeSpan.FromSeconds(3) });
 
-            var circuitBreaker = Policy
+            var circuitBreakerPolicy = Policy
                 .Handle<HttpRequestException>()
                 .Or<OperationCanceledException>()
-                .CircuitBreakerAsync(exceptionsAllowedBeforeBreaking: 3, durationOfBreak: TimeSpan.FromSeconds(30));
+                .CircuitBreakerAsync(exceptionsAllowedBeforeBreaking: 3, durationOfBreak: TimeSpan.FromMinutes(3));
 
-            _policy = Policy.WrapAsync(retry, circuitBreaker);
+            _policy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -45,30 +45,29 @@ namespace RedditBots.Libraries.Logging
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                try
+                if (_queue.Messages.Count > _maxQueue)
                 {
-                    if (_queue.Messages.Count > _maxQueue)
-                    {
-                        _queue.Messages.Clear();
-                        _logger.LogWarning($"Dumped {_maxQueue} logs in queue.");
-                    }
+                    _queue.Messages.Clear();
+                    _logger.LogWarning($"Dumped {_maxQueue} logs in queue.");
+                }
 
-                    if (_queue.Messages.TryDequeue(out HttpLogEntry message))
+                if (_queue.Messages.TryDequeue(out HttpLogEntry message))
+                {
+                    try
                     {
-                        try
+                        await _policy.ExecuteAsync(async () => await _service.PostLogAsync(JsonSerializer.Serialize(message), stoppingToken));
+                    }
+                    catch (Exception e) when (
+                               e is HttpRequestException
+                            || e is OperationCanceledException
+                            || e is BrokenCircuitException)
+                    {
+                        if (Enum.Parse<LogLevel>(message.LogLevel) > LogLevel.Debug)
                         {
-                            await _policy.ExecuteAsync(async () => await _service.PostLogAsync(JsonSerializer.Serialize(message), stoppingToken));
-                        }
-                        catch (BrokenCircuitException)
-                        {
-                            if (Enum.Parse<LogLevel>(message.LogLevel) > LogLevel.Debug)
-                            {
-                                _queue.Messages.Enqueue(message);
-                            }
+                            _queue.Messages.Enqueue(message);
                         }
                     }
                 }
-                catch { }
             }
         }
     }
