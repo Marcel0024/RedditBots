@@ -56,11 +56,11 @@ namespace RedditBots.Console.Bots
         {
             var now = DateTime.Now;
             var tomorrow = now.AddDays(1);
-            var nextRun = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day).Add(_periodicallyBotSettings.TimeOfExecution);
+            var nextRun = tomorrow.Date.Add(_periodicallyBotSettings.TimeOfExecution);
 
             if (nextRun.Subtract(now) >= TimeSpan.FromHours(24)) // Next run is today
             {
-                nextRun = new DateTime(now.Year, now.Month, now.Day).Add(_periodicallyBotSettings.TimeOfExecution);
+                nextRun = now.Date.Add(_periodicallyBotSettings.TimeOfExecution);
             }
 
             var timeUntilNextRun = nextRun.Subtract(now);
