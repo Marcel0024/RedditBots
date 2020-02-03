@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monitor Reddit bots</title>
+    <title>Bots Monitor</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/shards-ui@@latest/dist/css/shards.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
@@ -43,12 +43,12 @@
                     </div>
                     <div class="custom-control custom-toggle my-2">
                         <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
-                        <label class="custom-control-label" for="showdebug">Receive debug logs</label>
+                        <label class="custom-control-label" for="showdebug">Display debug logs</label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" style="background-color:white">
             <div class="chart border-bottom">
                 <canvas id="chart" width="800" height="100"></canvas>
             </div>
@@ -72,6 +72,10 @@
 <style>
     .flikker {
         animation: blinker 2.5s linear infinite;
+    }
+
+    body {
+        background-color: #f8f9fa;
     }
 
     @@keyframes blinker {

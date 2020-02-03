@@ -58,7 +58,7 @@
         }
 
         var topdiv = document.createElement('div');
-        topdiv.className = 'p-2';
+        topdiv.className = 'p-1';
         topdiv.setAttribute('data-log', log.logLevel);
 
         var borderClass = '';
@@ -76,29 +76,31 @@
             mainDiv.style.border = '';
         }, 3000);
 
-        var headerDiv = document.createElement('div');
-        headerDiv.className = 'card-header d-flex justify-content-between';
+        var topDivInBody = document.createElement('div');
+        topDivInBody.className = 'row d-flex justify-content-between';
 
         var firstP = document.createElement('span');
         var namearray = log.logName.split('.');
         var botName = namearray[namearray.length - 1];
 
         firstP.innerHTML = `<a href='https://www.reddit.com/u/${botName}' target="_blank">/u/${botName}</a>`;
-        headerDiv.appendChild(firstP);
+        topDivInBody.appendChild(firstP);
 
         var secondP = document.createElement('div');
         secondP.className = 'badge ' + (log.logLevel === "Information" ? 'badge-success' : log.logLevel === "Warning" ? 'badge-warning' : 'badge-light');
         secondP.innerHTML = log.logLevel;
-        headerDiv.appendChild(secondP);
+        topDivInBody.appendChild(secondP);
 
         var bodyDiv = document.createElement('div');
         bodyDiv.className = 'card-body';
 
-        var thirdP = document.createElement('span');
-        thirdP.innerHTML = log.message;
-        bodyDiv.appendChild(thirdP);
+        var contentDiv = document.createElement('div');
+        contentDiv.classList = 'row pt-2';
+        contentDiv.innerHTML = log.message;
 
-        mainDiv.appendChild(headerDiv);
+        bodyDiv.appendChild(topDivInBody);
+        bodyDiv.appendChild(contentDiv);
+
         mainDiv.appendChild(bodyDiv);
 
         topdiv.appendChild(mainDiv);
@@ -108,8 +110,8 @@
 
         var logcards = document.querySelectorAll('[data-log]');
 
-        if (logcards.length >= 100) {
-            for (var i = 100; i < logcards.length; i++) {
+        if (logcards.length >= 50) {
+            for (var i = 50; i < logcards.length; i++) {
                 logcards[0].parentNode.removeChild(logcards[i]);
             }
         }
@@ -179,7 +181,7 @@
                 xAxes: [{
                     type: 'realtime',  
                     realtime: {        
-                        duration: 20000,  
+                        duration: 30000,  
                         refresh: 1000,     
                         delay: 1000,    
                         pause: false,      
@@ -196,7 +198,8 @@
                 }],
                 yAxes: [{
                     ticks: {
-                        min: 0
+                        beginAtZero: true,
+                        stepSize: 5
                     }
                 }]
             },

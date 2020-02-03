@@ -9,28 +9,34 @@ namespace RedditBots.Libraries.Logging
 {
     public class HttpLoggerService
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClientFactory _clientFactory;
         private readonly HttpLoggerOptions _options;
 
-        public HttpLoggerService(HttpClient client, IOptions<HttpLoggerOptions> options)
+        private readonly Uri _baseUri;
+
+        public HttpLoggerService(IHttpClientFactory clientFactory, IOptions<HttpLoggerOptions> options)
         {
-            _client = client;
+            _clientFactory = clientFactory;
             _options = options.Value;
 
-            _client.BaseAddress = new Uri(_options.Uri);
-            _client.Timeout = TimeSpan.FromSeconds(1);
-            
-            if (!string.IsNullOrWhiteSpace(_options.ApiKey))
-            {
-                _client.DefaultRequestHeaders.Add("X-APIKEY", _options.ApiKey);
-            }
+            _baseUri = new Uri(_options.Uri);
         }
 
         public async Task PostLogAsync(string json, CancellationToken cancellationToken)
         {
+            var client = _clientFactory.CreateClient(nameof(HttpLoggerService));
+
+            client.BaseAddress = _baseUri;
+            client.Timeout = TimeSpan.FromSeconds(1);
+
+            if (!string.IsNullOrWhiteSpace(_options.ApiKey))
+            {
+                client.DefaultRequestHeaders.Add("X-APIKEY", _options.ApiKey);
+            }
+
             using StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            (await _client.PostAsync("", content, cancellationToken))
+            (await client.PostAsync("", content, cancellationToken))
                 .EnsureSuccessStatusCode();
         }
     }

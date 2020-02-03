@@ -12,7 +12,8 @@ namespace RedditBots.Libraries.Logging
         {
             builder.Services.TryAddSingleton<HttpLoggerQueue>();
             builder.Services.AddHostedService<HttpLoggerProcessor>();
-            builder.Services.AddHttpClient<HttpLoggerService>();
+            builder.Services.AddSingleton<HttpLoggerService>();
+            builder.Services.AddHttpClient(nameof(HttpLoggerService));
 
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, HttpLoggerProvider>());
             LoggerProviderOptions.RegisterProviderOptions<HttpLoggerOptions, HttpLoggerProvider>(builder.Services);

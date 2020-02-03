@@ -21,8 +21,7 @@ namespace RedditBots.Libraries.Logging
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            return logLevel >= _config.LogLevel
-                && !string.IsNullOrWhiteSpace(_config.Uri);
+            return logLevel >= _config.LogLevel;
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
@@ -52,7 +51,7 @@ namespace RedditBots.Libraries.Logging
             {
                 LogName = logName,
                 LogLevel = logLevel.ToString(),
-                Message = $"{DateTime.Now} - {message}",
+                Message = $"{DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss")} - {message}",
             });
         }
     }
