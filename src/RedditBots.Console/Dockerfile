@@ -9,6 +9,8 @@ COPY ["src/RedditBots.Console/RedditBots.Console.csproj", "src/RedditBots.Consol
 COPY ["src/Libraries/RedditBots.Libraries.Logging/RedditBots.Libraries.Logging.csproj", "src/Libraries/RedditBots.Libraries.Logging/"]
 RUN dotnet restore "src/RedditBots.Console/RedditBots.Console.csproj"
 COPY . .
+WORKDIR "/src/src/RedditBots.Console"
+RUN dotnet build "RedditBots.Console.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "RedditBots.Console.csproj" -c Release -r linux-arm -o /app/publish
