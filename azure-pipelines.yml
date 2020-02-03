@@ -1,4 +1,10 @@
 # ASP.NET Core (.NET Framework)
+- task: Docker@2
+  inputs:
+    containerRegistry: 'marcel0024'
+    repository: 'redditbots'
+    command: 'buildAndPush'
+    Dockerfile: 'src/Reddit.Console/Dockerfile'
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
