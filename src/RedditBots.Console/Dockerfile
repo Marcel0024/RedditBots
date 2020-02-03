@@ -18,4 +18,4 @@ RUN dotnet publish "RedditBots.Console.csproj" -c Release -r linux-arm -o /app/p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "./RedditBots.Console"]
+ENTRYPOINT ["dotnet", "RedditBots.Console.dll"]
