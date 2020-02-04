@@ -35,7 +35,7 @@ namespace RedditBots.Console.Bots
             "Once they move, they’re gone. Once you move, life starts over again.",
             "It’s better to have loved and lost than never to have loved at all.",
             "What doesn’t kill you makes you stronger.",
-            "My entire life can be described in one sentence: It didn’t go as planned, and that’s okay." 
+            "My entire life can be described in one sentence: It didn’t go as planned, and that’s okay."
         };
 
         public CheerfulBot(
@@ -80,6 +80,11 @@ namespace RedditBots.Console.Bots
             foreach (Comment comment in e.Added)
             {
                 _logger.LogDebug($"New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
+
+                if (comment.Depth > 5)
+                {
+                    continue;
+                }
 
                 if (comment.Body.StartsWith("I'm sad that", StringComparison.OrdinalIgnoreCase))
                 {
