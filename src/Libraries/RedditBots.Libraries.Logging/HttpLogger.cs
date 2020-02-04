@@ -51,7 +51,7 @@ namespace RedditBots.Libraries.Logging
             {
                 LogName = logName,
                 LogLevel = logLevel.ToString(),
-                Message = $"{DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss")} - {message}",
+                Message = $"{DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt")} - {message}",
             });
         }
     }
