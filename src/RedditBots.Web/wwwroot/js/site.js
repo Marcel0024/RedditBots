@@ -50,7 +50,9 @@
     });
 
     connection.on("Log", (log) => {
-        logs++;
+        if (log.notify === true) {
+            logs++;
+        }
 
         if (log.logLevel === 'Debug'
             && !showDebug) {
@@ -83,7 +85,12 @@
         var namearray = log.logName.split('.');
         var botName = namearray[namearray.length - 1];
 
-        firstP.innerHTML = `<a href='https://www.reddit.com/u/${botName}' target="_blank">/u/${botName}</a>`;
+        if (log.logName === "AzurePipeline") {
+            firstP.innerHTML = 'Azure DevOps Pipeline';
+        } else {
+            firstP.innerHTML = `<a href='https://www.reddit.com/u/${botName}' target="_blank">/u/${botName}</a>`;
+        }
+
         topDivInBody.appendChild(firstP);
 
         var secondP = document.createElement('div');
