@@ -7,4 +7,4 @@ This repo contains two projects. RedditBots.Console and RedditBots.Web - The act
 
 You can view the live stream of the logs here: https://reddit.croes.io
 
-Reddit.Console runs on a Raspberry PI 3.
+Reddit.Console runs on a Raspberry PI 3..
