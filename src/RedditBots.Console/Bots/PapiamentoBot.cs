@@ -124,7 +124,8 @@ namespace RedditBots.Console.Bots
                 var word = commentWord.Trim(_charactersToTrim).ToLowerInvariant();
 
                 return _papiamentoBotSettings.WordsToDetectLanguage.Contains(word)
-                    || _papiamentoBotSettings.WordsToCorrect.Any(wtc => wtc.Wrong.ToLowerInvariant() == word || wtc.Right.ToLowerInvariant() == word);
+                    || _papiamentoBotSettings.WordsToCorrect.Any(wtc => wtc.Wrong.ToLowerInvariant() == word || wtc.Right.ToLowerInvariant() == word)
+                    || _papiamentoBotSettings.WordsToDetectLanguage.Any(wtl => wtl + "nan" == word);
             });
 
             // Language is verified if more then LanguageDetectionPercentage (percentage) of the words match the know words
