@@ -103,7 +103,7 @@ namespace RedditBots.Console.Bots
                 return;
             }
 
-            _logger.LogDebug($"Verified papiamento: \"{comment.Body}\"");
+            _logger.LogInformation($"Verified papiamento: \"{comment.Body}\"");
 
             if (!_containsGrammarMistake(allWords, out Word mistake))
             {
@@ -163,12 +163,12 @@ namespace RedditBots.Console.Bots
 
             if (mistake != null)
             {
-                _logger.LogDebug($"Grammar mistake found: {mistake.Wrong}");
+                _logger.LogInformation($"Grammar mistake found: {mistake.Wrong}");
 
                 return true;
             }
 
-            _logger.LogDebug($"No grammar mistake found");
+            _logger.LogInformation($"No grammar mistake found");
 
             return false;
         }
