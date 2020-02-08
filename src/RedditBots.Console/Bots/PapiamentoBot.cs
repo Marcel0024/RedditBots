@@ -24,7 +24,7 @@ namespace RedditBots.Console.Bots
         private readonly BotSetting _botSetting;
         private readonly PapiamentoBotSettings _papiamentoBotSettings;
 
-        private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ', '“', '”', '‘' };
+        private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ', '“', '”', '‘', '(', ')'};
 
         public PapiamentoBot(
             ILogger<PapiamentoBot> logger,
