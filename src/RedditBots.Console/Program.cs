@@ -7,6 +7,7 @@ using RedditBots.HanzeMemesBot;
 using RedditBots.Libraries.Logging;
 using RedditBots.PapiamentoBot;
 using RedditBots.PriodicallyBot;
+using System.IO;
 
 namespace RedditBots
 {
@@ -21,8 +22,8 @@ namespace RedditBots
             Host.CreateDefaultBuilder(args)
             .ConfigureHostConfiguration(configHost =>
             {
-                configHost.AddJsonFile(@"Settings\papiamentobotsettings.json");
-                configHost.AddJsonFile(@"Settings\periodicallybotsettings.json");
+                configHost.AddJsonFile(Path.Combine("Settings", "papiamentobotsettings.json"));
+                configHost.AddJsonFile(Path.Combine("Settings", "periodicallybotsettings.json"));
             })
             .ConfigureLogging((loggingBuilder) =>
             {
