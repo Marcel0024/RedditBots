@@ -4,14 +4,15 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using RedditBots.Console.Settings;
+using RedditBots.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundService = RedditBots.Framework.BackgroundService;
 
-namespace RedditBots.Console.Bots
+namespace RedditBots.CheerfulBot
 {
     public class CheerfulBot : BackgroundService
     {

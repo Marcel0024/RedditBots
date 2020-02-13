@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RedditBots.Console.Settings
+namespace RedditBots.Framework
 {
     public class MonitorSettings
     {

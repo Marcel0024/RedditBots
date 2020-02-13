@@ -6,7 +6,12 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["src/RedditBots.Console/RedditBots.Console.csproj", "src/RedditBots.Console/"]
+COPY ["src/Bots/RedditBots.Framework/RedditBots.Framework.csproj", "src/Bots/RedditBots.Framework/"]
 COPY ["src/Libraries/RedditBots.Libraries.Logging/RedditBots.Libraries.Logging.csproj", "src/Libraries/RedditBots.Libraries.Logging/"]
+COPY ["src/Bots/RedditBots.CheerfulBot/RedditBots.CheerfulBot.csproj", "src/Bots/RedditBots.CheerfulBot/"]
+COPY ["src/Bots/RedditBots.HanzeMemesBot/RedditBots.HanzeMemesBot.csproj", "src/Bots/RedditBots.HanzeMemesBot/"]
+COPY ["src/Bots/RedditBots.PriodicallyBot/RedditBots.PriodicallyBot.csproj", "src/Bots/RedditBots.PriodicallyBot/"]
+COPY ["src/Bots/RedditBots.PapiamentoBot/RedditBots.PapiamentoBot.csproj", "src/Bots/RedditBots.PapiamentoBot/"]
 RUN dotnet restore "src/RedditBots.Console/RedditBots.Console.csproj"
 COPY . .
 WORKDIR "/src/src/RedditBots.Console"

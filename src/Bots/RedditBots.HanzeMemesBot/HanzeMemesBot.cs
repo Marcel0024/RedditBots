@@ -4,13 +4,15 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using RedditBots.Console.Settings;
+using RedditBots.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundService = RedditBots.Framework.BackgroundService;
 
-namespace RedditBots.Console.Bots
+namespace RedditBots.HanzeMemesBot
 {
     /// <summary>
     /// FlairReminderBots replies to all new post with a 'Reminder' message to set a flair
@@ -39,8 +41,6 @@ namespace RedditBots.Console.Bots
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await Task.Yield(); // https://github.com/dotnet/extensions/issues/2149
-
             _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             _startMonitoringSubreddits();

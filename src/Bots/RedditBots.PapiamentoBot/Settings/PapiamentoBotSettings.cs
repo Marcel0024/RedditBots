@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RedditBots.Console.Settings
+namespace RedditBots.PapiamentoBot.Settings
 {
     public class PapiamentoBotSettings
     {

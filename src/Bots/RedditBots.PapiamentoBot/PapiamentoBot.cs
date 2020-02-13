@@ -4,13 +4,15 @@ using Microsoft.Extensions.Options;
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Controllers.EventArgs;
-using RedditBots.Console.Settings;
+using RedditBots.Framework;
+using RedditBots.PapiamentoBot.Settings;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundService = RedditBots.Framework.BackgroundService;
 
-namespace RedditBots.Console.Bots
+namespace RedditBots.PapiamentoBot
 {
     /// <summary>
     /// PapiamentoBot monitors all new comments and check if a grammer mistake has been made.
@@ -24,7 +26,7 @@ namespace RedditBots.Console.Bots
         private readonly BotSetting _botSetting;
         private readonly PapiamentoBotSettings _papiamentoBotSettings;
 
-        private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ', '“', '”', '‘', '(', ')'};
+        private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ', '“', '”', '‘', '(', ')' };
 
         public PapiamentoBot(
             ILogger<PapiamentoBot> logger,
@@ -40,13 +42,13 @@ namespace RedditBots.Console.Bots
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await Task.Yield(); // https://github.com/dotnet/extensions/issues/2149
-
             _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             _startMonitoringSubreddits();
+
+            return Task.CompletedTask;
         }
 
         private void _startMonitoringSubreddits()

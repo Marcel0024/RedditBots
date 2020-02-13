@@ -2,28 +2,30 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Reddit;
-using RedditBots.Console.Settings;
+using RedditBots.Framework;
+using RedditBots.PriodicallyBot.Settings;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BackgroundService = RedditBots.Framework.BackgroundService;
 
-namespace RedditBots.Console.Bots
+namespace RedditBots.PriodicallyBot
 {
     /// <summary>
     /// Bot that runs once a day
     /// </summary>
-    public class PeriodicallyBot : BackgroundService
+    public class PriodicallyBot : BackgroundService
     {
-        private readonly ILogger<PeriodicallyBot> _logger;
+        private readonly ILogger<PriodicallyBot> _logger;
         private readonly IHostEnvironment _env;
         private readonly PeriodicallyBotSettings _periodicallyBotSettings;
         private readonly BotSetting _botSetting;
         private readonly RedditClient _redditClient;
 
-        public PeriodicallyBot(
-            ILogger<PeriodicallyBot> logger,
+        public PriodicallyBot(
+            ILogger<PriodicallyBot> logger,
             IHostEnvironment env,
             IOptions<MonitorSettings> monitorSettings,
             IOptions<PeriodicallyBotSettings> periodicallyBotSettings)
@@ -31,15 +33,13 @@ namespace RedditBots.Console.Bots
             _logger = logger;
             _env = env;
             _periodicallyBotSettings = periodicallyBotSettings.Value;
-            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PeriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
 
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await Task.Yield(); // https://github.com/dotnet/extensions/issues/2149
-
             _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
 
             while (!stoppingToken.IsCancellationRequested)
