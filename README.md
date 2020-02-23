@@ -7,4 +7,4 @@ This repo contains two projects. RedditBots.Console and RedditBots.Web - The act
 
 You can view the live stream of the logs here: https://reddit.croes.io
 
-Reddit.Console runs in Docker and is build and deployed by Azure Pipelines.
+Reddit.Console runs in Docker and is build and deployed to a Raspberry Pi 3 by Azure Pipelines.
