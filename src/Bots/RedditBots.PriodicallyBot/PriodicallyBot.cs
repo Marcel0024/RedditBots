@@ -99,9 +99,11 @@ namespace RedditBots.PriodicallyBot
 
             var replyText = new StringBuilder()
                 .Append("I've been working on a Console Application that can run multiple reddit bots AND have the logs streamed to a web app, which you can monitor live.")
-                .Append("The bots themselves are not that interesting but building them has been fun. It currently has 4 bots running on it and it's hosted on a Raspberry Pi")
+                .Append("The bots themselves are not that interesting but building them has been fun. It currently has 3 bots running on it and it's hosted on a Raspberry Pi")
                 .Append("\n\n")
                 .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything .NET Core 3.1")
+                .Append("\n\n")
+                .Append($"The Console is hosted in Docker and auto-deployed to the pi")
                 .Append("\n\n")
                 .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://reddit.croes.io")
                 .Append("\n\n")
