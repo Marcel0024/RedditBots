@@ -119,7 +119,7 @@ namespace RedditBots.PapiamentoBot
 
             var replyText = string.Format(_botSetting.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
 
-            if (string.IsNullOrWhiteSpace(mistake.Tip))
+            if (!string.IsNullOrWhiteSpace(mistake.Tip))
             {
                 replyText += $"\n\n **Tip:** {mistake.Tip}";
             }
