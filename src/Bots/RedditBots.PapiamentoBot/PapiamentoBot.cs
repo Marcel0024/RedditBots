@@ -127,7 +127,7 @@ namespace RedditBots.PapiamentoBot
             }
             else
             {
-                comment.Reply(replyText + $"\\n\\n **Tip:** {mistake.Tip}" + _botSetting.MessageFooter);
+                comment.Reply(replyText + $" \\n\\n **Tip:** {mistake.Tip}" + _botSetting.MessageFooter);
             }
         }
 
