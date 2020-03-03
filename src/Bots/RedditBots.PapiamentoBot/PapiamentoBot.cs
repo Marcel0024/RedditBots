@@ -117,6 +117,11 @@ namespace RedditBots.PapiamentoBot
                 return;
             }
 
+            comment.Reply(_buildCommentReply(comment, mistake));
+        }
+
+        private string _buildCommentReply(Comment comment, Word mistake)
+        {
             var replyText = string.Format(_botSetting.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
 
             if (!string.IsNullOrWhiteSpace(mistake.Tip))
@@ -126,7 +131,7 @@ namespace RedditBots.PapiamentoBot
 
             _logger.LogInformation($"Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
 
-            comment.Reply(replyText += _botSetting.MessageFooter);
+            return replyText += _botSetting.MessageFooter;
         }
 
         private bool _verifyLanguage(string[] allWords)
