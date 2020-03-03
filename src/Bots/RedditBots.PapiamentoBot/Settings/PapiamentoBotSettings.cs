@@ -18,5 +18,7 @@ namespace RedditBots.PapiamentoBot.Settings
         public string Wrong { get; set; }
 
         public string Right { get; set; }
+
+        public string Tip { get; set; }
     }
 }

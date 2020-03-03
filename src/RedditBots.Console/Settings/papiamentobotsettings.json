@@ -104,7 +104,8 @@
       {
         "gravity": 10,
         "wrong": "mariku",
-        "right": "marico"
+        "right": "marico",
+        "Tip":  "Nos no ta yui di Korsou, ban serio si."
       },
       {
         "gravity": 20,
@@ -169,47 +170,56 @@
       {
         "gravity": 140,
         "wrong": "conjo",
-        "right": "coño"
+        "right": "coño",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 150,
         "wrong": "anja",
-        "right": "aña"
+        "right": "aña",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 160,
         "wrong": "hanja",
-        "right": "haña"
+        "right": "haña",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 170,
         "wrong": "ganja",
-        "right": "gaña"
+        "right": "gaña",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 180,
         "wrong": "senjora",
-        "right": "señora"
+        "right": "señora",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 190,
         "wrong": "donjo",
-        "right": "doño"
+        "right": "doño",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 200,
         "wrong": "sinja",
-        "right": "siña"
+        "right": "siña",
+        "Tip": "Riba PC bo por primi 'ALT' + 164 pa usa 'ñ'."
       },
       {
         "gravity": 210,
         "wrong": "korsou",
-        "right": "Curaçao"
+        "right": "Curaçao",
+        "Tip": "Riba PC bo por primi 'ALT' + 0231 pa usa ç."
       },
       {
         "gravity": 220,
         "wrong": "corsou",
-        "right": "Curaçao"
+        "right": "Curaçao",
+        "Tip": "Riba PC bo por primi 'ALT' + 0231 pa usa ç."
       }
     ]
   }

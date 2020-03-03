@@ -69,6 +69,11 @@ namespace RedditBots.PapiamentoBot
         {
             foreach (Comment comment in e.Added)
             {
+                if (comment.Author == _botSetting.BotName)
+                {
+                    continue;
+                }
+
                 _logger.LogDebug($"New comment detected of /u/{comment.Author} in /r/{comment.Subreddit}");
 
                 _handleComment(comment);
@@ -116,7 +121,14 @@ namespace RedditBots.PapiamentoBot
 
             _logger.LogInformation($"Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
 
-            comment.Reply(replyText += _botSetting.MessageFooter);
+            if (string.IsNullOrWhiteSpace(mistake.Tip))
+            {
+                comment.Reply(replyText += _botSetting.MessageFooter);
+            }
+            else
+            {
+                comment.Reply(replyText + $"\\n\\n **Tip:** {mistake.Tip}" + _botSetting.MessageFooter);
+            }
         }
 
         private bool _verifyLanguage(string[] allWords)
