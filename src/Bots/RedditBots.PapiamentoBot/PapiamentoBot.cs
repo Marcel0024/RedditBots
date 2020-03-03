@@ -119,16 +119,14 @@ namespace RedditBots.PapiamentoBot
 
             var replyText = string.Format(_botSetting.DefaultReplyMessage, comment.Author, mistake.Wrong, mistake.Right);
 
-            _logger.LogInformation($"Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
-
             if (string.IsNullOrWhiteSpace(mistake.Tip))
             {
-                comment.Reply(replyText += _botSetting.MessageFooter);
+                replyText += $"\n\n **Tip:** {mistake.Tip}";
             }
-            else
-            {
-                comment.Reply(replyText + $" \\n\\n **Tip:** {mistake.Tip}" + _botSetting.MessageFooter);
-            }
+
+            _logger.LogInformation($"Writing reply to /u/{comment.Author} in /r/{comment.Subreddit} text: {replyText}");
+
+            comment.Reply(replyText += _botSetting.MessageFooter);
         }
 
         private bool _verifyLanguage(string[] allWords)
