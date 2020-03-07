@@ -6,7 +6,7 @@ using RedditBots.Framework;
 using RedditBots.HanzeMemesBot;
 using RedditBots.Libraries.Logging;
 using RedditBots.PapiamentoBot;
-using RedditBots.PriodicallyBot;
+using RedditBots.PeriodicallyBot;
 using System.IO;
 
 namespace RedditBots
@@ -34,7 +34,7 @@ namespace RedditBots
                 services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
 
                 services.AddHanzeMemesBot();
-                services.AddPriodicallyBot(hostContext);
+                services.AddPeriodicallyBot(hostContext);
                 services.AddPapiamentoBot(hostContext);
             });
     }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Reddit;
 using RedditBots.Framework;
-using RedditBots.PriodicallyBot.Settings;
+using RedditBots.PeriodicallyBot.Settings;
 using System;
 using System.Linq;
 using System.Text;
@@ -11,21 +11,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using BackgroundService = RedditBots.Framework.BackgroundService;
 
-namespace RedditBots.PriodicallyBot
+namespace RedditBots.PeriodicallyBot
 {
     /// <summary>
     /// Bot that runs once a day
     /// </summary>
-    public class PriodicallyBot : BackgroundService
+    public class PeriodicallyBot : BackgroundService
     {
-        private readonly ILogger<PriodicallyBot> _logger;
+        private readonly ILogger<PeriodicallyBot> _logger;
         private readonly IHostEnvironment _env;
         private readonly PeriodicallyBotSettings _periodicallyBotSettings;
         private readonly BotSetting _botSetting;
         private readonly RedditClient _redditClient;
 
-        public PriodicallyBot(
-            ILogger<PriodicallyBot> logger,
+        public PeriodicallyBot(
+            ILogger<PeriodicallyBot> logger,
             IHostEnvironment env,
             IOptions<MonitorSettings> monitorSettings,
             IOptions<PeriodicallyBotSettings> periodicallyBotSettings)
@@ -33,7 +33,7 @@ namespace RedditBots.PriodicallyBot
             _logger = logger;
             _env = env;
             _periodicallyBotSettings = periodicallyBotSettings.Value;
-            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PeriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
 
             _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
         }

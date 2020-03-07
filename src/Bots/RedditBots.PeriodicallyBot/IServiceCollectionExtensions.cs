@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RedditBots.PriodicallyBot.Settings;
+using RedditBots.PeriodicallyBot.Settings;
 
-namespace RedditBots.PriodicallyBot
+namespace RedditBots.PeriodicallyBot
 {
     public static class IServiceCollectionExtensions
     {
-        public static void AddPriodicallyBot(this IServiceCollection services, HostBuilderContext hostContext)
+        public static void AddPeriodicallyBot(this IServiceCollection services, HostBuilderContext hostContext)
         {
-            services.AddHostedService<PriodicallyBot>();
+            services.AddHostedService<PeriodicallyBot>();
 
             services.Configure<PeriodicallyBotSettings>(hostContext.Configuration.GetSection(nameof(PeriodicallyBotSettings)));
         }

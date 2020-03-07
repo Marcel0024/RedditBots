@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PapiamentoBot", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Framework", "src\Bots\RedditBots.Framework\RedditBots.Framework.csproj", "{D9DD604C-A876-408C-823E-43988D737C65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PriodicallyBot", "src\Bots\RedditBots.PriodicallyBot\RedditBots.PriodicallyBot.csproj", "{3477796D-4734-43BD-90C9-5F682782C174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PeriodicallyBot", "src\Bots\RedditBots.PeriodicallyBot\RedditBots.PeriodicallyBot.csproj", "{3477796D-4734-43BD-90C9-5F682782C174}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", "src\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj", "{B112C915-4F9F-46EA-9F69-3039128168C4}"
 EndProject

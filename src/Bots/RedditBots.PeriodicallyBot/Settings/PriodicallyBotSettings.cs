@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RedditBots.PriodicallyBot.Settings
+namespace RedditBots.PeriodicallyBot.Settings
 {
     public class PeriodicallyBotSettings
     {

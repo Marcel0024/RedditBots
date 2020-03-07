@@ -17,7 +17,7 @@
     <ProjectReference Include="..\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj" />
     <ProjectReference Include="..\Bots\RedditBots.Framework\RedditBots.Framework.csproj" />
     <ProjectReference Include="..\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj" />
-    <ProjectReference Include="..\Bots\RedditBots.PriodicallyBot\RedditBots.PriodicallyBot.csproj" />
+    <ProjectReference Include="..\Bots\RedditBots.PeriodicallyBot\RedditBots.PeriodicallyBot.csproj" />
     <ProjectReference Include="..\Bots\RedditBots.PapiamentoBot\RedditBots.PapiamentoBot.csproj" />
     <ProjectReference Include="..\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj" />
   </ItemGroup>
