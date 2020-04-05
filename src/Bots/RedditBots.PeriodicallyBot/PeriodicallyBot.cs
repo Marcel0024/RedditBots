@@ -54,7 +54,7 @@ namespace RedditBots.PeriodicallyBot
 
         private async Task _hibernateUntilNextRun(CancellationToken stoppingToken)
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
             var tomorrow = now.AddDays(1);
             var nextRun = tomorrow.Date.Add(_periodicallyBotSettings.TimeOfExecution);
 
@@ -72,7 +72,7 @@ namespace RedditBots.PeriodicallyBot
 
         private void _executeTasks()
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             foreach (var task in _periodicallyBotSettings.PeriodicTasks)
             {

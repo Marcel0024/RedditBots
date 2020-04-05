@@ -1,6 +1,6 @@
 ﻿{
   "PeriodicallyBotSettings": {
-    "TimeOfExecution": "08:00:00",
+    "TimeOfExecution": "06:00:00", // UTC
     "PeriodicTasks": [
       {
         "DayOfTheMonth": 1,
