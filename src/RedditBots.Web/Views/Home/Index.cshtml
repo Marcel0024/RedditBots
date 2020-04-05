@@ -10,8 +10,8 @@
 </head>
 <body class="pg-light">
     <div class="container-fluid">
-        <div class="row pt-4">
-            <div class="col-lg-3 col-12"></div>
+        <div class="row pt-2">
+            <div class="col-lg-3 col-12"> </div>
             <div class="col-lg-6 col-12">
                 <div class="alert alert-light-success" id="alert">
                     <div class="row d-flex justify-content-between align-content-center w-100">
@@ -19,7 +19,7 @@
                             <span class="flikker" id="flikker">Streaming logs... </span>
                         </div>
                         <div class="col-lg-4 col-12 text-center">
-                            <div class="col-12" style="display:none;">
+                            <div class="col-12">
                                 <span id="viewers">Viewers: </span>
                             </div>
                             <div class="col-12">
@@ -35,25 +35,56 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-12 w-100">
-                <div class="p-1 w-100">
-                    <div class="custom-control custom-toggle my-2">
-                        <input type="checkbox" id="notification" name="notification" class="custom-control-input">
-                        <label class="custom-control-label" for="notification">Receive desktop notification</label>
+            <div class="col-lg-3 col-12"> </div>
+        </div>
+        <div class="row pt-2 mb-2">
+            <div class="col-lg-3 col-12"> </div>
+            <div class="col-lg-6 col-12 w-100">
+                <div class="row">
+                    <div class="col-lg-8 col-12 border border-light rounded">
+                        <label class="font-weight-bold">Active bots</label>
+                        <div class="row" id="botSettings">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="custom-control custom-toggle my-2">
+                                    <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
+                                    <label class="custom-control-label" for="showdebug">HanzeMemesBot</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="custom-control custom-toggle my-2">
+                                    <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
+                                    <label class="custom-control-label" for="showdebug">Display debug logs</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="custom-control custom-toggle my-2">
+                                    <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
+                                    <label class="custom-control-label" for="showdebug">Display debug logs</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="custom-control custom-toggle my-2">
-                        <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
-                        <label class="custom-control-label" for="showdebug">Display debug logs</label>
+                    <div class="col-lg-4 col-12 border border-light rounded">
+                        <label class="font-weight-bold">Settings</label>
+                        <div class="custom-control custom-toggle my-2">
+                            <input type="checkbox" id="notification" name="notification" class="custom-control-input">
+                            <label class="custom-control-label" for="notification">Receive desktop notification</label>
+                        </div>
+                        <div class="custom-control custom-toggle my-2">
+                            <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
+                            <label class="custom-control-label" for="showdebug">Display debug logs</label>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-12"> </div>
         </div>
-        <div class="container" style="background-color:white">
-            <div class="chart border-bottom">
-                <canvas id="chart" width="800" height="100"></canvas>
-            </div>
-            <div id="messages" class="pt-2">
-            </div>
+    </div>
+    <div class="container" style="background-color:white">
+        <div class="chart border-bottom">
+            <canvas id="chart" width="800" height="100"></canvas>
+        </div>
+        <div id="messages" class="pt-2">
         </div>
     </div>
 

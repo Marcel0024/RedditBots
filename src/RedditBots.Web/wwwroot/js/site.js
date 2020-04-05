@@ -49,9 +49,22 @@
         document.getElementById('viewers').innerHTML = 'Viewers: ' + viewers;
     });
 
+    renderBotsSettings();
+
     connection.on("Log", (log) => {
         if (log.notify === true) {
             logs++;
+        }
+
+        var firstP = document.createElement('span');
+        var namearray = log.logName.split('.');
+        var botName = namearray[namearray.length - 1];
+
+        addBotIfNeeded(botName);
+        var botSetting = getBotSetting(botName);
+
+        if (!botSetting.displayLogs) {
+            return;
         }
 
         if (log.logLevel === 'Debug'
@@ -81,11 +94,7 @@
         var topDivInBody = document.createElement('div');
         topDivInBody.className = 'row d-flex justify-content-between';
 
-        var firstP = document.createElement('span');
-        var namearray = log.logName.split('.');
-        var botName = namearray[namearray.length - 1];
-
-        if (log.logName === "AzurePipeline") {
+        if (botName === "AzurePipeline") {
             firstP.innerHTML = 'Azure DevOps Pipeline';
         } else {
             firstP.innerHTML = `<a href='https://www.reddit.com/u/${botName}' target="_blank">/u/${botName}</a>`;
@@ -162,6 +171,103 @@
         }
     });
 
+    function getSettings() {
+        var settings = localStorage.getItem('botSettings');
+
+        if (settings === undefined || settings === null) {
+            settings = [];
+            saveSettings(settings);
+            return settings;
+        }
+
+        return JSON.parse(settings);
+    }
+
+    function saveSettings(settings) {
+        localStorage.setItem('botSettings', JSON.stringify(settings));
+    }
+
+    function getBotSetting(botName) {
+        var settings = getSettings();
+
+        return settings.find(b => b.name === botName);
+    }
+
+    function addBotIfNeeded(botName) {
+        var botSetting = getBotSetting(botName);
+
+        if (botSetting === undefined || botSetting === null) {
+            var settings = getSettings();
+            var bot = { name: botName, displayLogs: true };
+
+            settings.push(bot);
+            saveSettings(settings);
+            renderBotSetting(bot);
+        }
+    }
+
+    function renderBotsSettings() {
+        var settings = getSettings();
+
+        var element = document.getElementById('botSettings');
+        element.innerHTML = '';
+
+        settings.sort((a, b) => (a.name > b.name) ? 1 : -1).forEach(renderBotSetting);
+    }
+
+    function renderBotSetting(bot) {
+        var botRow = document.getElementById('botSettings');
+
+        var mainDiv = document.createElement('div');
+        mainDiv.className = 'col-lg-4 col-md-6 col-12';
+
+        var secondDiv = document.createElement('div');
+        secondDiv.className = 'custom-control custom-toggle my-2';
+
+        var id = bot.name + 'settings';
+
+        var input = document.createElement('input');
+        input.type = 'checkbox';
+        input.checked = bot.displayLogs;
+        input.id = id;
+        input.name = id;
+        input.setAttribute('data-botname', bot.name);
+        input.classList = 'custom-control-input';
+
+        input.addEventListener('change', updateBotSetting);
+
+        var label = document.createElement('label');
+        label.classList = 'custom-control-label';
+        label.setAttribute('for', id);
+        label.innerHTML = bot.name;
+
+        //  <div class="col-lg-4 col-md-6 col-12">
+        //      <div class="custom-control custom-toggle my-2">
+        //          <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
+        //          <label class="custom-control-label" for="showdebug">HanzeMemesBot</label>
+        //      </div>
+        //  </div>
+
+        secondDiv.appendChild(input);
+        secondDiv.appendChild(label);
+
+        mainDiv.appendChild(secondDiv);
+
+        botRow.appendChild(mainDiv);
+    }
+
+    function updateBotSetting(event) {
+        var botName = event.srcElement.getAttribute('data-botname');
+        var settings = getSettings();
+
+        for (var i in settings) {
+            if (settings[i].name === botName) {
+                settings[i].displayLogs = event.srcElement.checked;
+            }
+        }
+
+        saveSettings(settings);
+    }
 
     var logs = 0;
     var history = [];
