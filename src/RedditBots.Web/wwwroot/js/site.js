@@ -1,7 +1,4 @@
 ﻿(function abc() {
-    var notify = false;
-    var showDebug = false;
-
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/loghub")
         .withAutomaticReconnect()
@@ -49,6 +46,7 @@
         document.getElementById('viewers').innerHTML = 'Viewers: ' + viewers;
     });
 
+    setUserSettings();
     renderBotsSettings();
 
     connection.on("Log", (log) => {
@@ -61,6 +59,7 @@
         var botName = namearray[namearray.length - 1];
 
         addBotIfNeeded(botName);
+        var settings = getSettings();
         var botSetting = getBotSetting(botName);
 
         if (!botSetting.displayLogs) {
@@ -68,7 +67,7 @@
         }
 
         if (log.logLevel === 'Debug'
-            && !showDebug) {
+            && !settings.showDebugLogs) {
             return;
         }
 
@@ -132,7 +131,7 @@
             }
         }
 
-        if (notify === true
+        if (settings.receiveDesktopNotification === true
             && log.notify === true) {
             if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
                 notifyMe(log);
@@ -151,31 +150,79 @@
     }
 
     document.getElementById("notification").addEventListener("change", (event) => {
-        notify = event.srcElement.checked;
+        var onoff = event.srcElement.checked;
 
         if (Notification.permission !== "denied") {
-            Notification.requestPermission();
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "denied") {
+                    var settings = getSettings();
+                    settings.receiveDesktopNotification = false;
+                    saveSettings(settings);
+
+                    document.getElementById('notification').checked = false;
+
+                    return;
+                }
+            });
         }
+        else if (Notification.permission === "denied" && event.srcElement.checked) {
+            alert("Allow Notifications on this site to activate this function");
+            onoff = false;
+        }
+
+        var settings = getSettings();
+        settings.receiveDesktopNotification = onoff;
+        saveSettings(settings);
+
+        document.getElementById('notification').checked = onoff;
     });
 
-    if (Notification.permission === "granted") {
-        notify = true;
-        document.getElementById('notification').checked = true;
-    }
-
     document.getElementById("showdebug").addEventListener("change", (event) => {
-        showDebug = event.srcElement.checked;
+        var settings = getSettings();
+        settings.showDebugLogs = event.srcElement.checked;
+        saveSettings(settings);
 
-        if (!showDebug) {
+        if (!settings.showDebugLogs) {
             document.querySelectorAll("[data-log='Debug']").forEach(e => e.parentNode.removeChild(e));
         }
     });
 
+    $('#settingsRow').on("show.bs.collapse", (event) => {
+        var settings = getSettings();
+        settings.showSettings = true;
+        saveSettings(settings);
+
+        document.getElementById('togglesettingsbutton').innerHTML = 'Hide advanced settings';
+    });
+
+    $('#settingsRow').on("hide.bs.collapse", (event) => {
+        var settings = getSettings();
+        settings.showSettings = false;
+        saveSettings(settings);
+
+        document.getElementById('togglesettingsbutton').innerHTML = 'Show advanced settings';
+    });
+
+    function setUserSettings() {
+        var settings = getSettings();
+
+        document.getElementById('showdebug').checked = settings.showDebugLogs;
+        document.getElementById('notification').checked = settings.receiveDesktopNotification;
+
+        if (settings.showSettings) {
+            $('#settingsRow').collapse('show');
+            document.getElementById('togglesettingsbutton').innerHTML = 'Hide advanced settings';
+        } else {
+            $('#settingsRow').collapse('hide');
+            document.getElementById('togglesettingsbutton').innerHTML = 'Show advanced settings';
+        }
+    }
+
     function getSettings() {
-        var settings = localStorage.getItem('botSettings');
+        var settings = localStorage.getItem('usersettings');
 
         if (settings === undefined || settings === null) {
-            settings = [];
+            settings = { receiveDesktopNotification: false, showDebugLogs: false, showSettings: true, bots: [] };
             saveSettings(settings);
             return settings;
         }
@@ -184,13 +231,13 @@
     }
 
     function saveSettings(settings) {
-        localStorage.setItem('botSettings', JSON.stringify(settings));
+        localStorage.setItem('usersettings', JSON.stringify(settings));
     }
 
     function getBotSetting(botName) {
         var settings = getSettings();
 
-        return settings.find(b => b.name === botName);
+        return settings.bots.find(b => b.name === botName);
     }
 
     function addBotIfNeeded(botName) {
@@ -200,7 +247,7 @@
             var settings = getSettings();
             var bot = { name: botName, displayLogs: true };
 
-            settings.push(bot);
+            settings.bots.push(bot);
             saveSettings(settings);
             renderBotSetting(bot);
         }
@@ -212,14 +259,14 @@
         var element = document.getElementById('botSettings');
         element.innerHTML = '';
 
-        settings.sort((a, b) => (a.name > b.name) ? 1 : -1).forEach(renderBotSetting);
+        settings.bots.sort((a, b) => (a.name > b.name) ? 1 : -1).forEach(renderBotSetting);
     }
 
     function renderBotSetting(bot) {
         var botRow = document.getElementById('botSettings');
 
         var mainDiv = document.createElement('div');
-        mainDiv.className = 'col-lg-4 col-md-6 col-12';
+        mainDiv.className = 'col-lg-4 col-6';
 
         var secondDiv = document.createElement('div');
         secondDiv.className = 'custom-control custom-toggle my-2';
@@ -241,13 +288,6 @@
         label.setAttribute('for', id);
         label.innerHTML = bot.name;
 
-        //  <div class="col-lg-4 col-md-6 col-12">
-        //      <div class="custom-control custom-toggle my-2">
-        //          <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
-        //          <label class="custom-control-label" for="showdebug">HanzeMemesBot</label>
-        //      </div>
-        //  </div>
-
         secondDiv.appendChild(input);
         secondDiv.appendChild(label);
 
@@ -260,9 +300,9 @@
         var botName = event.srcElement.getAttribute('data-botname');
         var settings = getSettings();
 
-        for (var i in settings) {
-            if (settings[i].name === botName) {
-                settings[i].displayLogs = event.srcElement.checked;
+        for (var i in settings.bots) {
+            if (settings.bots[i].name === botName) {
+                settings.bots[i].displayLogs = event.srcElement.checked;
             }
         }
 
