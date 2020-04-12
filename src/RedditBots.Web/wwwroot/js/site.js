@@ -49,6 +49,8 @@
     setUserSettings();
     renderBotsSettings();
 
+    // removeOldBots();
+
     connection.on("Log", (log) => {
         if (log.notify === true) {
             logs++;
@@ -57,23 +59,29 @@
         var firstP = document.createElement('span');
         var namearray = log.logName.split('.');
         var botName = namearray[namearray.length - 1];
+        var isVisible = true;
 
         addBotIfNeeded(botName);
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
         var botSetting = getBotSetting(botName);
 
         if (!botSetting.displayLogs) {
-            return;
+            isVisible = false;
         }
 
         if (log.logLevel === 'Debug'
             && !settings.showDebugLogs) {
-            return;
+            isVisible = false;
         }
 
         var topdiv = document.createElement('div');
         topdiv.className = 'p-1';
         topdiv.setAttribute('data-log', log.logLevel);
+        topdiv.setAttribute('data-botname', botName);
+
+        if (!isVisible) {
+            topdiv.className = topdiv.className + ' d-none';
+        }
 
         var borderClass = '';
         if (log.logLevel === 'Information') {
@@ -93,8 +101,8 @@
         var topDivInBody = document.createElement('div');
         topDivInBody.className = 'row d-flex justify-content-between';
 
-        if (botName === "AzurePipeline") {
-            firstP.innerHTML = 'Azure DevOps Pipeline';
+        if (botName === "Azure (Not a bot)") {
+            firstP.innerHTML = 'Azure (Not a bot) Pipeline';
         } else {
             firstP.innerHTML = `<a href='https://www.reddit.com/u/${botName}' target="_blank">/u/${botName}</a>`;
         }
@@ -123,17 +131,18 @@
         var messages = document.getElementById('messages');
         messages.prepend(topdiv);
 
-        var logcards = document.querySelectorAll('[data-log]');
+        var logcards = document.querySelectorAll("[data-log='Debug']");
 
-        if (logcards.length >= 50) {
-            for (var i = 50; i < logcards.length; i++) {
+        if (logcards.length >= 200) {
+            for (var i = 200; i < logcards.length; i++) {
                 logcards[0].parentNode.removeChild(logcards[i]);
             }
         }
 
         if (settings.receiveDesktopNotification === true
+            && botSetting.displayLogs
             && log.notify === true) {
-            if (log.logLevel === 'Information' || log.logLevel === 'Warning') {
+            if (log.logLevel !== 'Debug') {
                 notifyMe(log);
             }
         }
@@ -155,13 +164,11 @@
         if (Notification.permission !== "denied") {
             Notification.requestPermission().then(function (permission) {
                 if (permission === "denied") {
-                    var settings = getSettings();
+                    var settings = getOrCreateUserSettings();
                     settings.receiveDesktopNotification = false;
                     saveSettings(settings);
 
                     document.getElementById('notification').checked = false;
-
-                    return;
                 }
             });
         }
@@ -170,7 +177,7 @@
             onoff = false;
         }
 
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
         settings.receiveDesktopNotification = onoff;
         saveSettings(settings);
 
@@ -178,17 +185,20 @@
     });
 
     document.getElementById("showdebug").addEventListener("change", (event) => {
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
         settings.showDebugLogs = event.srcElement.checked;
         saveSettings(settings);
 
         if (!settings.showDebugLogs) {
-            document.querySelectorAll("[data-log='Debug']").forEach(e => e.parentNode.removeChild(e));
+            document.querySelectorAll("[data-log='Debug']").forEach(e => e.className = e.className + " d-none");
+        }
+        else {
+            document.querySelectorAll("[data-log='Debug']").forEach(e => e.className = e.className.replace("d-none", ""));
         }
     });
 
     $('#settingsRow').on("show.bs.collapse", (event) => {
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
         settings.showSettings = true;
         saveSettings(settings);
 
@@ -196,7 +206,7 @@
     });
 
     $('#settingsRow').on("hide.bs.collapse", (event) => {
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
         settings.showSettings = false;
         saveSettings(settings);
 
@@ -204,7 +214,7 @@
     });
 
     function setUserSettings() {
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
 
         document.getElementById('showdebug').checked = settings.showDebugLogs;
         document.getElementById('notification').checked = settings.receiveDesktopNotification;
@@ -218,11 +228,11 @@
         }
     }
 
-    function getSettings() {
+    function getOrCreateUserSettings() {
         var settings = localStorage.getItem('usersettings');
 
         if (settings === undefined || settings === null) {
-            settings = { receiveDesktopNotification: false, showDebugLogs: false, showSettings: true, bots: [] };
+            settings = { receiveDesktopNotification: false, showDebugLogs: false, showSettings: false, bots: [] };
             saveSettings(settings);
             return settings;
         }
@@ -235,17 +245,26 @@
     }
 
     function getBotSetting(botName) {
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
+        var botSetting = null;
 
-        return settings.bots.find(b => b.name === botName);
+        for (var i in settings.bots) {
+            if (settings.bots[i].name === botName) {
+                settings.bots[i].dateLastSeen = new Date();
+                botSetting = settings.bots[i];
+                saveSettings(settings);
+
+                return botSetting;
+            }
+        }
     }
 
     function addBotIfNeeded(botName) {
         var botSetting = getBotSetting(botName);
 
         if (botSetting === undefined || botSetting === null) {
-            var settings = getSettings();
-            var bot = { name: botName, displayLogs: true };
+            var settings = getOrCreateUserSettings();
+            var bot = { name: botName, displayLogs: true, dateLastSeen: new Date() };
 
             settings.bots.push(bot);
             saveSettings(settings);
@@ -254,19 +273,19 @@
     }
 
     function renderBotsSettings() {
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
 
         var element = document.getElementById('botSettings');
         element.innerHTML = '';
 
-        settings.bots.sort((a, b) => (a.name > b.name) ? 1 : -1).forEach(renderBotSetting);
+        settings.bots.sort((a, b) => (a.color > b.color) ? 1 : -1).forEach(renderBotSetting);
     }
 
     function renderBotSetting(bot) {
         var botRow = document.getElementById('botSettings');
 
         var mainDiv = document.createElement('div');
-        mainDiv.className = 'col-lg-4 col-6';
+        mainDiv.className = 'col-xl-4 col-6';
 
         var secondDiv = document.createElement('div');
         secondDiv.className = 'custom-control custom-toggle my-2';
@@ -298,13 +317,29 @@
 
     function updateBotSetting(event) {
         var botName = event.srcElement.getAttribute('data-botname');
-        var settings = getSettings();
+        var settings = getOrCreateUserSettings();
 
         for (var i in settings.bots) {
             if (settings.bots[i].name === botName) {
                 settings.bots[i].displayLogs = event.srcElement.checked;
             }
         }
+
+        saveSettings(settings);
+
+        if (!event.srcElement.checked) {
+            document.querySelectorAll(`[data-botname='${botName}']`).forEach(e => e.className = e.className + " d-none");
+        }
+        else {
+            document.querySelectorAll(`[data-botname='${botName}']`).forEach(e => e.className = e.className.replace("d-none", ""));
+        }
+    }
+
+    function removeOldBots() {
+        var settings = getOrCreateUserSettings();
+        var dateNow = new Date();
+
+        settings.bots = settings.bots.filter(function (bot) { return dateNow.getTime() - new Date(bot.dateLastSeen).getTime() < 1000 * 60 * 60 * 24 * 30; });  // older than 30 days
 
         saveSettings(settings);
     }
@@ -332,13 +367,13 @@
         options: {
             scales: {
                 xAxes: [{
-                    type: 'realtime',  
-                    realtime: {        
-                        duration: 30000,  
-                        refresh: 1000,     
-                        delay: 1000,    
-                        pause: false,      
-                        ttl: undefined,   
+                    type: 'realtime',
+                    realtime: {
+                        duration: 30000,
+                        refresh: 1000,
+                        delay: 1000,
+                        pause: false,
+                        ttl: undefined,
 
                         onRefresh: function (chart) {
                             var data = history.shift();
@@ -357,8 +392,8 @@
                 }]
             },
             plugins: {
-                streaming: {           
-                    frameRate: 30 
+                streaming: {
+                    frameRate: 30
                 }
             }
         }

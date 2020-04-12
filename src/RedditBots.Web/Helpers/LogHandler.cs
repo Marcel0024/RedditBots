@@ -4,13 +4,14 @@ using RedditBots.Web.Hubs;
 using RedditBots.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RedditBots.Web.Helpers
 {
     public class LogHandler
     {
-        private const int _totalLogsHistory = 50;
+        private const int _totalLogsHistory = 2000;
         private readonly IHubContext<LogHub, ILogClient> _hubContext;
 
         public DateTime? LastLogDateTime { get; set; }
@@ -31,10 +32,15 @@ namespace RedditBots.Web.Helpers
 
             if (LastLogs.Count == _totalLogsHistory)
             {
-                LastLogs.RemoveAt(0);
+                var lastLog = LastLogs.FirstOrDefault(ll => ll.LogLevel == LogLevel.Debug.ToString());
+
+                if (lastLog != null)
+                {
+                    LastLogs.Remove(lastLog);
+                }
             }
 
-            if (Enum.Parse<LogLevel>(entry.LogLevel) > LogLevel.Debug)
+            if (Enum.Parse<LogLevel>(entry.LogLevel) >= LogLevel.Debug)
             {
                 entry.Notify = false;
                 LastLogs.Add(entry);

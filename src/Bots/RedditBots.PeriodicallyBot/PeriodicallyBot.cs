@@ -88,7 +88,7 @@ namespace RedditBots.PeriodicallyBot
         {
             var posts = _redditClient.Subreddit("CSharp").Posts.Hot;
             var post = posts.FirstOrDefault(p => p.Author == "AutoModerator"
-                && p.Title.Contains($"[{now.ToString("MMMM yyyy")}]")
+                && p.Title.Contains($"[{now:MMMM yyyy}]")
                 && p.Title.Contains("your side projects!"));
 
             if (post == null)
