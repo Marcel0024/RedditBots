@@ -110,7 +110,7 @@ namespace RedditBots.PapiamentoBot
                 return;
             }
 
-            _logger.LogInformation($"Verified papiamento: \"{comment.Body}\"");
+            _logger.LogInformation($"Verified papiamento in /r/{comment.Subreddit}: \"{comment.Body}\"");
 
             if (!_containsGrammarMistake(allWords, out Word mistake))
             {
