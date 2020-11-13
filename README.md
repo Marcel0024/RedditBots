@@ -1,4 +1,3 @@
-![](https://github.com/Marcel0024/RedditBots/workflows/build/badge.svg)
 ![](https://dev.azure.com/marcelcroes24/RedditBots/_apis/build/status/docker%20build)
 
 
