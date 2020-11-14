@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/runtime:5.0.0-buster-slim-arm32v7 AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["src/RedditBots.Console/RedditBots.Console.csproj", "src/RedditBots.Console/"]
 COPY ["src/Bots/RedditBots.Framework/RedditBots.Framework.csproj", "src/Bots/RedditBots.Framework/"]
