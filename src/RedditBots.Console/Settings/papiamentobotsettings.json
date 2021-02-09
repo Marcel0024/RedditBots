@@ -105,7 +105,7 @@
         "gravity": 10,
         "wrong": "mariku",
         "right": "marico",
-        "Tip":  "Nos no ta yui di Korsou, ban serio si."
+        "Tip": "Nos no ta yui di Korsou, ban serio si."
       },
       {
         "gravity": 20,
@@ -220,6 +220,21 @@
         "wrong": "corsou",
         "right": "Curaçao",
         "Tip": "Riba PC bo por primi 'ALT' + 0231 pa usa ç."
+      },
+      {
+        "gravity": 230,
+        "wrong": "baka",
+        "right": "baca"
+      },
+      {
+        "gravity": 240,
+        "wrong": "kunuku",
+        "right": "cunucu"
+      },
+      {
+        "gravity": 250,
+        "wrong": "kunucu",
+        "right": "cunucu"
       }
     ]
   }

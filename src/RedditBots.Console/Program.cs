@@ -34,10 +34,10 @@ namespace RedditBots
             {
                 services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
 
-                //services.AddHanzeMemesBot();
-                //services.AddPeriodicallyBot(hostContext);
-                //services.AddPapiamentoBot(hostContext);
-                ////services.AddCheerfulBot();
+                services.AddHanzeMemesBot();
+                services.AddPeriodicallyBot(hostContext);
+                services.AddPapiamentoBot(hostContext);
+                //services.AddCheerfulBot();
 
                 services.AddFFDiscordBot();
             });
