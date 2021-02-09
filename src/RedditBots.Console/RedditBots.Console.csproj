@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bots\DiscordBots.FFBot\DiscordBots.FFBot.csproj" />
     <ProjectReference Include="..\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj" />
     <ProjectReference Include="..\Bots\RedditBots.Framework\RedditBots.Framework.csproj" />
     <ProjectReference Include="..\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj" />

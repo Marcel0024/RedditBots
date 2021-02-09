@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PeriodicallyBot"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", "src\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj", "{B112C915-4F9F-46EA-9F69-3039128168C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedditBots.CheerfulBot", "src\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.CheerfulBot", "src\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBots.FFBot", "src\Bots\DiscordBots.FFBot\DiscordBots.FFBot.csproj", "{C52B4371-9986-4566-B6DB-F2BB057626EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52B4371-9986-4566-B6DB-F2BB057626EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52B4371-9986-4566-B6DB-F2BB057626EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52B4371-9986-4566-B6DB-F2BB057626EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52B4371-9986-4566-B6DB-F2BB057626EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{3477796D-4734-43BD-90C9-5F682782C174} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
 		{B112C915-4F9F-46EA-9F69-3039128168C4} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
+		{C52B4371-9986-4566-B6DB-F2BB057626EE} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55DF7FD0-1173-436B-A083-BA4573F2777A}

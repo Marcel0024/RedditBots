@@ -55,7 +55,7 @@ namespace RedditBots.PapiamentoBot
             {
                 var replyText = string.Format(_botSetting.DefaultReplyMessage, message.Author.Mention, response.Mistake.Wrong, response.Mistake.Right);
 
-                await message.Channel.SendMessageAsync(replyText);
+                await message.Channel.SendMessageAsync(replyText, messageReference: new MessageReference(message.Id));
             }
         }
     }

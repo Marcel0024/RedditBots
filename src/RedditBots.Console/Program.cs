@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DiscordBots.FFBot;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RedditBots.CheerfulBot;
@@ -33,10 +34,12 @@ namespace RedditBots
             {
                 services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
 
-                services.AddHanzeMemesBot();
-                services.AddPeriodicallyBot(hostContext);
-                services.AddPapiamentoBot(hostContext);
-                //services.AddCheerfulBot();
+                //services.AddHanzeMemesBot();
+                //services.AddPeriodicallyBot(hostContext);
+                //services.AddPapiamentoBot(hostContext);
+                ////services.AddCheerfulBot();
+
+                services.AddFFDiscordBot();
             });
     }
 }
