@@ -74,7 +74,7 @@ namespace RedditBots.PapiamentoBot
 
             var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
 
-            Logger.LogDebug($"Papiamento detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
+            Logger.LogDebug($"PapiamentoBot detected with {percentageRounded}% of {allWords.Count()} words, checking for grammar mistakes");
 
             return true;
         }

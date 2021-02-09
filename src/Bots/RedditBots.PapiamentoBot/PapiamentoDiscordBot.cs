@@ -6,9 +6,6 @@ using Microsoft.Extensions.Options;
 using RedditBots.Framework;
 using RedditBots.PapiamentoBot.Settings;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +17,7 @@ namespace RedditBots.PapiamentoBot
         private readonly BotSetting _botSetting;
 
         public PapiamentoDiscordBot(
-                ILogger<AbstractPapiamentoBot> logger,
+                ILogger<PapiamentoDiscordBot> logger,
                 IHostEnvironment env,
                 IOptions<MonitorSettings> monitorSettings,
                 IOptions<PapiamentoBotSettings> papiamentoBotSettings)
@@ -56,7 +53,7 @@ namespace RedditBots.PapiamentoBot
 
             if (response.MistakeFound)
             {
-                var replyText = string.Format(_botSetting.DefaultReplyMessage, message.Author, response.Mistake.Wrong, response.Mistake.Right);
+                var replyText = string.Format(_botSetting.DefaultReplyMessage, message.Author.Mention, response.Mistake.Wrong, response.Mistake.Right);
 
                 await message.Channel.SendMessageAsync(replyText);
             }

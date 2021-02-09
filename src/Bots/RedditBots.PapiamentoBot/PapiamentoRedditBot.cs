@@ -18,7 +18,7 @@ namespace RedditBots.PapiamentoBot
         private readonly BotSetting _botSetting;
 
         public PapiamentoRedditBot(
-                ILogger<AbstractPapiamentoBot> logger,
+                ILogger<PapiamentoRedditBot> logger,
                 IHostEnvironment env,
                 IOptions<MonitorSettings> monitorSettings,
                 IOptions<PapiamentoBotSettings> papiamentoBotSettings)
