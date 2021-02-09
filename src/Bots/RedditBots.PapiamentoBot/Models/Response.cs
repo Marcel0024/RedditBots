@@ -12,6 +12,7 @@ namespace RedditBots.PapiamentoBot.Models
         public static Response Empty() => new Response();
 
         public bool MistakeFound { get; set; }
+
         public Word Mistake { get; set; }
     }
 }
