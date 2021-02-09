@@ -51,7 +51,12 @@ namespace RedditBots.PapiamentoBot
                 From = $"discord channel {message.Channel.Name}"
             });
 
-            if (response.MistakeFound)
+            if (message.Content.Equals("wak e baka", StringComparison.OrdinalIgnoreCase))
+            {
+                await message.Channel.SendMessageAsync($"Hey {message.Author.Mention}, no papia di bo mama asina", messageReference: new MessageReference(message.Id));
+            }
+
+            else if (response.MistakeFound)
             {
                 var replyText = string.Format(_botSetting.DefaultReplyMessage, message.Author.Mention, response.Mistake.Wrong, response.Mistake.Right);
 
