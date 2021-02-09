@@ -71,7 +71,7 @@ namespace RedditBots.PapiamentoBot
 
         private void _handleComment(Comment comment)
         {
-            if (string.Equals(comment.Author, _botSetting.BotName, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(comment.Author, "PapiamentoBot", StringComparison.OrdinalIgnoreCase))
             {
                 // TODO check for compliment e.g. 'Good bot' under a comment by the bot
 
