@@ -9,7 +9,8 @@ namespace RedditBots.PapiamentoBot
     {
         public static void AddPapiamentoBot(this IServiceCollection services, HostBuilderContext hostContext)
         {
-            services.AddHostedService<PapiamentoBot>();
+            services.AddHostedService<PapiamentoRedditBot>();
+            services.AddHostedService<PapiamentoDiscordBot>();
 
             services.Configure<PapiamentoBotSettings>(hostContext.Configuration.GetSection(nameof(PapiamentoBotSettings)));
         }
