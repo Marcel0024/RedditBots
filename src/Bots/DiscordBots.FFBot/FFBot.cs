@@ -62,7 +62,7 @@ namespace DiscordBots.FFBot
                 await message.Channel.SendMessageAsync("ook Thijs", messageReference: new MessageReference(message.Id));
             }
 
-            else if (_random.Next(0, 200) < 1)
+            else if (_random.Next(0, 500) < 1)
             {
                 var random = _random.Next(0, 5);
 
