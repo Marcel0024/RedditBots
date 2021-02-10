@@ -64,7 +64,7 @@ namespace DiscordBots.FFBot
 
             else if (_random.Next(0, 500) < 1)
             {
-                var random = _random.Next(0, 5);
+                var random = _random.Next(0, 7);
 
                 if (message.Content.StartsWith("pls porn", StringComparison.OrdinalIgnoreCase))
                 {
@@ -89,6 +89,10 @@ namespace DiscordBots.FFBot
                 else if (random == 4)
                 {
                     await message.Channel.SendMessageAsync($"{message.Author.Mention}, vergeet je uren niet bij te werken op devops!", messageReference: new MessageReference(message.Id));
+                }
+                else if (random == 5)
+                {
+                    await message.Channel.SendMessageAsync($"Fun fact: Klantentest is niet een officiele term.");
                 }
                 else
                 {
