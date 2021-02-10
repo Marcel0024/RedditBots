@@ -62,7 +62,7 @@ namespace DiscordBots.FFBot
                 await message.Channel.SendMessageAsync("ook Thijs", messageReference: new MessageReference(message.Id));
             }
 
-            else if (_random.Next(0, 100) < 5)
+            else if (_random.Next(0, 100) < 2)
             {
                 await message.Channel.SendMessageAsync($"GVD {message.Author.Mention}, ga eens aan het werk", messageReference: new MessageReference(message.Id));
             }
