@@ -62,7 +62,7 @@ namespace DiscordBots.FFBot
                 await message.Channel.SendMessageAsync("ook Thijs", messageReference: new MessageReference(message.Id));
             }
 
-            else if (_random.Next(0, 1000) < 7)
+            else if (_random.Next(0, 200) < 1)
             {
                 var random = _random.Next(0, 5);
 
@@ -81,6 +81,10 @@ namespace DiscordBots.FFBot
                 else if (random == 2)
                 {
                     await message.Channel.SendMessageAsync($"{message.Author.Mention}, onthou we hebben een staging omgeving niet voor niks.", messageReference: new MessageReference(message.Id));
+                }
+                else if (random == 3)
+                {
+                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, het is normaal om huilend op de fiets naar huis te gaan.", messageReference: new MessageReference(message.Id));
                 }
                 else
                 {
