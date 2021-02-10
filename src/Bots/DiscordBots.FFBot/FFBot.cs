@@ -64,7 +64,20 @@ namespace DiscordBots.FFBot
 
             else if (_random.Next(0, 100) < 2)
             {
-                await message.Channel.SendMessageAsync($"GVD {message.Author.Mention}, ga eens aan het werk", messageReference: new MessageReference(message.Id));
+                var random = _random.Next(0, 4);
+
+                if (message.Content.StartsWith("pls porn", StringComparison.OrdinalIgnoreCase))
+                {
+                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, Melvin vroeg als je hiermee kan stoppen", messageReference: new MessageReference(message.Id));
+                }
+                else if (random == 1)
+                {
+                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, iemand vroeg waarom je altijd kut code schrijft", messageReference: new MessageReference(message.Id));
+                }
+                else
+                {
+                    await message.Channel.SendMessageAsync($"GVD {message.Author.Mention}, ga eens aan het werk", messageReference: new MessageReference(message.Id));
+                }
             }
         }
     }
