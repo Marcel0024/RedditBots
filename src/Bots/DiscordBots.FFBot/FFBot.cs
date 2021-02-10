@@ -98,6 +98,10 @@ namespace DiscordBots.FFBot
                 {
                     await message.Channel.SendMessageAsync($"Fun fact: Je mag altijd gaan binden.");
                 }
+                else if (random == 7)
+                {
+                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, waarom komt jou naam naar boven bij elke git blame?", messageReference: new MessageReference(message.Id));
+                }
                 else
                 {
                     await message.Channel.SendMessageAsync($"GVD {message.Author.Mention}, ga eens aan het werk", messageReference: new MessageReference(message.Id));
