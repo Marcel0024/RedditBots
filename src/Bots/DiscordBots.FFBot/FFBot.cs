@@ -86,6 +86,10 @@ namespace DiscordBots.FFBot
                 {
                     await message.Channel.SendMessageAsync($"{message.Author.Mention}, het is normaal om huilend op de fiets naar huis te gaan.", messageReference: new MessageReference(message.Id));
                 }
+                else if (random == 4)
+                {
+                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, vergeet je uren niet bij te werken op devops!", messageReference: new MessageReference(message.Id));
+                }
                 else
                 {
                     await message.Channel.SendMessageAsync($"GVD {message.Author.Mention}, ga eens aan het werk", messageReference: new MessageReference(message.Id));
