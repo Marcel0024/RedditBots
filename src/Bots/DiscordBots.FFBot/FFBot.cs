@@ -15,20 +15,40 @@ namespace DiscordBots.FFBot
     {
         private static DiscordSocketClient _discordClient;
         private readonly BotSetting _botSetting;
-        private ILogger<FFBot> _logger;
+        private readonly ILogger<FFBot> _logger;
         private readonly IHostEnvironment _env;
 
         private readonly Random _random = new Random();
 
+        private readonly string[] _randomMessages = new[]
+        {
+            "{0}, iemand vroeg waarom je altijd kut code schrijft",
+            "Fun fact: Workitems verwijderen is verboden",
+            "{0}, onthou we hebben niet voor niks een staging omgeving",
+            "{0}, het is normaal om huilend op de fiets naar huis te gaan",
+            "{0}, vergeet je uren niet bij te werken op devops!",
+            "Bruinester = racist",
+            "Fun fact: Klantentest is niet een officiele term",
+            "Fun fact: Je mag altijd gaan binden.",
+            "{0}, waarom komt jou naam naar boven bij elke git blame?",
+            "GVD {0}, ga eens aan het werk",
+            "GVD {0}, ga eens aan het werk",
+            "GVD {0}, ga eens aan het werk",
+            "Wat snap je nou weer niet {0}",
+            "Ik zie dat je 5 keer 'hoe werkt een array' heb gegoogled, dit kan ECHT niet",
+            "Fact: Gezelligheid op kantoor is verboden",
+            "Fact: Je moet altijd 110% geven",
+            "Fact: Fotofabriek heeft de beste IT team van Groningen."
+        };
+
         public FFBot(
-                ILogger<FFBot> logger,
-                IHostEnvironment env,
-                IOptions<MonitorSettings> monitorSettings)
+            ILogger<FFBot> logger,
+            IHostEnvironment env,
+            IOptions<MonitorSettings> monitorSettings)
         {
             _logger = logger;
             _env = env;
-            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(FFBot)) ?? throw new ArgumentNullException("No bot settings found");
-
+            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(FFBot));
             _discordClient = new DiscordSocketClient();
         }
 
@@ -42,69 +62,66 @@ namespace DiscordBots.FFBot
 
         private async Task C_NewCommentsUpdated(SocketMessage message)
         {
+            if (string.IsNullOrWhiteSpace(message.Content))
+            {
+                return;
+            }
+
             if (message.Author.IsBot)
             {
                 return;
             }
 
-            if (message.Content == "atlas-weekly")
+            var commands = message.Content.Split(' ');
+
+            if (commands.Length > 1 && commands[0].StartsWith("ff", StringComparison.OrdinalIgnoreCase))
             {
-                await message.Channel.SendMessageAsync("Atlas van de week is Raymond Benjamins", messageReference: new MessageReference(message.Id));
+                if (commands[1] == "atlas")
+                {
+                    await message.Channel.SendMessageAsync("Atlas van de week is Raymond Benjamins", messageReference: new MessageReference(message.Id));
+                }
+                else if (commands[1] == "help")
+                {
+                    if (_random.Next(0, 5) < 1)
+                    {
+                        await message.Channel.SendMessageAsync($"Dit bot doet niks, zoals jij, {message.Author.Mention}", messageReference: new MessageReference(message.Id));
+                    }
+                    else
+                    {
+                        var embedBuild = new EmbedBuilder
+                        {
+                            Title = "Commands",
+                            Footer = new EmbedFooterBuilder
+                            {
+                                Text = "Dit bot is niet van Fotofabriek"
+                            }
+                        };
+
+                        embedBuild.AddField("Atlas van de week", "ff atlas");
+
+                        await message.Channel.SendMessageAsync(embed: embedBuild.Build());
+                    }
+                }
             }
 
-            else if (message.Content == "atlas-monthly")
+            else if (_random.Next(0, 200) < 1)
             {
-                await message.Channel.SendMessageAsync("Atlas van de week is Thijs", messageReference: new MessageReference(message.Id));
-            }
-
-            else if (message.Content == "atlas-yearly")
-            {
-                await message.Channel.SendMessageAsync("ook Thijs", messageReference: new MessageReference(message.Id));
-            }
-
-            else if (_random.Next(0, 250) < 1)
-            {
-                var random = _random.Next(0, 10);
-
                 if (message.Content.StartsWith("pls porn", StringComparison.OrdinalIgnoreCase))
                 {
                     await message.Channel.SendMessageAsync($"{message.Author.Mention}, Melvin vroeg als je hiermee kan stoppen", messageReference: new MessageReference(message.Id));
                 }
-                else if (random == 0)
-                {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, iemand vroeg waarom je altijd kut code schrijft", messageReference: new MessageReference(message.Id));
-                }
-                else if (random == 1)
-                {
-                    await message.Channel.SendMessageAsync($"Fun fact: Workitems verwijderen is verboden");
-                }
-                else if (random == 2)
-                {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, onthou we hebben een staging omgeving niet voor niks.", messageReference: new MessageReference(message.Id));
-                }
-                else if (random == 3)
-                {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, het is normaal om huilend op de fiets naar huis te gaan.", messageReference: new MessageReference(message.Id));
-                }
-                else if (random == 4)
-                {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, vergeet je uren niet bij te werken op devops!", messageReference: new MessageReference(message.Id));
-                }
-                else if (random == 5)
-                {
-                    await message.Channel.SendMessageAsync($"Fun fact: Klantentest is niet een officiele term.");
-                }
-                else if (random == 6)
-                {
-                    await message.Channel.SendMessageAsync($"Fun fact: Je mag altijd gaan binden.");
-                }
-                else if (random == 7)
-                {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, waarom komt jou naam naar boven bij elke git blame?", messageReference: new MessageReference(message.Id));
-                }
                 else
                 {
-                    await message.Channel.SendMessageAsync($"GVD {message.Author.Mention}, ga eens aan het werk", messageReference: new MessageReference(message.Id));
+                    var random = _random.Next(0, _randomMessages.Length);
+                    var replyMessage = string.Format(_randomMessages[random], message.Author.Mention);
+
+                    var messageReference = _randomMessages[random].Contains("{0}")
+                        ? new MessageReference(message.Id)
+                        : null;
+
+                    _logger.LogInformation($"replying in {message.Channel.Name}: {replyMessage}");
+
+                    await message.Channel.SendMessageAsync(replyMessage, messageReference: messageReference);
                 }
             }
         }
