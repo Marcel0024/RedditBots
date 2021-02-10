@@ -62,9 +62,9 @@ namespace DiscordBots.FFBot
                 await message.Channel.SendMessageAsync("ook Thijs", messageReference: new MessageReference(message.Id));
             }
 
-            else if (_random.Next(0, 500) < 1)
+            else if (_random.Next(0, 300) < 1)
             {
-                var random = _random.Next(0, 7);
+                var random = _random.Next(0, 10);
 
                 if (message.Content.StartsWith("pls porn", StringComparison.OrdinalIgnoreCase))
                 {
@@ -93,6 +93,10 @@ namespace DiscordBots.FFBot
                 else if (random == 5)
                 {
                     await message.Channel.SendMessageAsync($"Fun fact: Klantentest is niet een officiele term.");
+                }
+                else if (random == 6)
+                {
+                    await message.Channel.SendMessageAsync($"Fun fact: Je mag altijd gaan binden.");
                 }
                 else
                 {
