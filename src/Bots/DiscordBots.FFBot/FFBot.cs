@@ -76,7 +76,7 @@ namespace DiscordBots.FFBot
                 }
                 else if (random == 1)
                 {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, FYI workitems verwijderen is verboden.", messageReference: new MessageReference(message.Id));
+                    await message.Channel.SendMessageAsync($"Fun fact: Workitems verwijderen is verboden");
                 }
                 else if (random == 2)
                 {
