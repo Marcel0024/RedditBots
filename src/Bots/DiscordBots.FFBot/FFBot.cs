@@ -78,7 +78,7 @@ namespace DiscordBots.FFBot
             {
                 if (commands[1] == "atlas")
                 {
-                    await message.Channel.SendMessageAsync("Atlas van de week is Raymond Benjamins", messageReference: new MessageReference(message.Id));
+                    await message.Channel.SendMessageAsync("Atlas van de week is Raymond", messageReference: new MessageReference(message.Id));
                 }
                 else if (commands[1] == "help")
                 {
