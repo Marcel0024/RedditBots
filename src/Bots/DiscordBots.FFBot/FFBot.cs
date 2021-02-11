@@ -38,7 +38,8 @@ namespace DiscordBots.FFBot
             "Ik zie dat je 5 keer 'hoe werkt een array' heb gegoogled, dit kan ECHT niet",
             "Fact: Gezelligheid op kantoor is verboden",
             "Fact: Je moet altijd 110% geven",
-            "Fact: Fotofabriek heeft het beste IT team van Groningen."
+            "Fact: Fotofabriek heeft het beste IT team van Groningen.",
+            "Snap je collecties nog steeds niet {0}?"
         };
 
         public FFBot(
