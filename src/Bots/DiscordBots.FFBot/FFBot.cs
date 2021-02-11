@@ -58,10 +58,22 @@ namespace DiscordBots.FFBot
             await _discordClient.LoginAsync(TokenType.Bot, _botSetting.AppSecret);
             await _discordClient.StartAsync();
 
-            _discordClient.MessageReceived += C_NewCommentsUpdated;
+            _discordClient.MessageReceived += E_NewCommentsUpdated;
+            _discordClient.UserJoined += E_UserJoined;
+            _discordClient.UserLeft += E_UserLeft;
         }
 
-        private async Task C_NewCommentsUpdated(SocketMessage message)
+        private Task E_UserLeft(SocketGuildUser user)
+        {
+            return user.Guild.DefaultChannel.SendMessageAsync($"{user.Mention} was ontslagen LMAO");
+        }
+
+        private Task E_UserJoined(SocketGuildUser user)
+        {
+            return user.Guild.DefaultChannel.SendMessageAsync($"Welkom {user.Mention} in de Fotofabriek kanaal, hier wordt pesten NIET toegestaan");
+        }
+
+        private async Task E_NewCommentsUpdated(SocketMessage message)
         {
             if (string.IsNullOrWhiteSpace(message.Content))
             {
@@ -98,7 +110,8 @@ namespace DiscordBots.FFBot
                             }
                         };
 
-                        embedBuild.AddField("Atlas van de week", "ff atlas");
+                        embedBuild.AddField("ff atlas", "Atlas van de week");
+                        embedBuild.AddField("ff help", "Hulp");
 
                         await message.Channel.SendMessageAsync(embed: embedBuild.Build());
                     }
@@ -107,7 +120,7 @@ namespace DiscordBots.FFBot
 
             else if (_random.Next(0, 200) < 1)
             {
-                if (message.Content.StartsWith("pls porn", StringComparison.OrdinalIgnoreCase))
+                if (message.Content.StartsWith("pls", StringComparison.OrdinalIgnoreCase))
                 {
                     await message.Channel.SendMessageAsync($"{message.Author.Mention}, Melvin vroeg of je hiermee kan stoppen", messageReference: new MessageReference(message.Id));
                 }
