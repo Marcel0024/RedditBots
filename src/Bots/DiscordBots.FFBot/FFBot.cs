@@ -37,12 +37,14 @@ namespace DiscordBots.FFBot
             "GVD {0}, ga eens aan het werk",
             "GVD {0}, ga eens aan het werk",
             "Wat snap je nou weer niet {0}",
+            "{0}, doe iets",
             "Ik zie dat je 5 keer 'hoe werkt een array' heb gegoogled, dit kan ECHT niet",
             "Regel 55: Gezelligheid op kantoor is verboden",
             "Regel 42: Je moet altijd 110% geven",
             "Fact: Fotofabriek heeft het beste IT team van Groningen.",
             "Snap je collecties nog steeds niet {0}?",
-            "{0}, here you go: https://bit.ly/3aTVM7J"
+            "{0}, here you go: https://bit.ly/3aTVM7J",
+            "Regel 39: Snitches get stiches!"
         };
 
         public FFBot(
@@ -130,7 +132,7 @@ namespace DiscordBots.FFBot
                 }
             }
 
-            else if (_random.Next(0, 100) == 69)
+            else if (_random.Next(0, 70) == 69)
             {
                 if (message.Content.StartsWith("pls p", StringComparison.OrdinalIgnoreCase))
                 {
