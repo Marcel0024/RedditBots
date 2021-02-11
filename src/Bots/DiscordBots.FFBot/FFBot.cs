@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RedditBots.Framework;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BackgroundService = RedditBots.Framework.BackgroundService;
@@ -25,9 +26,9 @@ namespace DiscordBots.FFBot
             "Geef deze bericht een 👍 als je een HBO diploma heb",
             "{0}, iemand vroeg waarom je altijd kut code schrijft",
             "Fun fact: Workitems verwijderen is verboden",
-            "{0}, onthoud we hebben niet voor niks een staging omgeving",
+            "Onthoud we hebben niet voor niks een staging omgeving",
             "{0}, het is normaal om huilend op de fiets naar huis te gaan",
-            "{0}, vergeet je uren niet bij te werken op devops!",
+            "Vergeet je uren niet bij te werken op devops!",
             "Bruinester = racist",
             "Fun fact: Klantentest is niet een officiele term",
             "Fun fact: Je mag altijd gaan binden.",
@@ -40,7 +41,8 @@ namespace DiscordBots.FFBot
             "Regel 55: Gezelligheid op kantoor is verboden",
             "Regel 42: Je moet altijd 110% geven",
             "Fact: Fotofabriek heeft het beste IT team van Groningen.",
-            "Snap je collecties nog steeds niet {0}?"
+            "Snap je collecties nog steeds niet {0}?",
+            "{0}, here you go: https://bit.ly/3aTVM7J"
         };
 
         public FFBot(
@@ -94,6 +96,14 @@ namespace DiscordBots.FFBot
                 {
                     await message.Channel.SendMessageAsync("Atlas van de week is Raymond", messageReference: new MessageReference(message.Id));
                 }
+                if (commands[1] == "pest" && commands.Length == 3)
+                {
+                    var pestMessages = _randomMessages.Where(m => m.Contains("{0}")).ToArray();
+                    var random = _random.Next(0, pestMessages.Length);
+                    var replyMessage = string.Format(pestMessages[random], commands[2]);
+
+                    await message.Channel.SendMessageAsync(replyMessage);
+                }
                 else if (commands[1] == "help")
                 {
                     if (_random.Next(0, 5) < 1)
@@ -111,15 +121,16 @@ namespace DiscordBots.FFBot
                             }
                         };
 
-                        embedBuild.AddField("ff atlas", "Atlas van de week", inline: true);
-                        embedBuild.AddField("ff help", "Hulp", inline: true);
+                        embedBuild.AddField("ff atlas", "Atlas van de week");
+                        embedBuild.AddField("ff help", "Hulp");
+                        embedBuild.AddField("ff pest", "ff pest [naam], om iemand te pesten");
 
                         await message.Channel.SendMessageAsync(embed: embedBuild.Build());
                     }
                 }
             }
 
-            else if (_random.Next(0, 125) == 69)
+            else if (_random.Next(0, 100) == 69)
             {
                 if (message.Content.StartsWith("pls p", StringComparison.OrdinalIgnoreCase))
                 {
