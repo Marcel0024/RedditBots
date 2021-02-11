@@ -23,7 +23,6 @@ namespace DiscordBots.FFBot
 
         private readonly string[] _randomMessages = new[]
         {
-            "Geef deze bericht een 👍 als je een HBO diploma heb",
             "{0}, iemand vroeg waarom je altijd kut code schrijft",
             "Fun fact: Workitems verwijderen is verboden",
             "Onthoud we hebben niet voor niks een staging omgeving",
@@ -43,7 +42,11 @@ namespace DiscordBots.FFBot
             "Regel 42: Je moet altijd 110% geven",
             "Fact: Fotofabriek heeft het beste IT team van Groningen.",
             "Snap je collecties nog steeds niet {0}?",
-            "{0}, here you go: https://bit.ly/3aTVM7J",
+            "Geef deze bericht een 👍 als je een HBO diploma heb",
+            "Geef deze bericht een 👍 als je een HBO diploma heb",
+            "Geef deze bericht een 👍 als je een HBO diploma heb",
+            "Geef deze bericht een 👍 als je een HBO diploma heb",
+            "{0}, here you go: https://bit.ly/3tLE2Ux",
             "Regel 39: Snitches get stiches!"
         };
 
@@ -90,6 +93,12 @@ namespace DiscordBots.FFBot
                 return;
             }
 
+            if (message.Content.Equals("niet pesten", StringComparison.OrdinalIgnoreCase))
+            {
+                await message.Channel.SendMessageAsync("jawel", messageReference: new MessageReference(message.Id));
+                return;
+            }
+
             var commands = message.Content.Split(' ');
 
             if (commands.Length > 1 && commands[0].StartsWith("ff", StringComparison.OrdinalIgnoreCase))
@@ -98,7 +107,7 @@ namespace DiscordBots.FFBot
                 {
                     await message.Channel.SendMessageAsync("Atlas van de week is Raymond", messageReference: new MessageReference(message.Id));
                 }
-                if (commands[1] == "pest" && commands.Length == 3)
+                else if (commands[1] == "pest" && commands.Length >= 3)
                 {
                     var pestMessages = _randomMessages.Where(m => m.Contains("{0}")).ToArray();
                     var random = _random.Next(0, pestMessages.Length);
@@ -151,7 +160,7 @@ namespace DiscordBots.FFBot
 
                     var sentMessage = await message.Channel.SendMessageAsync(replyMessage, messageReference: messageReference);
 
-                    if (random == 0)
+                    if (replyMessage.Contains("👍"))
                     {
                         await sentMessage.AddReactionAsync(new Emoji("👍"));
                     }
