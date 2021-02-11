@@ -22,6 +22,7 @@ namespace DiscordBots.FFBot
 
         private readonly string[] _randomMessages = new[]
         {
+            "Geef deze bericht een 👍 als je een HBO diploma heb",
             "{0}, iemand vroeg waarom je altijd kut code schrijft",
             "Fun fact: Workitems verwijderen is verboden",
             "{0}, onthoud we hebben niet voor niks een staging omgeving",
@@ -110,17 +111,17 @@ namespace DiscordBots.FFBot
                             }
                         };
 
-                        embedBuild.AddField("ff atlas", "Atlas van de week");
-                        embedBuild.AddField("ff help", "Hulp");
+                        embedBuild.AddField("ff atlas", "Atlas van de week", inline: true);
+                        embedBuild.AddField("ff help", "Hulp", inline: true);
 
                         await message.Channel.SendMessageAsync(embed: embedBuild.Build());
                     }
                 }
             }
 
-            else if (_random.Next(0, 175) == 69)
+            else if (_random.Next(0, 125) == 69)
             {
-                if (message.Content.StartsWith("pls", StringComparison.OrdinalIgnoreCase))
+                if (message.Content.StartsWith("pls p", StringComparison.OrdinalIgnoreCase))
                 {
                     await message.Channel.SendMessageAsync($"{message.Author.Mention}, Melvin vroeg of je hiermee kan stoppen", messageReference: new MessageReference(message.Id));
                 }
@@ -135,7 +136,12 @@ namespace DiscordBots.FFBot
 
                     _logger.LogInformation($"replying in {message.Channel.Name}: {replyMessage}");
 
-                    await message.Channel.SendMessageAsync(replyMessage, messageReference: messageReference);
+                    var sentMessage = await message.Channel.SendMessageAsync(replyMessage, messageReference: messageReference);
+
+                    if (random == 0)
+                    {
+                        await sentMessage.AddReactionAsync(new Emoji("👍"));
+                    }
                 }
             }
         }
