@@ -36,8 +36,8 @@ namespace DiscordBots.FFBot
             "GVD {0}, ga eens aan het werk",
             "Wat snap je nou weer niet {0}",
             "Ik zie dat je 5 keer 'hoe werkt een array' heb gegoogled, dit kan ECHT niet",
-            "Fact: Gezelligheid op kantoor is verboden",
-            "Fact: Je moet altijd 110% geven",
+            "Regel 55: Gezelligheid op kantoor is verboden",
+            "Regel 42: Je moet altijd 110% geven",
             "Fact: Fotofabriek heeft het beste IT team van Groningen.",
             "Snap je collecties nog steeds niet {0}?"
         };
