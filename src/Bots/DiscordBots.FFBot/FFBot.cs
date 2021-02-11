@@ -24,7 +24,7 @@ namespace DiscordBots.FFBot
         {
             "{0}, iemand vroeg waarom je altijd kut code schrijft",
             "Fun fact: Workitems verwijderen is verboden",
-            "{0}, onthou we hebben niet voor niks een staging omgeving",
+            "{0}, onthoud we hebben niet voor niks een staging omgeving",
             "{0}, het is normaal om huilend op de fiets naar huis te gaan",
             "{0}, vergeet je uren niet bij te werken op devops!",
             "Bruinester = racist",
@@ -38,7 +38,7 @@ namespace DiscordBots.FFBot
             "Ik zie dat je 5 keer 'hoe werkt een array' heb gegoogled, dit kan ECHT niet",
             "Fact: Gezelligheid op kantoor is verboden",
             "Fact: Je moet altijd 110% geven",
-            "Fact: Fotofabriek heeft de beste IT team van Groningen."
+            "Fact: Fotofabriek heeft het beste IT team van Groningen."
         };
 
         public FFBot(
@@ -84,7 +84,7 @@ namespace DiscordBots.FFBot
                 {
                     if (_random.Next(0, 5) < 1)
                     {
-                        await message.Channel.SendMessageAsync($"Dit bot doet niks, zoals jij, {message.Author.Mention}", messageReference: new MessageReference(message.Id));
+                        await message.Channel.SendMessageAsync($"Deze bot doet niks, net als jij, {message.Author.Mention}", messageReference: new MessageReference(message.Id));
                     }
                     else
                     {
@@ -93,7 +93,7 @@ namespace DiscordBots.FFBot
                             Title = "Commands",
                             Footer = new EmbedFooterBuilder
                             {
-                                Text = "Dit bot is niet van Fotofabriek"
+                                Text = "Deze bot is niet van Fotofabriek"
                             }
                         };
 
@@ -108,7 +108,7 @@ namespace DiscordBots.FFBot
             {
                 if (message.Content.StartsWith("pls porn", StringComparison.OrdinalIgnoreCase))
                 {
-                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, Melvin vroeg als je hiermee kan stoppen", messageReference: new MessageReference(message.Id));
+                    await message.Channel.SendMessageAsync($"{message.Author.Mention}, Melvin vroeg of je hiermee kan stoppen", messageReference: new MessageReference(message.Id));
                 }
                 else
                 {
