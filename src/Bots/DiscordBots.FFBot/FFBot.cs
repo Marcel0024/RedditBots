@@ -118,7 +118,7 @@ namespace DiscordBots.FFBot
                 }
             }
 
-            else if (_random.Next(0, 200) < 1)
+            else if (_random.Next(0, 175) == 69)
             {
                 if (message.Content.StartsWith("pls", StringComparison.OrdinalIgnoreCase))
                 {
