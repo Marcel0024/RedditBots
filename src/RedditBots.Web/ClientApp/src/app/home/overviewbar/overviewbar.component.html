@@ -1,0 +1,45 @@
+<div class="col-lg-3 col-12"> </div>
+<div class="col-lg-6 col-12">
+  <div class="alert"
+       [class.alert-light-success]="connectionStatus === 0"
+       [class.alert-light-warning]="connectionStatus === 1"
+       [class.alert-danger]="connectionStatus === 2">
+    <div class="row d-flex justify-content-between align-content-center w-100">
+      <div class="col-lg-4 col-12 align-self-center text-center">
+        <label class="flikker font-weight-bold" *ngIf="connectionStatus === 0">
+          Streaming logs ...
+        </label>
+        <label class="flikker font-weight-bold" *ngIf="connectionStatus === 1">
+          Reconnecting ...
+        </label>
+        <label class="flikker font-weight-bold" *ngIf="connectionStatus === 2">
+          Disconnected ...
+        </label>
+      </div>
+      <div class="col-lg-4 col-12 text-center">
+        <div class="col-12">
+          <span>Viewers: {{totalViewers}} </span>
+        </div>
+        <div class="col-12">
+          <span>Last log: {{lastLog}}</span>
+        </div>
+        <div class="col-12">
+          <span>LPS: {{lps}}</span>
+        </div>
+      </div>
+      <div class="col-lg-4 col-12 align-self-center text-center">
+        <span class="text-wrap"><a href="https://github.com/Marcel0024/RedditBots" target="_blank">https://github.com/marcel0024/RedditBots</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-3 col-12 d-lg-flex justify-content-start">
+  <div class="d-flex justify-content-center">
+    <div>
+      <a class="btn btn-sm btn-default btn btn-outline-light" data-toggle="collapse"
+         role="button" aria-expanded="true" aria-controls="settingsRow" (click)="toggleSettings()">
+        {{displaySettings ? "Hide advanced settings" : "Show advanced settings"}}
+      </a>
+    </div>
+  </div>
+</div>

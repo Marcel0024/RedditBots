@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.CheerfulBot", "src\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Web2", "src\RedditBots.Web2\RedditBots.Web2.csproj", "{C2C26A94-0188-4700-B341-BFCA1886A742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Web", "src\RedditBots.Web\RedditBots.Web.csproj", "{C2C26A94-0188-4700-B341-BFCA1886A742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
