@@ -29,7 +29,7 @@ export class SignalrService {
       .withUrl('/loghub')
       .withHubProtocol(new MessagePackHubProtocol())
       .withAutomaticReconnect()
-      .configureLogging(LogLevel.Information)
+      .configureLogging(LogLevel.Warning)
       .build();
   }
   private startConnection() {

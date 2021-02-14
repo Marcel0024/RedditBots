@@ -22,12 +22,15 @@ export class ListLogsComponent {
 
   private subscribeToEvents(): void {
     this._settingsService.showDebugLogsChange.subscribe((botSetting) => {
+      console.log('hier 1');
       this._updateLogsDisplayed();
     });
     this._settingsService.botSettingChange.subscribe((botSetting) => {
+      console.log('hier 2');
       this._updateLogsDisplayed();
     });
     this._data.allLogsChange.subscribe((incomingLog: Log) => {
+      console.log('hier 3');
       this._updateLogsDisplayed();
     });
   }
