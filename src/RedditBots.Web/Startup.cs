@@ -56,7 +56,7 @@ namespace RedditBots.Web
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
-                app.UseSpaStaticFiles();
+                // app.UseSpaStaticFiles();
             }
 
             app.UseStaticFiles(new StaticFileOptions()
@@ -85,7 +85,7 @@ namespace RedditBots.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    // spa.UseAngularCliServer(npmScript: "start");
                 }
             });
         }
