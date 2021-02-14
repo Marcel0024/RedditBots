@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ListLogsComponent } from './home/list-logs/list-logs.component';
-import { LogComponent } from './/home/list-logs/log/log.component';
+import { LogComponent } from './home/list-logs/logbar/log.component';
 import { OverviewbarComponent } from './home/overviewbar/overviewbar.component';
 import { SettingsbarComponent } from './home/settingsbar/settingsbar.component';
 import { BotSettingsComponent } from './home/settingsbar/bot-settings/bot-settings.component';

@@ -2,7 +2,6 @@ import { Component, NgZone } from '@angular/core';
 import { Log } from '../../models/log';
 import { DataService } from '../../services/data.service';
 import { SettingsService } from '../../services/settings.service';
-import { SignalrService } from '../../services/signalr.service';
 import { UserSettingsService } from '../../services/user-settings.service';
 
 @Component({
@@ -40,7 +39,6 @@ export class ListLogsComponent {
     });
 
     for (var i = 0; i < logsInReverseOrder.length; i++) {
-
       if (logsInReverseOrder[i].logLevel === 'Debug'
         && !this._userSettings.currentSettings.showDebugLogs) {
         continue;

@@ -37,6 +37,7 @@ export class SignalrService {
 
     this.hubConnection.start()
       .then(() => this.connectionStatusChange.next(connectionStatus.connected))
+      .catch(() => this.connectionStatusChange.next(connectionStatus.disconnected))
 
     this.hubConnection.onreconnecting(() => {
       this.connectionStatusChange.next(connectionStatus.reconnecting)

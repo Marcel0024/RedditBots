@@ -1,0 +1,26 @@
+<div class="p-1">
+  <div class="card"
+       [class.border-default]="log.logLevel === 'Trace'"
+       [class.border-light]="log.logLevel === 'Debug'"
+       [class.border-success]="log.logLevel === 'Information'"
+       [class.border-warning]="log.logLevel === 'Warning'"
+       [class.border-danger]="log.logLevel === 'Critical'"
+       [ngClass]="{'new-border': showNEWStyling}">
+    <div class="card-body">
+      <div class="row d-flex justify-content-between">
+        <span>
+          <a *ngIf="this.log.url" href="{{this.log.url}}" target="_blank">{{this.log.logName}}</a>
+          <span *ngIf="!this.log.url">{{this.log.logName}}</span>
+        </span>
+        <div class="badge"
+             [class.badge-default]="log.logLevel === 'Trace'"
+             [class.badge-light]="log.logLevel === 'Debug'"
+             [class.badge-success]="log.logLevel === 'Information'"
+             [class.badge-warning]="log.logLevel === 'Warning'"
+             [class.badge-danger]="log.logLevel === 'Critical'">
+          {{log.logLevel}}
+        </div>
+      </div><div class="row pt-2">{{log.message}}</div>
+    </div>
+  </div>
+</div>
