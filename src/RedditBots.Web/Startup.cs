@@ -53,11 +53,6 @@ namespace RedditBots.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                // app.UseSpaStaticFiles();
-            }
 
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -70,6 +65,11 @@ namespace RedditBots.Web
                     };
                 }
             });
+
+            if (!env.IsDevelopment())
+            {
+                 app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
 
