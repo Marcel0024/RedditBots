@@ -12,8 +12,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: windows-latest
-    env:
-      working-directoy: ./src/RedditBots.Web
 
     steps:
     - uses: actions/checkout@master
@@ -21,15 +19,13 @@ jobs:
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.301'
+        dotnet-version: '5.0'
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
-      working-directory: ${{env.working-directory}}
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-      working-directory: ${{env.working-directory}}
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
