@@ -23,9 +23,6 @@ jobs:
       with:
         dotnet-version: '3.1.301'
 
-    - name: Clean
-      run: dotnet clean ./RedditBots.sln --configuration Release && dotnet nuget locals all --clear
-
     - name: Build with dotnet
       run: dotnet build --configuration Release
       working-directory: ${{env.working-directory}}
