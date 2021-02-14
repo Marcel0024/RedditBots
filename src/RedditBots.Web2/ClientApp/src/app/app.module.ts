@@ -6,12 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { ListLogsComponent } from './list-logs/list-logs.component';
-import { LogComponent } from './list-logs/log/log.component';
-import { OverviewbarComponent } from './overviewbar/overviewbar.component';
-import { SettingsbarComponent } from './settingsbar/settingsbar.component';
-import { ChartbarComponent } from './list-logs/chartbar/chartbar.component'
+import { ListLogsComponent } from './home/list-logs/list-logs.component';
+import { LogComponent } from './/home/list-logs/log/log.component';
+import { OverviewbarComponent } from './home/overviewbar/overviewbar.component';
+import { SettingsbarComponent } from './home/settingsbar/settingsbar.component';
+import { BotSettingsComponent } from './home/settingsbar/bot-settings/bot-settings.component';
+import { ChartbarComponent } from './home/list-logs/chartbar/chartbar.component';
 
 import { ChartsModule, ThemeService } from 'ng2-charts';
 
@@ -19,11 +19,11 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
   declarations: [
     AppComponent,
     HomeComponent,
-    FetchDataComponent,
     ListLogsComponent,
     LogComponent,
     OverviewbarComponent,
     SettingsbarComponent,
+    BotSettingsComponent,
     ChartbarComponent
   ],
   imports: [

@@ -47,7 +47,8 @@ namespace RedditBots.PapiamentoBot
 
             if (Env.IsDevelopment())
             {
-                Logger.LogInformation(message.Content);
+                Logger.LogInformation("information " + message.Content);
+                Logger.LogDebug("debug: " + message.Content);
                 await message.Channel.SendMessageAsync($"{message}, received");
             }
 

@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { SignalrService } from '../../services/signalr.service';
+import { DataService } from '../../../services/data.service';
+import { SignalrService } from '../../../services/signalr.service';
 import 'chartjs-plugin-streaming';
 
 @Component({
@@ -35,7 +35,7 @@ export class ChartbarComponent implements OnInit {
   ngOnInit() {
     setInterval(() => {
       this.datasets[0].data.push({ x: Date.now(), y: this.TotalLogs });
-      this._data.setLPS({ LPS: this.TotalLogs });
+      this._data.setLPS(this.TotalLogs);
       this.TotalLogs = 0;
     }, 1000);
   }

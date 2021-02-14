@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
 import { MessagePackHubProtocol } from '@microsoft/signalr-protocol-msgpack'
+import { Subject } from 'rxjs';
+import { connectionStatus } from '../models/currentinfo';
 import { Log } from '../models/log';
 
 @Injectable({
@@ -11,6 +13,8 @@ export class SignalrService {
   public logReceived = new EventEmitter<Log>();
   public lastUpdate = new EventEmitter<string>();
   public totalViewers = new EventEmitter<number>();
+
+  public connectionStatusChange = new Subject<connectionStatus>();
 
   private hubConnection: HubConnection
 
@@ -33,8 +37,23 @@ export class SignalrService {
     this.hubConnection = this.getConnection();
 
     this.hubConnection.start()
-      .then(() => console.log('Connected'))
-      .catch((err) => console.log('error while establishing signalr connection: ' + err))
+      .then(() => this.connectionStatusChange.next(connectionStatus.connected))
+
+    this.hubConnection.onreconnecting(() => {
+      this.connectionStatusChange.next(connectionStatus.reconnecting)
+    });
+
+    this.hubConnection.onreconnected(() => {
+      this.connectionStatusChange.next(connectionStatus.connected)
+    });
+
+    this.hubConnection.onclose(() => {
+      this.connectionStatusChange.next(connectionStatus.disconnected)
+
+      setTimeout(() => {
+        location.reload();
+      }, 5000);
+    });
   }
 
   private addListeners() {

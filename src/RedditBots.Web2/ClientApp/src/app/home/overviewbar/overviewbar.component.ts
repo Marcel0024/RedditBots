@@ -1,7 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { DataService, Info } from '../services/data.service';
-import { SettingsService } from '../services/settings.service';
-import { SignalrService } from '../services/signalr.service';
+import { connectionStatus } from '../../models/currentinfo';
+import { DataService } from '../../services/data.service';
+import { SettingsService } from '../../services/settings.service';
+import { SignalrService } from '../../services/signalr.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 
 @Component({
   selector: 'app-overviewbar',
@@ -12,6 +14,7 @@ export class OverviewbarComponent implements OnInit {
   totalViewers: number;
   lps: number = 0;
   lastLog: string;
+  connectionStatus: connectionStatus;
 
   public displaySettings: boolean;
 
@@ -19,7 +22,8 @@ export class OverviewbarComponent implements OnInit {
     private _signalR: SignalrService,
     private _ngZone: NgZone,
     private _data: DataService,
-    private _settings: SettingsService
+    private _settings: SettingsService,
+    private _userSettings: UserSettingsService
   ) {
     this.subscribeToEvents();
   }
@@ -40,11 +44,16 @@ export class OverviewbarComponent implements OnInit {
         this.lastLog = lastUpdate;
       });
     });
-    this._data.LPSChange.subscribe((info: Info) => {
-        this.lps = info.LPS;
+    this._data.LPSChange.subscribe((lps: number) => {
+        this.lps = lps;
+    });
+    this._data.connectionStatusChange.subscribe((cs: connectionStatus) => {
+      console.log(cs);
+      this.connectionStatus = cs;
     });
   }
 
   ngOnInit() {
+    this.displaySettings = this._userSettings.currentSettings.showSettingsMenu;
   }
 }

@@ -3,4 +3,6 @@ export interface Log {
   logLevel: string;
   message: string;
   notify: boolean;
+  url: string;
+  date: Date;
 }

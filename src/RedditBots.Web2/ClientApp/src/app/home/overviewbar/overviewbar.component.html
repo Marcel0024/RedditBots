@@ -1,9 +1,14 @@
 <div class="col-lg-3 col-12"> </div>
 <div class="col-lg-6 col-12">
-  <div class="alert alert-light-success" id="alert">
+  <div class="alert"
+       [class.alert-light-success]="connectionStatus === 0"
+       [class.alert-light-warning]="connectionStatus === 1"
+       [class.alert-danger]="connectionStatus === 2">
     <div class="row d-flex justify-content-between align-content-center w-100">
       <div class="col-lg-4 col-12 align-self-center text-center">
-        <label class="flikker font-weight-bold" id="flikker">Streaming logs... </label>
+        <label class="flikker font-weight-bold" id="flikker">
+          Streaming logs...
+        </label>
       </div>
       <div class="col-lg-4 col-12 text-center">
         <div class="col-12">
