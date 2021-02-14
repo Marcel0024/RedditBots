@@ -26,6 +26,7 @@
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.4.1",
+    "buffer": "^6.0.3",
     "chart.js": "^2.8.0",
     "chartjs-plugin-streaming": "^1.8.0",
     "core-js": "^3.3.3",
