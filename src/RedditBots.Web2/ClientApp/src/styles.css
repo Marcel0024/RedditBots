@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~shards-ui/dist/css/shards.css";
+@import "~chart.js/dist/chart.min.css";
+
+.flikker {
+  animation: blinker 2.5s linear infinite;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.alert-light-information {
+  background-color: #f0f9ff;
+  border-left: 4px solid #7bc7ff;
+}
+
+.alert-light-success {
+  background-color: #f0fff1;
+  border-left: 4px solid #aeff7b;
+}
+
+.alert-light-warning {
+  background-color: #fffcf0;
+  border-left: 4px solid #ffe97b;
+}

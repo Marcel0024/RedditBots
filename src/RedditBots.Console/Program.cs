@@ -33,8 +33,8 @@ namespace RedditBots
             {
                 services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
 
-                services.AddHanzeMemesBot();
-                services.AddPeriodicallyBot(hostContext);
+                //services.AddHanzeMemesBot();
+                //services.AddPeriodicallyBot(hostContext);
                 services.AddPapiamentoBot(hostContext);
                 //services.AddCheerfulBot();
             });

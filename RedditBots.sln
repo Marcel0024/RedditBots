@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PeriodicallyBot"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", "src\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj", "{B112C915-4F9F-46EA-9F69-3039128168C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedditBots.CheerfulBot", "src\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.CheerfulBot", "src\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedditBots.Web2", "src\RedditBots.Web2\RedditBots.Web2.csproj", "{C2C26A94-0188-4700-B341-BFCA1886A742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C26A94-0188-4700-B341-BFCA1886A742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C26A94-0188-4700-B341-BFCA1886A742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C26A94-0188-4700-B341-BFCA1886A742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C26A94-0188-4700-B341-BFCA1886A742}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

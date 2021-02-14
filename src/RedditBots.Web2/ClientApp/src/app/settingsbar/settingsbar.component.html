@@ -1,0 +1,25 @@
+<div class="col-lg-3 col-12"></div>
+<div class="col-lg-6 col-12 w-100">
+  <div class="row p-2" [class.collapse]="!showSettings">
+    <div class="col-md-8 col-12 border border-light rounded" style="background-color:#fdfff0">
+      <div class="p-2">
+        <label class="font-weight-bold">Toggle bots</label>
+        <div class="row text-nowrap"></div>
+      </div>
+    </div>
+    <div class="col-md-4 col-12 border border-light rounded" style="background-color:#fdfff0">
+      <div class="p-2 d-md-flex flex-column justify-content-center">
+        <label class="font-weight-bold">Global settings</label>
+        <div class="custom-control custom-toggle my-2">
+          <input type="checkbox" id="notification" name="notification" class="custom-control-input">
+          <label class="custom-control-label" for="notification">Receive desktop notification</label>
+        </div>
+        <div class="custom-control custom-toggle my-2">
+          <input type="checkbox" id="showdebug" name="showdebug" class="custom-control-input">
+          <label class="custom-control-label" for="showdebug">Display debug logs</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-3 col-12"></div>
