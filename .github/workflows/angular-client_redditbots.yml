@@ -8,6 +8,8 @@ on:
     branches:
       - angular-client
   workflow_dispatch:
+env:
+  NODE_VERSION: '10.x'                # set this to the node version to use
 
 jobs:
   build-and-deploy:
@@ -15,6 +17,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
