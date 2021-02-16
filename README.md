@@ -16,3 +16,6 @@ RedditBots.Web is an Angular 11 client application which displays the incoming l
 
 You can view ReddiBots.Web (live stream of the logs) here: https://reddit.croes.io
 
+<hr />
+
+*This project is solely made for learning purposes.*
