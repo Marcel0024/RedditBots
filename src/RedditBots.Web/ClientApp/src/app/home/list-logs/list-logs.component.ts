@@ -34,22 +34,22 @@ export class ListLogsComponent {
   private _updateLogsDisplayed() {
     this.logs = [];
 
-    //var logsInReverseOrder = this._data.logs.sort(function (a, b): any {
-    //  return (a.date.getTime() - b.date.getTime());
-    //});
+    var logsInReverseOrder = this._data.logs.sort(function (a, b): any {
+      return (a.date.getTime() - b.date.getTime());
+    });
 
-    for (var i = 0; i < this._data.logs.length; i++) {
-      if (this._data.logs[i].logLevel === 'Debug'
+    for (var i = 0; i < logsInReverseOrder.length; i++) {
+      if (logsInReverseOrder[i].logLevel === 'Debug'
         && !this._userSettings.currentSettings.showDebugLogs) {
         continue;
       }
 
-      var botSetting = this._userSettings.getBotSetting(this._data.logs[i].logName);
+      var botSetting = this._userSettings.getBotSetting(logsInReverseOrder[i].logName);
       if (!botSetting.isOn) {
         continue;
       }
 
-      this.logs.push(this._data.logs[i]);
+      this.logs.push(logsInReverseOrder[i]);
     }
   }
 }
