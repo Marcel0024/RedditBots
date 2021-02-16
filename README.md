@@ -4,8 +4,15 @@
 
 
 # RedditBots
-This repo contains two projects. RedditBots.Console and RedditBots.Web - The actual bots run on RedditBots.Console and RedditBots.Web is a web app that displays all incoming logs from the bots. It's currently home to 3 bots.
+This repo contains two projects. RedditBots.Console and RedditBots.Web.
 
-You can view the live stream of the logs here: https://reddit.croes.io
+### RedditBots.Console
+RedditBots.Console is an .NET 5 Console application that is build in docker and deployed to a Raspberry Pi via Azure Pipelines.
+It runs 3 Reddit bots and 1 Discord bot. All logs are sent via http to RedditBots.Web via a custom logger.
 
-Reddit.Console runs in Docker and is build and deployed to a Raspberry Pi 3 by Azure Pipelines.
+### RedditBots.Web
+RedditBots.Web is an Angular 11 client application which displays the incoming logs from RedditBots.Console. It is deployed via Github Actions to Azure.
+
+
+You can view ReddiBots.Web (live stream of the logs) here: https://reddit.croes.io
+
