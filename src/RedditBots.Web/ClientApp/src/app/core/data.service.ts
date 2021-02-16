@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Subject } from 'rxjs';
 import { connectionStatus, Info } from '../models/currentinfo';
 import { Log } from '../models/log';
 import { SignalrService } from './signalr.service';
@@ -86,7 +86,7 @@ export class DataService {
       name = 'PapiamentoBot';
     }
 
-    if (name.startsWith("Azure") || name === "PapiamentoDiscordBot") {
+    if (name.startsWith("Azure") || name.includes("Discord")) {
       return name;
     }
 
