@@ -2,6 +2,7 @@
 
 ![RedditBots.Web](https://github.com/Marcel0024/RedditBots/workflows/RedditBots.Web/badge.svg)
 
+<hr/>
 
 # RedditBots
 This repo contains two projects. RedditBots.Console and RedditBots.Web.
@@ -13,6 +14,7 @@ It runs 3 Reddit bots and 1 Discord bot. All logs are sent via http to RedditBot
 ### RedditBots.Web
 RedditBots.Web is an Angular 11 web application which is served by an .NET 5 application. It reiceves all incoming logs from Reddit.Console and pushes them to the clients via SignalR. It is deployed via Github Actions to Azure.
 
+<hr/>
 
 You can view ReddiBots.Web (live stream of the logs) here: https://reddit.croes.io
 
