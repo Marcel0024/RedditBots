@@ -1,6 +1,6 @@
 ![RedditBots.Console (via Azure Pipelines)](https://dev.azure.com/marcelcroes24/RedditBots/_apis/build/status/docker%20build)
 
-![RedditBots.Web (via Github Actions)](https://github.com/Marcel0024/RedditBots/workflows/Build%20and%20deploy%20ASP.Net%20Core%20app%20to%20Azure%20Web%20App%20-%20redditbots/badge.svg)
+![RedditBots.Web](https://github.com/Marcel0024/RedditBots/workflows/RedditBots.Web/badge.svg)
 
 
 # RedditBots
