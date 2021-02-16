@@ -98,7 +98,7 @@ namespace RedditBots.PeriodicallyBot
             }
 
             var replyText = new StringBuilder()
-                .Append("I've been working on a Console Application that can run multiple reddit bots (now also with a discord bot) AND have the logs streamed to a web app, which you can monitor live.")
+                .Append("I've been working on a Console Application that can run multiple reddit bots (now also with a discord bot) AND have the logs streamed to a web app (an angular app), which you can monitor live.")
                 .Append("The bots themselves are not that interesting but building them has been fun. It currently has 3 bots running on it and it's hosted on a Raspberry Pi")
                 .Append("\n\n")
                 .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything in .NET 5")
