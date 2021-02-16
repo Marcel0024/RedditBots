@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BotSetting } from '../../models/botsetting';
-import { SettingsService } from '../../services/settings.service';
-import { UserSettingsService } from '../../services/user-settings.service';
+import { SettingsService } from '../../core/settings.service';
+import { UserSettingsService } from '../../core/user-settings.service';
 
 @Component({
   selector: 'app-settingsbar',

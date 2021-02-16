@@ -1,8 +1,8 @@
 import { Component, NgZone } from '@angular/core';
 import { Log } from '../../models/log';
-import { DataService } from '../../services/data.service';
-import { SettingsService } from '../../services/settings.service';
-import { UserSettingsService } from '../../services/user-settings.service';
+import { DataService } from '../../core/data.service';
+import { SettingsService } from '../../core/settings.service';
+import { UserSettingsService } from '../../core/user-settings.service';
 
 @Component({
   selector: 'app-list-logs',

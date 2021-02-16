@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Log } from '../../../models/log';
-import { UserSettingsService } from '../../../services/user-settings.service';
+import { UserSettingsService } from '../../../core/user-settings.service';
 
 @Component({
   selector: 'app-log',

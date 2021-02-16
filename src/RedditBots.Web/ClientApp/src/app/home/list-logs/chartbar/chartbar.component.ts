@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { DataService } from '../../../services/data.service';
-import { SignalrService } from '../../../services/signalr.service';
+import { DataService } from '../../../core/data.service';
+import { SignalrService } from '../../../core/signalr.service';
 import 'chartjs-plugin-streaming';
 
 @Component({

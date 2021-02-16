@@ -1,9 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { connectionStatus } from '../../models/currentinfo';
-import { DataService } from '../../services/data.service';
-import { SettingsService } from '../../services/settings.service';
-import { SignalrService } from '../../services/signalr.service';
-import { UserSettingsService } from '../../services/user-settings.service';
+import { DataService } from '../../core/data.service';
+import { SettingsService } from '../../core/settings.service';
+import { SignalrService } from '../../core/signalr.service';
+import { UserSettingsService } from '../../core/user-settings.service';
 
 @Component({
   selector: 'app-overviewbar',

@@ -80,7 +80,7 @@ export class UserSettingsService {
     this.currentSettings = {
       showSettingsMenu: false,
       recieveDesktopNotifications: false,
-      showDebugLogs: true,
+      showDebugLogs: false,
       botsettings: []
     };
 

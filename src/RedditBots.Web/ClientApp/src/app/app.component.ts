@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SignalrService } from './services/signalr.service';
+import { SignalrService } from './core/signalr.service';
 
 @Component({
   selector: 'app-root',
