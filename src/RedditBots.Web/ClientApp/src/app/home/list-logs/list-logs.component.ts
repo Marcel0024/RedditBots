@@ -35,7 +35,7 @@ export class ListLogsComponent {
     this.logs = [];
 
     var logsInReverseOrder = this._data.logs.sort(function (a, b): any {
-      return (a.date.getTime() - b.date.getTime());
+      return (b.date.getTime() - a.date.getTime());
     });
 
     for (var i = 0; i < logsInReverseOrder.length; i++) {
