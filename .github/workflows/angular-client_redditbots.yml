@@ -88,4 +88,5 @@ jobs:
           package: Release
 
       - name: Azure Logout
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: az logout
