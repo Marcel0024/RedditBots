@@ -1,43 +1,85 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+name: RedditBots.Web Deploy
 
-name: RedditBots.Web
+env:
+  NODE_VERSION: '14.17.x'     
+  AZURE_WEBAPP_NAME: reddit-bots
+  DOTNET_VERSION: '5.x'
+  CLIENT_APP_LOCATION: ./ClientApp
 
 on:
   push:
     branches:
       - angular-client
   workflow_dispatch:
-env:
-  NODE_VERSION: '10.x'                # set this to the node version to use
-
+  
 jobs:
-  build-and-deploy:
-    runs-on: windows-latest
+  deploy_platform:
+    runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/checkout@v2
+    - name: Repo Checkout
+      uses: actions/checkout@v2
+      
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }} # for my future self: az ad sp create-for-rbac --name [name] --sdk-auth
+
+    - name: Azure Deploy
+      uses: Azure/cli@1.0.4
+      with:
+        inlineScript: az deployment sub create
+                      --template-file $GITHUB_WORKSPACE/azure-platform/main.bicep
+                      --location westeurope
+                      --parameters appservicename=${{ env.AZURE_WEBAPP_NAME }}
+        azcliversion: 2.24.2
+        
+    - name: Azure Logout
+      run: az logout
+
+jobs:
+  build_and_deploy:
+     runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
     - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2.1.5
       with:
         node-version: ${{ env.NODE_VERSION }}
+        
+    - name: npm install
+      working-directory: ${{ env.CLIENT_APP_LOCATION }}
+      run: npm install
+      
+    - name: npm run build
+      working-directory: ${{ env.CLIENT_APP_LOCATION }}
+      run: npm run build
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0'
-
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: dotnet restore
+      run: dotnet restore
+    - name: dotnet build
+      run: dotnet build --configuration Release --no-restore
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish -c Release -o Release -r win-x64
 
-    - name: Deploy to Azure Web App
+    - name: Deploy to Azure 
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'redditbots'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d0e9662d173d4a5793d92ad79a99aea9 }}
-        package: ${{env.DOTNET_ROOT}}/myapp 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: Release
+        
+    - name: Azure Logout
+      run: az logout
