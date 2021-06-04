@@ -4,7 +4,7 @@ env:
   NODE_VERSION: '14.17.x'     
   AZURE_WEBAPP_NAME: reddit-bots
   DOTNET_VERSION: '5.x'
-  CLIENT_APP_LOCATION: ./ClientApp
+  CLIENT_APP_LOCATION: ./src/RedditBots.Web/ClientApp
 
 on:
   push:
@@ -32,6 +32,7 @@ jobs:
                       --template-file $GITHUB_WORKSPACE/azure-platform/main.bicep
                       --location westeurope
                       --parameters appservicename=${{ env.AZURE_WEBAPP_NAME }}
+                      --debug
         azcliversion: 2.24.2
         
     - name: Azure Logout
