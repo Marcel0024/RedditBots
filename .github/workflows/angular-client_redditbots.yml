@@ -37,49 +37,48 @@ jobs:
     - name: Azure Logout
       run: az logout
 
-jobs:
   build_and_deploy:
      runs-on: ubuntu-20.04
 
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v2
-      
-    - name: Azure Login
-      uses: Azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v2.1.5
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        
-    - name: npm install
-      working-directory: ${{ env.CLIENT_APP_LOCATION }}
-      run: npm install
-      
-    - name: npm run build
-      working-directory: ${{ env.CLIENT_APP_LOCATION }}
-      run: npm run build
+     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-        
-    - name: dotnet restore
-      run: dotnet restore
-    - name: dotnet build
-      run: dotnet build --configuration Release --no-restore
-    - name: dotnet publish
-      run: dotnet publish -c Release -o Release -r win-x64
+      - name: Azure Login
+        uses: Azure/login@v1.1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy to Azure 
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        package: Release
-        
-    - name: Azure Logout
-      run: az logout
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: npm install
+        working-directory: ${{ env.CLIENT_APP_LOCATION }}
+        run: npm install
+
+      - name: npm run build
+        working-directory: ${{ env.CLIENT_APP_LOCATION }}
+        run: npm run build
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: dotnet restore
+        run: dotnet restore
+      - name: dotnet build
+        run: dotnet build --configuration Release --no-restore
+      - name: dotnet publish
+        run: dotnet publish -c Release -o Release -r win-x64
+
+      - name: Deploy to Azure 
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: Release
+
+      - name: Azure Logout
+        run: az logout
