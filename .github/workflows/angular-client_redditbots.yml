@@ -50,6 +50,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Azure Login
+        if: ${{ github.ref == 'refs/heads/mater' }}
         uses: Azure/login@v1.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -81,7 +82,7 @@ jobs:
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
-       # if: ${{ github.ref == 'refs/heads/mater' }}
+        if: ${{ github.ref == 'refs/heads/mater' }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: Release
