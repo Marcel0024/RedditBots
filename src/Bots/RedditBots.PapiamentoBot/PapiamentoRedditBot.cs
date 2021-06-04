@@ -86,7 +86,11 @@ namespace RedditBots.PapiamentoBot
 
             if (response.MistakeFound)
             {
-                comment.Reply(_buildCommentReply(comment, response.Mistake));
+                if (response.Mistake.Wrong.Contains("ñ") &&
+                    new Random().Next(0, 6) == 0) // Don't be too spammy
+                {
+                    comment.Reply(_buildCommentReply(comment, response.Mistake));
+                }
             }
         }
 

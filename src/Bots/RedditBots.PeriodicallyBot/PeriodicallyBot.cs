@@ -103,9 +103,11 @@ namespace RedditBots.PeriodicallyBot
                 .Append("\n\n")
                 .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything in .NET 5")
                 .Append("\n\n")
-                .Append($"The Console is hosted in Docker and auto-deployed to the pi")
+                .Append($"The Console is hosted in Docker and auto-deployed to the pi via Azure Pipelines")
                 .Append("\n\n")
-                .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://reddit.croes.io")
+                .Append($"The logs website is deployed with the help of Bicep templates to Azure with Github Actions")
+                .Append("\n\n")
+                .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://redditbots.azurewebsites.net")
                 .Append("\n\n")
                 .Append($"Any feedback is welcome!")
                 .ToString();
