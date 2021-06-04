@@ -11,7 +11,7 @@ namespace RedditBots.Web.Helpers
 {
     public class LogHandler
     {
-        private const int _totalLogsHistory = 2000;
+        private const int _totalLogsHistory = 500;
         private readonly IHubContext<LogHub, ILogClient> _hubContext;
 
         public DateTime? LastLogDateTime { get; set; }

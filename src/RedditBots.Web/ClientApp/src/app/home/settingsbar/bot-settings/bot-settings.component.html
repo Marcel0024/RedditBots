@@ -1,0 +1,9 @@
+<div class="custom-control custom-toggle my-2">
+  <input type="checkbox"
+         id="{{botSetting.name}}"
+         name="{{botSetting.name}}"
+         class="custom-control-input"
+         [(ngModel)]="botSetting.isOn"
+         (change)="toggleOnorOff($event)">
+  <label class="custom-control-label" for="{{botSetting.name}}">{{botSetting.name}}</label>
+</div>

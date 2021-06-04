@@ -45,6 +45,12 @@ namespace RedditBots.PapiamentoBot
                 return;
             }
 
+            if (Env.IsDevelopment())
+            {
+                Logger.LogInformation(message.Content);
+                await message.Channel.SendMessageAsync($"{message}, received");
+            }
+
             var response = CheckCommentGrammar(new Models.Request
             {
                 Content = message.Content,

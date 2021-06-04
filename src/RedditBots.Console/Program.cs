@@ -36,7 +36,7 @@ namespace RedditBots
                 services.AddHanzeMemesBot();
                 services.AddPeriodicallyBot(hostContext);
                 services.AddPapiamentoBot(hostContext);
-                //services.AddCheerfulBot();
+                services.AddCheerfulBot();
             });
     }
 }

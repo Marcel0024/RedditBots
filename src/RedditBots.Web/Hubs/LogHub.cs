@@ -40,8 +40,11 @@ namespace RedditBots.Web.Hubs
                         Notify = false
                     });
                 }
+
+                _logsHandler.LastLogDateTime = DateTime.Now;
             }
 
+            await Clients.Caller.UpdateLastDateTime(_logsHandler.LastLogDateTime?.ToShortTimeString() ?? "");
             await Clients.All.UpdateViewers(++TotalViewers);
         }
 
