@@ -31,7 +31,7 @@ jobs:
         inlineScript: az deployment sub create
                       --template-file $GITHUB_WORKSPACE/azure-platform/main.bicep
                       --location westeurope
-                      --parameters appservicename=${{ env.AZURE_WEBAPP_NAME }}
+                      --parameters appservicename=${{ env.AZURE_WEBAPP_NAME }} apiKey=${{ secrets.API_SECRET }}
                       --debug
         azcliversion: 2.24.2
         

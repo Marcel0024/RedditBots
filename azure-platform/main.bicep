@@ -1,6 +1,7 @@
 targetScope = 'subscription'
 
 param appservicename string
+param apiKey string
 
 var location = 'westeurope'
 
@@ -25,5 +26,6 @@ module appservice './resources/app-service.bicep' = {
     appserviceplanId: appserviceplan.outputs.appServicePlanId
     location: location
     appservicename: appservicename
+    apiKey: apiKey
   }
 }

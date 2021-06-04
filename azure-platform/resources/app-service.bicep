@@ -1,6 +1,7 @@
 param appserviceplanId string
 param location string
 param appservicename string
+param apiKey string
 
 resource appservice 'Microsoft.Web/sites@2020-12-01' = {
   name: appservicename
@@ -18,6 +19,10 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
         {
           name: 'Logging:LogLevel:Default'
           value: 'Information'
+        }
+        {
+          name: 'AppSettings:apiKey'
+          value: apiKey
         }
       ]
       use32BitWorkerProcess: false
