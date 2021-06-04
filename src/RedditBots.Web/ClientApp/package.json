@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-production": "ng build --prod",
     "build:ssr": "ng run RedditBots.Web:server:dev",
     "test": "ng test",
     "lint": "ng lint",

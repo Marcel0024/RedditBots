@@ -61,7 +61,7 @@ jobs:
 
       - name: npm run build
         working-directory: ${{ env.CLIENT_APP_LOCATION }}
-        run: npm run build
+        run: npm run build-production
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
