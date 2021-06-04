@@ -81,7 +81,7 @@ jobs:
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
-        if: ${{ github.ref == 'refs/heads/mater' }}
+       # if: ${{ github.ref == 'refs/heads/mater' }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: Release
