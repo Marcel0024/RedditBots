@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Log } from '../../../interfaces/log';
 import { UserSettingsService } from '../../../core/user-settings.service';
 
@@ -6,7 +6,6 @@ import { UserSettingsService } from '../../../core/user-settings.service';
   selector: 'app-log',
   templateUrl: './log.component.html',
   styleUrls: ['./log.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogComponent implements OnInit {
   @Input() log: Log;
