@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,  ChangeDetectionStrategy } from '@angular/core';
 import { BotSetting } from '../../interfaces/botsetting';
 import { SettingsService } from '../../core/settings.service';
 import { UserSettingsService } from '../../core/user-settings.service';
@@ -6,7 +6,8 @@ import { UserSettingsService } from '../../core/user-settings.service';
 @Component({
   selector: 'app-settingsbar',
   templateUrl: './settingsbar.component.html',
-  styleUrls: ['./settingsbar.component.css']
+  styleUrls: ['./settingsbar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsbarComponent implements OnInit {
   toggleSettings: boolean;

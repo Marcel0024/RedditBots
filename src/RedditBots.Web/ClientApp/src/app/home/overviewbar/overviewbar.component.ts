@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
 import { connectionStatus } from '../../interfaces/currentinfo';
 import { DataService } from '../../core/data.service';
 import { SettingsService } from '../../core/settings.service';
@@ -8,7 +8,8 @@ import { UserSettingsService } from '../../core/user-settings.service';
 @Component({
   selector: 'app-overviewbar',
   templateUrl: './overviewbar.component.html',
-  styleUrls: ['./overviewbar.component.css']
+  styleUrls: ['./overviewbar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewbarComponent implements OnInit {
   totalViewers: number;

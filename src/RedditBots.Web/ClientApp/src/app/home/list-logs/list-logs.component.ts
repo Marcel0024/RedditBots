@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone } from '@angular/core';
 import { Log } from '../../interfaces/log';
 import { DataService } from '../../core/data.service';
 import { SettingsService } from '../../core/settings.service';
@@ -7,7 +7,8 @@ import { UserSettingsService } from '../../core/user-settings.service';
 @Component({
   selector: 'app-list-logs',
   templateUrl: './list-logs.component.html',
-  styleUrls: ['./list-logs.component.css']
+  styleUrls: ['./list-logs.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListLogsComponent {
   logs: Log[] = [];

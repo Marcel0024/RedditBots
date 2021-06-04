@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
 import { DataService } from '../../../core/data.service';
 import { SignalrService } from '../../../core/signalr.service';
 import 'chartjs-plugin-streaming';
@@ -6,7 +6,8 @@ import 'chartjs-plugin-streaming';
 @Component({
   selector: 'app-chartbar',
   templateUrl: './chartbar.component.html',
-  styleUrls: ['./chartbar.component.css']
+  styleUrls: ['./chartbar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartbarComponent implements OnInit {
   LogCount: any[] = [];
