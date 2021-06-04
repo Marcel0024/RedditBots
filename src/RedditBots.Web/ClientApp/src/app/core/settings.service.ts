@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { BotSetting } from '../models/botsetting';
+import { BotSetting } from '../interfaces/botsetting';
 
 @Injectable({
   providedIn: 'root'

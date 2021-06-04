@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BotSetting } from '../../../models/botsetting';
+import { BotSetting } from '../../../interfaces/botsetting';
 
 @Component({
   selector: 'app-bot-settings',

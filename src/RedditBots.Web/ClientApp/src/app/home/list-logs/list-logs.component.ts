@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { Log } from '../../models/log';
+import { Log } from '../../interfaces/log';
 import { DataService } from '../../core/data.service';
 import { SettingsService } from '../../core/settings.service';
 import { UserSettingsService } from '../../core/user-settings.service';

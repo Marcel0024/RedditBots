@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Log } from '../../../models/log';
+import { Log } from '../../../interfaces/log';
 import { UserSettingsService } from '../../../core/user-settings.service';
 
 @Component({

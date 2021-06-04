@@ -3,8 +3,8 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
 import { MessagePackHubProtocol } from '@microsoft/signalr-protocol-msgpack'
 import { Subject } from 'rxjs';
-import { connectionStatus } from '../models/currentinfo';
-import { Log } from '../models/log';
+import { connectionStatus } from '../interfaces/currentinfo';
+import { Log } from '../interfaces/log';
 
 @Injectable({
   providedIn: 'root'

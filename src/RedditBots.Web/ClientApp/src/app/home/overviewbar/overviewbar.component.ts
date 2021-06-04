@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { connectionStatus } from '../../models/currentinfo';
+import { connectionStatus } from '../../interfaces/currentinfo';
 import { DataService } from '../../core/data.service';
 import { SettingsService } from '../../core/settings.service';
 import { SignalrService } from '../../core/signalr.service';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BotSetting } from '../../models/botsetting';
+import { BotSetting } from '../../interfaces/botsetting';
 import { SettingsService } from '../../core/settings.service';
 import { UserSettingsService } from '../../core/user-settings.service';
 

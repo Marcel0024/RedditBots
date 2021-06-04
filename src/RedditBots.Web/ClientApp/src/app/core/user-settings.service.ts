@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BotSetting } from '../models/botsetting';
+import { BotSetting } from '../interfaces/botsetting';
 import { DataService } from './data.service';
 import { SettingsService } from './settings.service';
 
@@ -106,7 +106,7 @@ export class UserSettingsService {
     }
   }
 
-  getBotsSettings(): import("../models/botsetting").BotSetting[] {
+  getBotsSettings(): import("../interfaces/botsetting").BotSetting[] {
     return this.currentSettings.botsettings.map(bot => ({
       name: bot.name,
       isOn: bot.isOn
