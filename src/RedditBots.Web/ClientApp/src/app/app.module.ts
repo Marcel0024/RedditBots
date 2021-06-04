@@ -32,8 +32,8 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
     FormsModule,
     ChartsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-    ])
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
     ThemeService
