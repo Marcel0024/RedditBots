@@ -10,10 +10,14 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
   
 jobs:
   deploy_platform:
+    if: ${{ github.ref == 'refs/heads/mater' }}
     runs-on: ubuntu-20.04
 
     steps:
@@ -77,6 +81,7 @@ jobs:
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
+        if: ${{ github.ref == 'refs/heads/mater' }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: Release
