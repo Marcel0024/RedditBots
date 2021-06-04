@@ -1,6 +1,6 @@
 ![RedditBots.Console (via Azure Pipelines)](https://dev.azure.com/marcelcroes24/RedditBots/_apis/build/status/docker%20build)
 
-[![RedditBots.Web Deploy](https://github.com/Marcel0024/RedditBots/actions/workflows/angular-client_redditbots.yml/badge.svg)](https://github.com/Marcel0024/RedditBots/actions/workflows/angular-client_redditbots.yml)
+[![RedditBots.Web Deploy](https://github.com/Marcel0024/RedditBots/actions/workflows/angular-client_redditbots.yml/badge.svg?branch=master&event=push)](https://github.com/Marcel0024/RedditBots/actions/workflows/angular-client_redditbots.yml)
 
 <hr/>
 
