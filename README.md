@@ -1,6 +1,6 @@
 ![RedditBots.Console (via Azure Pipelines)](https://dev.azure.com/marcelcroes24/RedditBots/_apis/build/status/docker%20build)
 
-![RedditBots.Web](https://github.com/Marcel0024/RedditBots/workflows/RedditBots.Web/badge.svg)
+[![RedditBots.Web Deploy](https://github.com/Marcel0024/RedditBots/actions/workflows/angular-client_redditbots.yml/badge.svg)](https://github.com/Marcel0024/RedditBots/actions/workflows/angular-client_redditbots.yml)
 
 <hr/>
 
@@ -16,8 +16,4 @@ RedditBots.Web is an Angular 11 web application which is served by an .NET 5 app
 
 
 
-You can view ReddiBots.Web (live stream of the logs) here: https://reddit.croes.io
-
-<hr />
-
-*This project is solely made for learning purposes.*
+You can view ReddiBots.Web (live stream of the logs) here: https://redditbots.azurewebsites.net/
