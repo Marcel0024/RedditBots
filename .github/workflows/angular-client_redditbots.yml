@@ -54,7 +54,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Use Node.js ${{ env.NODE_VERSION }}
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -67,7 +67,7 @@ jobs:
         working-directory: ${{ env.CLIENT_APP_LOCATION }}
         run: npm run build-production
 
-      - name: Set up .NET Core
+      - name: Setup .NET Core ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
