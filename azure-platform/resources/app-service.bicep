@@ -25,9 +25,9 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
           value: apiKey
         }
       ]
-      use32BitWorkerProcess: false
+      use32BitWorkerProcess: true
       webSocketsEnabled: true
-      alwaysOn: true
+      alwaysOn: false
       http20Enabled: true
       autoHealEnabled: true
       netFrameworkVersion: 'v5.0'
