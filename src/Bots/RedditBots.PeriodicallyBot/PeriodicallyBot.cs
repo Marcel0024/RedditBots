@@ -109,6 +109,9 @@ namespace RedditBots.PeriodicallyBot
                 .Append("\n\n")
                 .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://redditbots.azurewebsites.net")
                 .Append("\n\n")
+                .Append("Things i dipped my toe in so far: A bit a of docker, Angular (still beginner), typescript, npm in it's whole, RxJs, YAML, Github Actions, Azure Devops pipelines, Reddit API, .NET Generic Host Builder, some threading issues, SignalR, how ILogger works, some Bootstrap and css stuff, localstorage, I also had to setup my Rasperry Pi as a build agent on Azure, Bicep (big one), Azure CLI, also some linux.")
+                .Append("Most of this is just built for learning purposes, if i can only get a nice a idea for a bot....")
+                .Append("\n\n")
                 .Append($"Any feedback is welcome!")
                 .ToString();
 
