@@ -26,6 +26,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D6EF991-504C-47A2-B50F-DF7C13E390E6}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\angular-client_redditbots.yml = .github\workflows\angular-client_redditbots.yml
+		azure-platform\resources\app-service-plan.bicep = azure-platform\resources\app-service-plan.bicep
+		azure-platform\resources\app-service.bicep = azure-platform\resources\app-service.bicep
+		azure-platform\main.bicep = azure-platform\main.bicep
 		README.md = README.md
 	EndProjectSection
 EndProject

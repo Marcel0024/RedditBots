@@ -8,8 +8,8 @@ resource appserviceplan 'Microsoft.Web/serverfarms@2019-08-01' = {
     perSiteScaling: false
   }
   sku: {
-    name: 'S1'
-    tier: 'Standaard'
+    name: 'B1'
+    tier: 'Basic'
     capacity: 1
   }
 }
