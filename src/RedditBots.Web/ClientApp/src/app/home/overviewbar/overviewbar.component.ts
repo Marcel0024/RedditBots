@@ -1,58 +1,35 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { connectionStatus } from '../../interfaces/currentinfo';
-import { DataService } from '../../core/data.service';
-import { SettingsService } from '../../core/settings.service';
-import { SignalrService } from '../../core/signalr.service';
-import { UserSettingsService } from '../../core/user-settings.service';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ConnectionStatus } from "../../interfaces/connection-status";
+import { LogsService } from "../../services/logs.service";
+import { SignalrService } from "../../services/signalr.service";
 
 @Component({
-  selector: 'app-overviewbar',
-  templateUrl: './overviewbar.component.html',
-  styleUrls: ['./overviewbar.component.css'],
+  selector: "app-overviewbar",
+  templateUrl: "./overviewbar.component.html",
+  styleUrls: ["./overviewbar.component.css"],
 })
-export class OverviewbarComponent implements OnInit {
-  totalViewers: number;
+export class OverviewbarComponent {
+  connectionStatus = ConnectionStatus;
+
+  totalViewers!: number;
   lps: number = 0;
   lastLog: string;
-  connectionStatus: connectionStatus;
+  currentConnectionStatus!: ConnectionStatus;
 
-  public displaySettings: boolean;
+  @Input("display-settings-menu") displaySettingsMenu!: boolean;
+  @Output("toggle-settings-menu-change") toggleSettingsMenuChange =
+    new EventEmitter<boolean>();
 
-  constructor(
-    private _signalR: SignalrService,
-    private _ngZone: NgZone,
-    private _data: DataService,
-    private _settings: SettingsService,
-    private _userSettings: UserSettingsService
-  ) {
-    this.subscribeToEvents();
+  constructor(signalRService: SignalrService, logsService: LogsService) {
+    signalRService.connectionStatusChange$.subscribe(
+      (cs) => (this.currentConnectionStatus = cs)
+    );
+    signalRService.lastUpdate$.subscribe((lu) => (this.lastLog = lu));
+    signalRService.totalViewers$.subscribe((tv) => (this.totalViewers = tv));
+    logsService.currentLPS$.subscribe((lps) => (this.lps = lps));
   }
 
-  toggleSettings(): void {
-    this.displaySettings = !this.displaySettings;
-    this._settings.toggleSettingsMenu(this.displaySettings);
-  }
-
-  private subscribeToEvents() {
-    this._signalR.totalViewers.subscribe((totalViewers: number) => {
-      this._ngZone.run(() => {
-        this.totalViewers = totalViewers;
-      });
-    });
-    this._signalR.lastUpdate.subscribe((lastUpdate: string) => {
-      this._ngZone.run(() => {
-        this.lastLog = lastUpdate;
-      });
-    });
-    this._data.LPSChange.subscribe((lps: number) => {
-        this.lps = lps;
-    });
-    this._data.connectionStatusChange.subscribe((cs: connectionStatus) => {
-      this.connectionStatus = cs;
-    });
-  }
-
-  ngOnInit() {
-    this.displaySettings = this._userSettings.currentSettings.showSettingsMenu;
+  toggleSettingsMenu(): void {
+    this.toggleSettingsMenuChange.next(!this.displaySettingsMenu);
   }
 }

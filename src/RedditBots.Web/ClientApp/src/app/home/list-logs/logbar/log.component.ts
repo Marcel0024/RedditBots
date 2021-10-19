@@ -1,40 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Log } from '../../../interfaces/log';
-import { UserSettingsService } from '../../../core/user-settings.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { Log } from "../../../interfaces/log";
 
 @Component({
-  selector: 'app-log',
-  templateUrl: './log.component.html',
-  styleUrls: ['./log.component.css'],
+  selector: "app-log",
+  templateUrl: "./log.component.html",
+  styleUrls: ["./log.component.css"],
 })
 export class LogComponent implements OnInit {
-  @Input() log: Log;
+  @Input() log!: Log;
 
   showNEWStyling: boolean = false;
 
-  constructor(private _userSettings: UserSettingsService) { }
+  constructor() { }
 
   ngOnInit() {
-    if (this.log.notify) {
-      this.showNEWStyling = true;
-
-      if (this._userSettings.currentSettings.recieveDesktopNotifications) {
-        this.notifyDesktop();
-      }
-    }
-
-    this.log.notify = false;
+    this.showNEWStyling = true;
 
     setTimeout(() => {
       this.showNEWStyling = false;
     }, 1500);
-  }
-
-  private notifyDesktop(): void {
-    new Notification(this.log.logName, {
-      body: this.log.message,
-      icon: '/bot.png',
-      silent: true
-    });
   }
 }

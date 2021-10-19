@@ -1,68 +1,35 @@
-import { Component, OnInit, } from '@angular/core';
-import { BotSetting } from '../../interfaces/botsetting';
-import { SettingsService } from '../../core/settings.service';
-import { UserSettingsService } from '../../core/user-settings.service';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { BotSetting } from "../../interfaces/botsetting";
 
 @Component({
-  selector: 'app-settingsbar',
-  templateUrl: './settingsbar.component.html',
-  styleUrls: ['./settingsbar.component.css'],
+  selector: "app-settingsbar",
+  templateUrl: "./settingsbar.component.html",
+  styleUrls: ["./settingsbar.component.css"],
 })
-export class SettingsbarComponent implements OnInit {
-  toggleSettings: boolean;
+export class SettingsbarComponent {
+  @Input("display-settings-menu") displaySettingsMenu!: boolean;
+  @Input("display-debug-logs") displayDebugLogs!: boolean;
+  @Input("receive-desktop-notification") receiveDesktopNotifs!: boolean;
+  @Input("bot-settings") botSettings!: BotSetting[];
 
-  receiveDesktopNotifs: boolean;
-  showDebugLogs: boolean;
+  @Output("receive-notification-change") onToggleReceiveDesktopNotififcations =
+    new EventEmitter<boolean>();
+  @Output("display-debug-logs-change") showDebugLogsChange =
+    new EventEmitter<boolean>();
+  @Output("bot-setting-change") botSettingChange =
+    new EventEmitter<BotSetting>();
 
-  botSettings: BotSetting[];
+  constructor() { }
 
-  constructor(
-    private _settingsService: SettingsService,
-    private _userSettings: UserSettingsService
-  ) {
-    _settingsService.showSettingsMenu.subscribe((toggle) => {
-      this.toggleSettings = toggle;
-    });
-    _settingsService.botSettingAdded.subscribe((botS) => {
-      this.botSettings.push(botS);
-    });
+  toggleReceiveDesktopNotififcations(value: any): void {
+    this.onToggleReceiveDesktopNotififcations.next(value.target.checked);
   }
 
-  toggleReceiveDesktopNotififcations(): void {
-    this.promptAllowNotifications();
-
-    this._settingsService.setDesktopNotifications(this.receiveDesktopNotifs);
+  toggleDebugLogs(value: any): void {
+    this.showDebugLogsChange.next(value.target.checked);
   }
 
-  private promptAllowNotifications(): void {
-    if (this.receiveDesktopNotifs) {
-      if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(function (permission) {
-          if (permission === "denied") {
-            alert("Allow Notifications on this site to activate this function");
-            this.receiveDesktopNotifs = false;
-          }
-        });
-      }
-      else if (Notification.permission === "denied") {
-        alert("Allow Notifications on this site to activate this function");
-        this.receiveDesktopNotifs = false;
-      }
-    }
-  }
-
-  toggleDebugLogs(): void {
-    this._settingsService.setDebugLogs(this.showDebugLogs);
-  }
-
-  updateBotSetting(botSetting: BotSetting): void {
-    this._settingsService.setBotSetting(botSetting);
-  }
-
-  ngOnInit() {
-    this.receiveDesktopNotifs = this._userSettings.currentSettings.recieveDesktopNotifications;
-    this.showDebugLogs = this._userSettings.currentSettings.showDebugLogs;
-    this.botSettings = this._userSettings.getBotsSettings();
-    this.toggleSettings = this._userSettings.currentSettings.showSettingsMenu;
+  updateBotSetting(botSetting: any): void {
+    this.botSettingChange.next(botSetting);
   }
 }

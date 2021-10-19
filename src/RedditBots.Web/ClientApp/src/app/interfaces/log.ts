@@ -4,5 +4,4 @@ export interface Log {
   message: string;
   notify: boolean;
   url: string;
-  date: Date;
 }
