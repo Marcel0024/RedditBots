@@ -43,7 +43,7 @@ export class UserSettingsService {
   }
 
   getBotSetting(name: string): BotSetting {
-    return this.state.botSettings.find((botS) => botS.name === name);
+    return this.state.botSettings.find((botSetting) => botSetting.name === name);
   }
 
   getOrCreateState(): SettingsState {
@@ -77,12 +77,5 @@ export class UserSettingsService {
     localStorage.setItem(this.localStorageKey, JSON.stringify(this.state));
 
     this.stateChange$.emit(this.state);
-  }
-
-  getBotsSettings(): BotSetting[] {
-    return this.state.botSettings.map((bot) => ({
-      name: bot.name,
-      isOn: bot.isOn,
-    }));
   }
 }
