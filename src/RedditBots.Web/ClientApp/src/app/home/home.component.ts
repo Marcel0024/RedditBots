@@ -10,58 +10,20 @@ import { UserSettingsService } from "../services/user-settings.service";
   templateUrl: "./home.component.html",
 })
 export class HomeComponent implements OnInit {
-  allLogs: Log[] = [];
-  logsToDisplay: Log[] = [];
+  logs: Log[] = []
   state!: SettingsState;
 
   constructor(
     private logService: LogsService,
     private userSettingsService: UserSettingsService
   ) {
-    this.state = userSettingsService.getOrCreateState();
+    this.state = this.userSettingsService.getOrCreateState();
   }
 
   ngOnInit(): void {
-    this.logService.logStream$.subscribe((log) => {
-      if (this.shouldDisplayLog(log)) {
-        this.allLogs.unshift(log);
-        this.updateLogsToDisplay();
-      }
-      if (this.state.desktopNotificationIsOn && log.notify) {
-        this.notifyDesktop(log);
-      }
-      if (!this.state.botSettings.some(bs => bs.name === log.logName)) {
-        this.userSettingsService.addBotSetting(log.logName)
-      }
-    });
-    this.userSettingsService.stateChange$.subscribe((newState) => {
-      this.state = newState;
-      this.updateLogsToDisplay();
-    });
-  }
-
-  updateLogsToDisplay(): void {
-    this.logsToDisplay = this.allLogs.filter(log => this.shouldDisplayLog(log));
-  }
-
-  shouldDisplayLog(log: Log): boolean {
-    let shouldDisplayLog = true;
-
-    if (log.logLevel === "Debug" && !this.state.displayDebugLogs) {
-      shouldDisplayLog = false;
-    }
-
-    var botSetting = this.userSettingsService.getBotSetting(log.logName);
-
-    if (!botSetting) {
-      return true;
-    }
-
-    if (!botSetting.isOn) {
-      shouldDisplayLog = false;
-    }
-
-    return shouldDisplayLog;
+    this.logService.logsStream$.subscribe((logs) => 
+      this.logs = logs
+    );
   }
 
   toggleDebugLogs(value: boolean): void {
@@ -77,29 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   toggleReceiveDesktopNotififcations(value: boolean): void {
-    let newValue = value;
-
-    if (value) {
-      if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(function (permission) {
-          if (permission === "denied") {
-            newValue = false;
-            alert("Allow Notifications on this site to activate this function");
-          }
-        });
-      } else if (Notification.permission === "denied") {
-        newValue = false;
-        alert("Allow Notifications on this site to activate this function");
-      }
-    }
-    this.userSettingsService.setReceiveDesktopNotification(newValue);
-  }
-
-  private notifyDesktop(log: Log): void {
-    new Notification(log.logName, {
-      body: log.message,
-      icon: "/bot.png",
-      silent: true,
-    });
+    this.userSettingsService.setReceiveDesktopNotification(value);
   }
 }

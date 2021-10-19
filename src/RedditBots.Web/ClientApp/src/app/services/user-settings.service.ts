@@ -14,7 +14,22 @@ export class UserSettingsService {
   constructor() { }
 
   setReceiveDesktopNotification(value: boolean): void {
-    this.state.desktopNotificationIsOn = value;
+    let newValue = value;
+
+    if (value) {
+      if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(function (permission) {
+          if (permission === "denied") {
+            newValue = false;
+            alert("Allow Notifications on this site to activate this function");
+          }
+        });
+      } else if (Notification.permission === "denied") {
+        newValue = false;
+        alert("Allow Notifications on this site to activate this function");
+      }
+    }
+    this.state.desktopNotificationIsOn = newValue;
     this.saveSettingsAndBroadcast();
   }
 
@@ -44,6 +59,22 @@ export class UserSettingsService {
 
   getBotSetting(name: string): BotSetting {
     return this.state.botSettings.find((botSetting) => botSetting.name === name);
+  }
+
+  canDisplayDesktopNotifications(): boolean {
+    return this.state.desktopNotificationIsOn;
+  }
+
+  canDisplayDebugLogs(): boolean {
+    return this.state.displayDebugLogs;
+  }
+
+  canDisplaySettingsMenu(): boolean {
+    return this.state.displaySettingsMenu;
+  }
+
+  hasBotSetting(name: string): boolean {
+    return this.state.botSettings.some(bs => bs.name === name);
   }
 
   getOrCreateState(): SettingsState {

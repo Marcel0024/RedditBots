@@ -8,9 +8,7 @@ import { SignalrService } from "./services/signalr.service";
 export class AppComponent {
   title = "app";
 
-  constructor(private signalRService: SignalrService) { }
-
-  ngOnInit(): void {
+  constructor(private signalRService: SignalrService) {
     this.signalRService.connect();
   }
 }

@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from "@angular/core";
 import "chartjs-plugin-streaming";
 import { LogsService } from "../../../services/logs.service";
+import { SignalrService } from "../../../services/signalr.service";
 
 @Component({
   selector: "app-chartbar",
@@ -12,6 +13,7 @@ export class ChartbarComponent implements OnInit {
   TotalLogs: number = 0;
 
   constructor(
+    private signalrService: SignalrService,
     private logsService: LogsService,
     private ngZone: NgZone
   ) {
@@ -19,7 +21,7 @@ export class ChartbarComponent implements OnInit {
   }
 
   private subscribeToEvents(): void {
-    this.logsService.logStream$.subscribe((incomingLog: any) => {
+    this.signalrService.logReceived$.subscribe((incomingLog: any) => {
       this.ngZone.run(() => {
         if (incomingLog.Notify) {
           this.TotalLogs++;
