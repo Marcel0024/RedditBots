@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
-import { SignalrService } from './core/signalr.service';
+import { Component } from "@angular/core";
+import { SignalrService } from "./services/signalr.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+  selector: "app-root",
+  templateUrl: "./app.component.html",
 })
 export class AppComponent {
-  title = 'app';
+  title = "app";
 
-  constructor(public signalRService: SignalrService) {
-  }
+  constructor(private signalRService: SignalrService) { }
 
   ngOnInit(): void {
     this.signalRService.connect();
