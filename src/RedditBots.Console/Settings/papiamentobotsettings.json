@@ -108,6 +108,11 @@
         "Tip":  "Nos no ta yui di Korsou, ban serio si."
       },
       {
+        "gravity": 15,
+        "wrong": "tampoko",
+        "right": "tampoco"
+      },
+      {
         "gravity": 20,
         "wrong": "ku",
         "right": "cu"
