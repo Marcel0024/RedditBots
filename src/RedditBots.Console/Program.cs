@@ -2,7 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RedditBots.Framework;
+using RedditBots.HanzeMemesBot;
 using RedditBots.Libraries.Logging;
+using RedditBots.PapiamentoBot;
+using RedditBots.PeriodicallyBot;
 using System.IO;
 
 var builder = Host.CreateDefaultBuilder(args);
