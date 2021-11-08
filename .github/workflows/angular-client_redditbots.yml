@@ -5,7 +5,8 @@ env:
   CLIENT_APP_LOCATION: ./src/RedditBots.Web/ClientApp
   NODE_VERSION: '14.17.x'     
   DOTNET_VERSION: '6.x'
-  ISMASTER: ${{ github.ref == 'refs/heads/master' }}
+  ISMASTER: github.ref == 'refs/heads/master'
+
 on:
   push:
     branches:
