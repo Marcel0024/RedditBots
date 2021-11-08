@@ -30,7 +30,7 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
       alwaysOn: false
       http20Enabled: true
       autoHealEnabled: true
-      netFrameworkVersion: 'v5.0'
+      netFrameworkVersion: 'v6.0'
     }
     clientAffinityEnabled: false
   }
