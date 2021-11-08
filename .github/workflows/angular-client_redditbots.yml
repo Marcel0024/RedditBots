@@ -5,7 +5,6 @@ env:
   CLIENT_APP_LOCATION: ./src/RedditBots.Web/ClientApp
   NODE_VERSION: '14.17.x'     
   DOTNET_VERSION: '6.x'
-  ISMASTER: github.ref == 'refs/heads/master'
 
 on:
   push:
@@ -18,7 +17,7 @@ on:
   
 jobs:
   deploy_platform:
-    if: ${{ env.ISMASTER }}
+    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-20.04
 
     steps:
@@ -51,7 +50,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Azure Login
-        if: ${{ env.ISMASTER }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         uses: Azure/login@v1.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -83,11 +82,11 @@ jobs:
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
-        if: ${{ env.ISMASTER }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: Release
 
       - name: Azure Logout
-        if: ${{ env.ISMASTER }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: az logout
