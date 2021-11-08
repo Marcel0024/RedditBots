@@ -1,7 +1,6 @@
-﻿namespace RedditBots.Web.Settings
+﻿namespace RedditBots.Web.Settings;
+
+public class AppSettings
 {
-    public class AppSettings
-    {
-        public string ApiKey { get; set; }
-    }
+    public string ApiKey { get; set; }
 }

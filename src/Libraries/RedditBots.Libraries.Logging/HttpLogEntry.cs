@@ -1,13 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿namespace RedditBots.Libraries.Logging;
 
-namespace RedditBots.Libraries.Logging
+public class HttpLogEntry
 {
-    public class HttpLogEntry
-    {
-        public string Message { get; set; }
+    public string Message { get; set; }
 
-        public string LogLevel { get; set; }
+    public string LogLevel { get; set; }
 
-        public string LogName { get; set; }
-    }
+    public string LogName { get; set; }
 }
+

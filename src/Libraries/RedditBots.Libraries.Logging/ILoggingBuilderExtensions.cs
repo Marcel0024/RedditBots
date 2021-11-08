@@ -4,23 +4,22 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using System.Net.Http;
 
-namespace RedditBots.Libraries.Logging
+namespace RedditBots.Libraries.Logging;
+
+public static class ILoggingBuilderExtensions
 {
-    public static class ILoggingBuilderExtensions
+    public static ILoggingBuilder AddHttp(this ILoggingBuilder builder)
     {
-        public static ILoggingBuilder AddHttp(this ILoggingBuilder builder)
-        {
-            builder.Services.TryAddSingleton<HttpLoggerQueue>();
-            builder.Services.AddHostedService<HttpLoggerProcessor>();
-            builder.Services.AddSingleton<HttpLoggerService>();
-            builder.Services.AddHttpClient(nameof(HttpLoggerService));
+        builder.Services.TryAddSingleton<HttpLoggerQueue>();
+        builder.Services.AddHostedService<HttpLoggerProcessor>();
+        builder.Services.AddSingleton<HttpLoggerService>();
+        builder.Services.AddHttpClient(nameof(HttpLoggerService));
 
-            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, HttpLoggerProvider>());
-            LoggerProviderOptions.RegisterProviderOptions<HttpLoggerOptions, HttpLoggerProvider>(builder.Services);
+        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, HttpLoggerProvider>());
+        LoggerProviderOptions.RegisterProviderOptions<HttpLoggerOptions, HttpLoggerProvider>(builder.Services);
 
-            builder.AddFilter<HttpLoggerProvider>($"{typeof(HttpClient).FullName}.{nameof(HttpLoggerService)}", LogLevel.None);
+        builder.AddFilter<HttpLoggerProvider>($"{typeof(HttpClient).FullName}.{nameof(HttpLoggerService)}", LogLevel.None);
 
-            return builder;
-        }
+        return builder;
     }
 }

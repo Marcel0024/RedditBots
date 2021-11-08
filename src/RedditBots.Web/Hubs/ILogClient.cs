@@ -1,13 +1,12 @@
 ﻿using RedditBots.Web.Models;
 
-namespace RedditBots.Web.Hubs
+namespace RedditBots.Web.Hubs;
+
+public interface ILogClient
 {
-    public interface ILogClient
-    {
-        Task Log(LogEntry log);
+    Task Log(LogEntry log);
 
-        Task UpdateLastDateTime(string time);
+    Task UpdateLastDateTime(string time);
 
-        Task UpdateViewers(int viewers);
-    }
+    Task UpdateViewers(int viewers);
 }

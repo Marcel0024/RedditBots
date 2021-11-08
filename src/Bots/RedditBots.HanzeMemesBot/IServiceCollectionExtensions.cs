@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace RedditBots.HanzeMemesBot
+namespace RedditBots.HanzeMemesBot;
+
+public static class IServiceCollectionExtensions
 {
-    public static class IServiceCollectionExtensions
+    public static void AddHanzeMemesBot(this IServiceCollection services)
     {
-        public static void AddHanzeMemesBot(this IServiceCollection services)
-        {
-            services.AddHostedService<HanzeMemesBot>();
-        }
+        services.AddHostedService<HanzeMemesBot>();
     }
 }
