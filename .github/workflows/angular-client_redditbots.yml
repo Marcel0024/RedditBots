@@ -17,7 +17,7 @@ on:
   
 jobs:
   deploy_platform:
-    if: env.ISMASTER
+    if: ${{ env.ISMASTER }}
     runs-on: ubuntu-20.04
 
     steps:
