@@ -1,6 +1,8 @@
 targetScope = 'subscription'
 
 param appservicename string
+
+@secure()
 param apiKey string
 
 var location = 'westeurope'
