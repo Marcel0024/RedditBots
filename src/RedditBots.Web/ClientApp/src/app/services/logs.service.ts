@@ -35,8 +35,9 @@ export class LogsService {
       };
 
       this.ngZone.run(() => {
+        this.allLogs.unshift(log);
+
         if (this.shouldDisplayLog(log)) {
-          this.allLogs.unshift(log);
           this.updateLogsToDisplay();
         }
         if (this.userSettingsService.canDisplayDesktopNotifications() && log.notify) {
