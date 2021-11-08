@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Azure Login
-        if: env.ISMASTER
+        if: ${{ env.ISMASTER }}
         uses: Azure/login@v1.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -82,11 +82,11 @@ jobs:
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
-        if: env.ISMASTER
+        if: ${{ env.ISMASTER }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: Release
 
       - name: Azure Logout
-        if: env.ISMASTER
+        if: ${{ env.ISMASTER }}
         run: az logout
