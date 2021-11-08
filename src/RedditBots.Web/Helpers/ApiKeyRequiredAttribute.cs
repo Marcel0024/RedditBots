@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RedditBots.Web.Settings;
-using System.Linq;
 
 namespace RedditBots.Web.Helpers
 {

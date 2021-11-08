@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RedditBots.Web.Helpers;
 using RedditBots.Web.Models;
-using System.Threading.Tasks;
 
 namespace RedditBots.Web.Controllers
 {

@@ -8,7 +8,6 @@ using Microsoft.Net.Http.Headers;
 using RedditBots.Web.Helpers;
 using RedditBots.Web.Hubs;
 using RedditBots.Web.Settings;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));

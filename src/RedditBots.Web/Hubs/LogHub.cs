@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using RedditBots.Web.Helpers;
-using System;
-using System.Threading.Tasks;
 
 namespace RedditBots.Web.Hubs
 {

@@ -29,7 +29,7 @@ namespace RedditBots.PapiamentoBot
         {
             var allWords = request.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            if (allWords.Count() <= 2)
+            if (allWords.Length <= 2)
             {
                 return Response.Empty();
             }

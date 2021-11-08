@@ -1,5 +1,4 @@
 ﻿using RedditBots.Web.Models;
-using System.Threading.Tasks;
 
 namespace RedditBots.Web.Hubs
 {
