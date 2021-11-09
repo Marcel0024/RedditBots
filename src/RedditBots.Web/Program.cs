@@ -56,6 +56,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<LogHub>("/loghub");
+    endpoints.MapControllers();
 });
 
 app.UseSpa(spa =>
