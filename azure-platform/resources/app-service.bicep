@@ -27,7 +27,7 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
       ]
       use32BitWorkerProcess: true
       webSocketsEnabled: true
-      alwaysOn: false
+      alwaysOn: true
       http20Enabled: true
       autoHealEnabled: true
       netFrameworkVersion: 'v6.0'
