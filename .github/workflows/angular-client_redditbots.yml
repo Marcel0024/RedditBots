@@ -4,7 +4,7 @@ env:
   AZURE_WEBAPP_NAME: redditbots
   CLIENT_APP_LOCATION: ./src/RedditBots.Web/ClientApp
   NODE_VERSION: '14.17.x'     
-  DOTNET_VERSION: '5.x'
+  DOTNET_VERSION: '6.x'
 
 on:
   push:

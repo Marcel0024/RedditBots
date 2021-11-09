@@ -1,39 +1,36 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using RedditBots.Web.Helpers;
-using System;
-using System.Threading.Tasks;
 
-namespace RedditBots.Web.Hubs
+namespace RedditBots.Web.Hubs;
+
+public class LogHub : Hub<ILogClient>
 {
-    public class LogHub : Hub<ILogClient>
+    private readonly LogHandler _logsHandler;
+
+    public static int TotalViewers { get; private set; }
+
+    public LogHub(LogHandler logsHandler)
     {
-        private readonly LogHandler _logsHandler;
+        _logsHandler = logsHandler;
+    }
 
-        public static int TotalViewers { get; private set; }
+    public override async Task OnConnectedAsync()
+    {
+        await base.OnConnectedAsync();
 
-        public LogHub(LogHandler logsHandler)
+        foreach (var log in _logsHandler.LastLogs)
         {
-            _logsHandler = logsHandler;
+            await Clients.Caller.Log(log);
         }
 
-        public override async Task OnConnectedAsync()
-        {
-            await base.OnConnectedAsync();
+        await Clients.Caller.UpdateLastDateTime(_logsHandler.LastLogDateTime?.ToShortTimeString() ?? "");
+        await Clients.All.UpdateViewers(++TotalViewers);
+    }
 
-            foreach (var log in _logsHandler.LastLogs)
-            {
-                await Clients.Caller.Log(log);
-            }
+    public override async Task OnDisconnectedAsync(Exception exception)
+    {
+        await Clients.All.UpdateViewers(--TotalViewers);
 
-            await Clients.Caller.UpdateLastDateTime(_logsHandler.LastLogDateTime?.ToShortTimeString() ?? "");
-            await Clients.All.UpdateViewers(++TotalViewers);
-        }
-
-        public override async Task OnDisconnectedAsync(Exception exception)
-        {
-            await Clients.All.UpdateViewers(--TotalViewers);
-
-            await base.OnDisconnectedAsync(exception);
-        }
+        await base.OnDisconnectedAsync(exception);
     }
 }

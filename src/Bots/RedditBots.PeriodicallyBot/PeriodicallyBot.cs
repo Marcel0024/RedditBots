@@ -11,113 +11,112 @@ using System.Threading;
 using System.Threading.Tasks;
 using BackgroundService = RedditBots.Framework.BackgroundService;
 
-namespace RedditBots.PeriodicallyBot
+namespace RedditBots.PeriodicallyBot;
+
+/// <summary>
+/// Bot that runs once a day
+/// </summary>
+public class PeriodicallyBot : BackgroundService
 {
-    /// <summary>
-    /// Bot that runs once a day
-    /// </summary>
-    public class PeriodicallyBot : BackgroundService
+    private readonly ILogger<PeriodicallyBot> _logger;
+    private readonly IHostEnvironment _env;
+    private readonly PeriodicallyBotSettings _periodicallyBotSettings;
+    private readonly BotSetting _botSetting;
+    private readonly RedditClient _redditClient;
+
+    public PeriodicallyBot(
+        ILogger<PeriodicallyBot> logger,
+        IHostEnvironment env,
+        IOptions<MonitorSettings> monitorSettings,
+        IOptions<PeriodicallyBotSettings> periodicallyBotSettings)
     {
-        private readonly ILogger<PeriodicallyBot> _logger;
-        private readonly IHostEnvironment _env;
-        private readonly PeriodicallyBotSettings _periodicallyBotSettings;
-        private readonly BotSetting _botSetting;
-        private readonly RedditClient _redditClient;
+        _logger = logger;
+        _env = env;
+        _periodicallyBotSettings = periodicallyBotSettings.Value;
+        _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PeriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
 
-        public PeriodicallyBot(
-            ILogger<PeriodicallyBot> logger,
-            IHostEnvironment env,
-            IOptions<MonitorSettings> monitorSettings,
-            IOptions<PeriodicallyBotSettings> periodicallyBotSettings)
+        _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
+
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _logger = logger;
-            _env = env;
-            _periodicallyBotSettings = periodicallyBotSettings.Value;
-            _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PeriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
+            await _hibernateUntilNextRun(stoppingToken);
 
-            _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
+            _logger.LogInformation($"I have awoken");
+
+            _executeTasks();
+        }
+    }
+
+    private async Task _hibernateUntilNextRun(CancellationToken stoppingToken)
+    {
+        var now = DateTime.UtcNow;
+        var tomorrow = now.AddDays(1);
+        var nextRun = tomorrow.Date.Add(_periodicallyBotSettings.TimeOfExecution);
+
+        if (nextRun.Subtract(now) >= TimeSpan.FromHours(24)) // Next run is today
+        {
+            nextRun = now.Date.Add(_periodicallyBotSettings.TimeOfExecution);
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        var timeUntilNextRun = nextRun.Subtract(now);
+
+        _logger.LogInformation($"Sleeping for {timeUntilNextRun.Hours} hours and {timeUntilNextRun.Minutes} minutes");
+
+        await Task.Delay(timeUntilNextRun, stoppingToken);
+    }
+
+    private void _executeTasks()
+    {
+        var now = DateTime.UtcNow;
+
+        foreach (var task in _periodicallyBotSettings.PeriodicTasks)
         {
-            _logger.LogInformation($"Started {_botSetting.BotName} in {_env.EnvironmentName}");
-
-            while (!stoppingToken.IsCancellationRequested)
+            if (task.DayOfTheMonth == now.Day
+                && task.TaskType == TaskType.PostToCSharpMonthlyThread)
             {
-                await _hibernateUntilNextRun(stoppingToken);
-
-                _logger.LogInformation($"I have awoken");
-
-                _executeTasks();
+                _postToCSharpMonthlyThread(now);
             }
         }
+    }
 
-        private async Task _hibernateUntilNextRun(CancellationToken stoppingToken)
+    private void _postToCSharpMonthlyThread(DateTime now)
+    {
+        var posts = _redditClient.Subreddit("CSharp").Posts.Hot;
+        var post = posts.FirstOrDefault(p => p.Author == "AutoModerator"
+            && p.Title.Contains($"[{now:MMMM yyyy}]")
+            && p.Title.Contains("your side projects!"));
+
+        if (post == null)
         {
-            var now = DateTime.UtcNow;
-            var tomorrow = now.AddDays(1);
-            var nextRun = tomorrow.Date.Add(_periodicallyBotSettings.TimeOfExecution);
-
-            if (nextRun.Subtract(now) >= TimeSpan.FromHours(24)) // Next run is today
-            {
-                nextRun = now.Date.Add(_periodicallyBotSettings.TimeOfExecution);
-            }
-
-            var timeUntilNextRun = nextRun.Subtract(now);
-
-            _logger.LogInformation($"Sleeping for {timeUntilNextRun.Hours} hours and {timeUntilNextRun.Minutes} minutes");
-
-            await Task.Delay(timeUntilNextRun, stoppingToken);
+            _logger.LogWarning("Could not find Thread of monthly projects on /r/CSharp");
+            return;
         }
 
-        private void _executeTasks()
-        {
-            var now = DateTime.UtcNow;
+        var replyText = new StringBuilder()
+            .Append("I've been working on a Console Application that can run multiple reddit bots (now also with a discord bot) AND have the logs streamed to a web app (an angular app), which you can monitor live.")
+            .Append("The bots themselves are not that interesting but building them has been fun. It currently has 3 bots running on it and it's hosted on a Raspberry Pi")
+            .Append("\n\n")
+            .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything in .NET 6")
+            .Append("\n\n")
+            .Append($"The Console is hosted in Docker and auto-deployed to the pi via Azure Pipelines")
+            .Append("\n\n")
+            .Append($"The logs website is deployed with the help of Bicep templates to Azure with Github Actions")
+            .Append("\n\n")
+            .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://redditbots.azurewebsites.net")
+            .Append("\n\n")
+            .Append("Things i touched so far: A bit a of docker, Angular (still beginner), typescript, npm in it's whole, RxJs, YAML, Github Actions, Azure Devops pipelines, Reddit API, .NET Generic Host Builder, some threading issues, SignalR, how ILogger works, some Bootstrap and css stuff, localstorage, I also had to setup my Rasperry Pi as a build agent on Azure, Bicep (big one), Azure CLI, also some linux.")
+            .Append("Most of this is just built for learning purposes, if i can only get a nice a idea for a bot....")
+            .Append("\n\n")
+            .Append($"Any feedback is welcome!")
+            .ToString();
 
-            foreach (var task in _periodicallyBotSettings.PeriodicTasks)
-            {
-                if (task.DayOfTheMonth == now.Day
-                    && task.TaskType == TaskType.PostToCSharpMonthlyThread)
-                {
-                    _postToCSharpMonthlyThread(now);
-                }
-            }
-        }
+        post.Reply(replyText);
 
-        private void _postToCSharpMonthlyThread(DateTime now)
-        {
-            var posts = _redditClient.Subreddit("CSharp").Posts.Hot;
-            var post = posts.FirstOrDefault(p => p.Author == "AutoModerator"
-                && p.Title.Contains($"[{now:MMMM yyyy}]")
-                && p.Title.Contains("your side projects!"));
-
-            if (post == null)
-            {
-                _logger.LogWarning("Could not find Thread of monthly projects on /r/CSharp");
-                return;
-            }
-
-            var replyText = new StringBuilder()
-                .Append("I've been working on a Console Application that can run multiple reddit bots (now also with a discord bot) AND have the logs streamed to a web app (an angular app), which you can monitor live.")
-                .Append("The bots themselves are not that interesting but building them has been fun. It currently has 3 bots running on it and it's hosted on a Raspberry Pi")
-                .Append("\n\n")
-                .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything in .NET 5")
-                .Append("\n\n")
-                .Append($"The Console is hosted in Docker and auto-deployed to the pi via Azure Pipelines")
-                .Append("\n\n")
-                .Append($"The logs website is deployed with the help of Bicep templates to Azure with Github Actions")
-                .Append("\n\n")
-                .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://redditbots.azurewebsites.net")
-                .Append("\n\n")
-                .Append("Things i dipped my toe in so far: A bit a of docker, Angular (still beginner), typescript, npm in it's whole, RxJs, YAML, Github Actions, Azure Devops pipelines, Reddit API, .NET Generic Host Builder, some threading issues, SignalR, how ILogger works, some Bootstrap and css stuff, localstorage, I also had to setup my Rasperry Pi as a build agent on Azure, Bicep (big one), Azure CLI, also some linux.")
-                .Append("Most of this is just built for learning purposes, if i can only get a nice a idea for a bot....")
-                .Append("\n\n")
-                .Append($"Any feedback is welcome!")
-                .ToString();
-
-            post.Reply(replyText);
-
-            _logger.LogInformation($"Posted comment in r/{post.Subreddit} - {post.Title}");
-        }
+        _logger.LogInformation($"Posted comment in r/{post.Subreddit} - {post.Title}");
     }
 }

@@ -35,13 +35,16 @@ export class LogsService {
       };
 
       this.ngZone.run(() => {
+        this.allLogs.unshift(log);
+
         if (this.shouldDisplayLog(log)) {
-          this.allLogs.unshift(log);
           this.updateLogsToDisplay();
+
+          if (this.userSettingsService.canDisplayDesktopNotifications() && log.notify) {
+            this.notifyDesktop(log);
+          }
         }
-        if (this.userSettingsService.canDisplayDesktopNotifications() && log.notify) {
-          this.notifyDesktop(log);
-        }
+
         if (!this.userSettingsService.hasBotSetting(log.logName)) {
           this.userSettingsService.addBotSetting(log.logName)
         }

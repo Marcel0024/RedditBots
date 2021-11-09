@@ -1,58 +1,57 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace RedditBots.Libraries.Logging
+namespace RedditBots.Libraries.Logging;
+
+internal class HttpLogger : ILogger
 {
-    class HttpLogger : ILogger
+    private readonly string _name;
+    private readonly HttpLoggerQueue _queue;
+    private readonly HttpLoggerOptions _config;
+
+
+    public HttpLogger(string name, HttpLoggerQueue queue, HttpLoggerOptions config)
     {
-        private readonly string _name;
-        private readonly HttpLoggerQueue _queue;
-        private readonly HttpLoggerOptions _config;
+        _name = name;
+        _queue = queue;
+        _config = config;
+    }
 
+    public IDisposable BeginScope<TState>(TState state) => null;
 
-        public HttpLogger(string name, HttpLoggerQueue queue, HttpLoggerOptions config)
+    public bool IsEnabled(LogLevel logLevel)
+    {
+        return logLevel >= _config.LogLevel;
+    }
+
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+    {
+        if (!IsEnabled(logLevel))
         {
-            _name = name;
-            _queue = queue;
-            _config = config;
+            return;
         }
 
-        public IDisposable BeginScope<TState>(TState state) => null;
-
-        public bool IsEnabled(LogLevel logLevel)
+        if (formatter == null)
         {
-            return logLevel >= _config.LogLevel;
+            throw new ArgumentNullException(nameof(formatter));
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        var message = formatter(state, exception);
+
+        if (!string.IsNullOrEmpty(message) || exception != null)
         {
-            if (!IsEnabled(logLevel))
-            {
-                return;
-            }
-
-            if (formatter == null)
-            {
-                throw new ArgumentNullException(nameof(formatter));
-            }
-
-            var message = formatter(state, exception);
-
-            if (!string.IsNullOrEmpty(message) || exception != null)
-            {
-                LogMessage(logLevel, _name, eventId.Id, message, exception);
-            }
+            LogMessage(logLevel, _name, eventId.Id, message, exception);
         }
+    }
 
-        public virtual void LogMessage(LogLevel logLevel, string logName, int eventId, string message, Exception exception)
+    public virtual void LogMessage(LogLevel logLevel, string logName, int eventId, string message, Exception exception)
+    {
+        // Queue log message
+        _queue.Messages.Enqueue(new HttpLogEntry
         {
-            // Queue log message
-            _queue.Messages.Enqueue(new HttpLogEntry
-            {
-                LogName = logName,
-                LogLevel = logLevel.ToString(),
-                Message = $"{DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt")} - {message}",
-            });
-        }
+            LogName = logName,
+            LogLevel = logLevel.ToString(),
+            Message = $"{DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt")} - {message}",
+        });
     }
 }
