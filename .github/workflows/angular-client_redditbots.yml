@@ -80,7 +80,7 @@ jobs:
       - name: dotnet build
         run: dotnet build --configuration Release --no-restore
       - name: dotnet publish
-        run: dotnet publish -c Release -o Release -r win-x86
+        run: dotnet publish -c Release -o Release -r win-x64 --self-contained
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2

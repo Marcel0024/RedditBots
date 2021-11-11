@@ -25,7 +25,7 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
           value: apiKey
         }
       ]
-      use32BitWorkerProcess: true
+      use32BitWorkerProcess: false
       webSocketsEnabled: true
       alwaysOn: true
       http20Enabled: true
