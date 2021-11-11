@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  deploy_platform:
+  deploy_platform_resources:
     if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-20.04
 
@@ -29,15 +29,17 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }} # for my future self: az ad sp create-for-rbac --name [name] --sdk-auth
 
-    - name: Azure Deploy
-      uses: Azure/cli@1.0.4
+    - name: Checkout files
+      uses: actions/checkout@master
+
+    - name: Azure deploy
+      uses: azure/arm-deploy@v1
       with:
-        inlineScript: az deployment sub create
-                      --template-file $GITHUB_WORKSPACE/azure-platform/main.bicep
-                      --location westeurope
-                      --parameters appservicename=${{ env.AZURE_WEBAPP_NAME }} apiKey=${{ secrets.API_SECRET }}
-                      --debug
-        azcliversion: 2.24.2
+        scope: subscription
+        region: westeurope
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        template: azure-platform/main.bicep
+        parameters: appservicename=${{ env.AZURE_WEBAPP_NAME }} apiKey=${{ secrets.API_SECRET }}
         
     - name: Azure Logout
       run: az logout
