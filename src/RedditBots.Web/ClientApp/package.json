@@ -32,7 +32,6 @@
     "core-js": "^3.3.3",
     "jquery": "3.5.0",
     "luxon": "^2.1.1",
-    "moment": "^2.22.2",
     "oidc-client": "^1.9.1",
     "popper.js": "^1.16.0",
     "rxjs": "^6.5.3",
