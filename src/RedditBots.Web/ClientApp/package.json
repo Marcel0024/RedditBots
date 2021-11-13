@@ -24,7 +24,6 @@
     "@angular/router": "13.0.1",
     "@microsoft/signalr": "^6.0.0",
     "@microsoft/signalr-protocol-msgpack": "^6.0.0",
-    "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.4.1",
     "buffer": "^6.0.3",
     "chart.js": "^2.9.4",
