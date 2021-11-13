@@ -10,7 +10,7 @@ RedditBots.Console is an .NET 6 Console application that is build in docker and 
 It runs 3 Reddit bots and 1 Discord bot. All logs are sent via http to RedditBots.Web via a custom logger.
 
 ### RedditBots.Web
-RedditBots.Web is an Angular 11 web application which is served by an .NET 6 application. It receives all incoming logs from Reddit.Console and pushes them to the clients via SignalR. It is deployed via Github Actions to Azure.
+RedditBots.Web is an Angular 13 web application which is served by an .NET 6 application. It receives all incoming logs from Reddit.Console and pushes them to the clients via SignalR. It is deployed via Github Actions to Azure.
 The resources on Azure are created with Bicep templates
 
 

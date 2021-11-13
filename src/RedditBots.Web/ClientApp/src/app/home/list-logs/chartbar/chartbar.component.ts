@@ -1,5 +1,7 @@
-import { Component, NgZone, OnInit } from "@angular/core";
-import "chartjs-plugin-streaming";
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy,  ViewChild } from "@angular/core";
+import { Chart, registerables } from 'chart.js';
+import ChartStreaming from 'chartjs-plugin-streaming';
+import 'chartjs-adapter-luxon';
 import { LogsService } from "../../../services/logs.service";
 import { SignalrService } from "../../../services/signalr.service";
 
@@ -8,9 +10,21 @@ import { SignalrService } from "../../../services/signalr.service";
   templateUrl: "./chartbar.component.html",
   styleUrls: ["./chartbar.component.css"],
 })
-export class ChartbarComponent implements OnInit {
+export class ChartbarComponent implements AfterViewInit, OnDestroy {
+  datasets: any[] = [
+    {
+      backgroundColor: "#f0fff1",
+      borderColor: "#aeff7b",
+      data: [],
+      label: "Logs processed",
+    },
+  ]
+
   LogCount: any[] = [];
   TotalLogs: number = 0;
+
+  @ViewChild('incomminglogchart') chartCanvas: ElementRef | undefined;
+  private chart: Chart | undefined;
 
   constructor(
     private signalrService: SignalrService,
@@ -18,6 +32,8 @@ export class ChartbarComponent implements OnInit {
     private ngZone: NgZone
   ) {
     this.subscribeToEvents();
+    Chart.register(...registerables);
+    Chart.register(ChartStreaming);
   }
 
   private subscribeToEvents(): void {
@@ -32,58 +48,59 @@ export class ChartbarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    this.initChart();
+
     setInterval(() => {
-      this.datasets[0].data.push({ x: Date.now(), y: this.TotalLogs });
+      this.datasets[0].data.push({ x: Date.now(), y: this.TotalLogs  });
       this.logsService.setLPS(this.TotalLogs);
       this.TotalLogs = 0;
     }, 1000);
   }
 
-  datasets: any[] = [
-    {
-      backgroundColor: "#f0fff1",
-      borderColor: "#aeff7b",
-      data: [],
-      label: "Logs processed",
-    },
-  ];
+  ngOnDestroy(): void {
+    this.chart.destroy();
+  }
 
-  options: any = {
-    scales: {
-      xAxes: [
-        {
-          type: "time",
-          realtime: {
-            duration: 30000,
-            refresh: 1000,
-            delay: 1000,
-            pause: false,
-            ttl: undefined,
+  initChart(): void {
+    if (!this.chartCanvas?.nativeElement) {
+      return;
+    }
 
-            onRefresh: (chart) => {
-              var data = this.LogCount.shift();
-
-              if (data) {
-                Array.prototype.push.apply(chart.data.datasets[0].data, [data]);
-              }
-            },
-          },
-        },
-      ],
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-            stepSize: 5,
-          },
-        },
-      ],
-    },
-    plugins: {
-      streaming: {
-        frameRate: 30,
+    this.chart = new Chart(this.chartCanvas.nativeElement, {
+      type: 'line',
+      data: {
+        datasets: this.datasets
       },
-    },
-  };
+      options: {
+        scales: {
+          x: {
+            type: 'realtime',
+            title: {
+              display: false,
+            },
+            realtime: {
+              duration: 30000,
+              refresh: 1000,
+              delay: 1000,
+              pause: false,
+              ttl: undefined
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 5,
+            },
+            title: {
+              display: false,
+            }
+          }
+        },
+        interaction: {
+          intersect: false
+        }
+      }
+    })
+  }
 }
