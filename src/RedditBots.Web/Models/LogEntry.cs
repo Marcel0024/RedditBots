@@ -8,5 +8,7 @@ public class LogEntry
 
     public string LogLevel { get; set; }
 
+    public string LogDateTime { get; set; }
+
     public bool Notify { get; set; } = true;
 }

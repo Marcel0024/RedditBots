@@ -31,6 +31,7 @@ export class LogsService {
         logName: this.getDisplayName(incomingLog.LogName),
         message: incomingLog.Message,
         logLevel: incomingLog.LogLevel,
+        logDateTime: incomingLog.LogDateTime,
         url: this.getUrl(this.getDisplayName(incomingLog.LogName)),
       };
 

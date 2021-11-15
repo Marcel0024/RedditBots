@@ -51,7 +51,8 @@ internal class HttpLogger : ILogger
         {
             LogName = logName,
             LogLevel = logLevel.ToString(),
-            Message = $"{DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt")} - {message}",
+            LogDateTime = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
+            Message = message,
         });
     }
 }
