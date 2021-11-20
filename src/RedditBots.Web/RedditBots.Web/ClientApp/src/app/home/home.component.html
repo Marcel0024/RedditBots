@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <app-overviewbar class="row pt-2"
+                   (toggle-settings-menu-change)="toggleSettingsMenu($event)"
+                   [display-settings-menu]="state.displaySettingsMenu"
+                   [last-log-time]="lastLogTime"></app-overviewbar>
+  <app-settingsbar class="row pt-2"
+                   [bot-settings]="state.botSettings"
+                   [display-settings-menu]="state.displaySettingsMenu"
+                   [display-debug-logs]="state.displayDebugLogs"
+                   [receive-desktop-notification]="state.desktopNotificationIsOn"
+                   (bot-setting-change)="updateBotSetting($event)"
+                   (display-debug-logs-change)="toggleDebugLogs($event)"
+                   (receive-notification-change)="toggleReceiveDesktopNotififcations($event)"></app-settingsbar>
+</div>
+<div class="container" style="background-color: white">
+  <app-list-logs [logs]="logs"></app-list-logs>
+</div>

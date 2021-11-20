@@ -1,35 +1,51 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Console", "src\RedditBots.Console\RedditBots.Console.csproj", "{C91CF170-6EFA-49BA-AA4F-6BF40141674C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RedditBots.Console", "RedditBots.Console", "{6E880279-968F-4A8E-ABCF-82E932224AFA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{1C6B86CA-D4C6-489C-8E5F-A7FEC1C71DC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Console", "src\RedditBots.Console\RedditBots.Console\RedditBots.Console.csproj", "{542F85A2-2E74-46BC-BD87-F8A9E80C21F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Libraries.Logging", "src\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj", "{D4DF6799-AD32-402F-8C9E-39435F1B1B78}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bots", "Bots", "{04D07CC5-C444-4DD1-9B3A-E3F520F264A9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bots", "Bots", "{60DE26A0-4749-4BBF-BD73-6A3E5648B500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PeriodicallyBot", "src\RedditBots.Console\Bots\RedditBots.PeriodicallyBot\RedditBots.PeriodicallyBot.csproj", "{C203A8BD-BF16-4B69-8295-1DD345F71EE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PapiamentoBot", "src\Bots\RedditBots.PapiamentoBot\RedditBots.PapiamentoBot.csproj", "{2022182E-B5D3-4E4E-A89D-5D2BB31BE38D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PapiamentoBot", "src\RedditBots.Console\Bots\RedditBots.PapiamentoBot\RedditBots.PapiamentoBot.csproj", "{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Framework", "src\Bots\RedditBots.Framework\RedditBots.Framework.csproj", "{D9DD604C-A876-408C-823E-43988D737C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", "src\RedditBots.Console\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj", "{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PeriodicallyBot", "src\Bots\RedditBots.PeriodicallyBot\RedditBots.PeriodicallyBot.csproj", "{3477796D-4734-43BD-90C9-5F682782C174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Framework", "src\RedditBots.Console\Bots\RedditBots.Framework\RedditBots.Framework.csproj", "{922A874C-C2E3-4812-842D-349E0ED19AA7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", "src\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj", "{B112C915-4F9F-46EA-9F69-3039128168C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.CheerfulBot", "src\RedditBots.Console\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{77053B50-2F8A-4547-8C80-232AB2EA1FE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.CheerfulBot", "src\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{26A2D162-B98F-41FC-9319-0B298EC9062D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Web", "src\RedditBots.Web\RedditBots.Web.csproj", "{C2C26A94-0188-4700-B341-BFCA1886A742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Libraries.Logging", "src\RedditBots.Console\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj", "{89971713-7D65-4AAD-8270-FD821E8C38DE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D6EF991-504C-47A2-B50F-DF7C13E390E6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RedditBots.Web", "RedditBots.Web", "{D9C1140C-2308-4F0A-A67A-1EB3A0851748}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Web", "src\RedditBots.Web\RedditBots.Web\RedditBots.Web.csproj", "{59D48BB9-BAA6-4520-BD3F-5DF6602D1E32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{78C11A28-1090-4138-8E1F-BBB89058690A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Web.Data", "src\RedditBots.Web\Libraries\RedditBots.Web.Data\RedditBots.Web.Data.csproj", "{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-platform", "azure-platform", "{22F62AE1-9111-403D-96D8-ABAFCA2741F3}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\angular-client_redditbots.yml = .github\workflows\angular-client_redditbots.yml
+		azure-platform\main.bicep = azure-platform\main.bicep
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{CFFAB969-EB0D-4FB4-903B-76563CEBDF77}"
+	ProjectSection(SolutionItems) = preProject
 		azure-platform\resources\app-service-plan.bicep = azure-platform\resources\app-service-plan.bicep
 		azure-platform\resources\app-service.bicep = azure-platform\resources\app-service.bicep
-		azure-platform\main.bicep = azure-platform\main.bicep
-		README.md = README.md
+		azure-platform\resources\cosmos-db.bicep = azure-platform\resources\cosmos-db.bicep
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github-actions", "github-actions", "{77324FF8-94C6-41B4-A0B9-6C6D825E1199}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\angular-client_redditbots.yml = .github\workflows\angular-client_redditbots.yml
 	EndProjectSection
 EndProject
 Global
@@ -38,49 +54,60 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C91CF170-6EFA-49BA-AA4F-6BF40141674C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C91CF170-6EFA-49BA-AA4F-6BF40141674C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C91CF170-6EFA-49BA-AA4F-6BF40141674C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C91CF170-6EFA-49BA-AA4F-6BF40141674C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4DF6799-AD32-402F-8C9E-39435F1B1B78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2022182E-B5D3-4E4E-A89D-5D2BB31BE38D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2022182E-B5D3-4E4E-A89D-5D2BB31BE38D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2022182E-B5D3-4E4E-A89D-5D2BB31BE38D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2022182E-B5D3-4E4E-A89D-5D2BB31BE38D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9DD604C-A876-408C-823E-43988D737C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9DD604C-A876-408C-823E-43988D737C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9DD604C-A876-408C-823E-43988D737C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9DD604C-A876-408C-823E-43988D737C65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3477796D-4734-43BD-90C9-5F682782C174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3477796D-4734-43BD-90C9-5F682782C174}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3477796D-4734-43BD-90C9-5F682782C174}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3477796D-4734-43BD-90C9-5F682782C174}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B112C915-4F9F-46EA-9F69-3039128168C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B112C915-4F9F-46EA-9F69-3039128168C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B112C915-4F9F-46EA-9F69-3039128168C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B112C915-4F9F-46EA-9F69-3039128168C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2C26A94-0188-4700-B341-BFCA1886A742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2C26A94-0188-4700-B341-BFCA1886A742}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2C26A94-0188-4700-B341-BFCA1886A742}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2C26A94-0188-4700-B341-BFCA1886A742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{542F85A2-2E74-46BC-BD87-F8A9E80C21F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{542F85A2-2E74-46BC-BD87-F8A9E80C21F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{542F85A2-2E74-46BC-BD87-F8A9E80C21F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{542F85A2-2E74-46BC-BD87-F8A9E80C21F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C203A8BD-BF16-4B69-8295-1DD345F71EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C203A8BD-BF16-4B69-8295-1DD345F71EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C203A8BD-BF16-4B69-8295-1DD345F71EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C203A8BD-BF16-4B69-8295-1DD345F71EE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89971713-7D65-4AAD-8270-FD821E8C38DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89971713-7D65-4AAD-8270-FD821E8C38DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89971713-7D65-4AAD-8270-FD821E8C38DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89971713-7D65-4AAD-8270-FD821E8C38DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D48BB9-BAA6-4520-BD3F-5DF6602D1E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D48BB9-BAA6-4520-BD3F-5DF6602D1E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D48BB9-BAA6-4520-BD3F-5DF6602D1E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D48BB9-BAA6-4520-BD3F-5DF6602D1E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D4DF6799-AD32-402F-8C9E-39435F1B1B78} = {1C6B86CA-D4C6-489C-8E5F-A7FEC1C71DC8}
-		{2022182E-B5D3-4E4E-A89D-5D2BB31BE38D} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
-		{D9DD604C-A876-408C-823E-43988D737C65} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
-		{3477796D-4734-43BD-90C9-5F682782C174} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
-		{B112C915-4F9F-46EA-9F69-3039128168C4} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
-		{0AAED86D-6756-450E-8F6C-1A9BEC818F8C} = {60DE26A0-4749-4BBF-BD73-6A3E5648B500}
+		{542F85A2-2E74-46BC-BD87-F8A9E80C21F5} = {6E880279-968F-4A8E-ABCF-82E932224AFA}
+		{04D07CC5-C444-4DD1-9B3A-E3F520F264A9} = {6E880279-968F-4A8E-ABCF-82E932224AFA}
+		{C203A8BD-BF16-4B69-8295-1DD345F71EE1} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
+		{E62A6474-2DB4-4CF3-8955-577AE6D3BC28} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
+		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
+		{922A874C-C2E3-4812-842D-349E0ED19AA7} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
+		{77053B50-2F8A-4547-8C80-232AB2EA1FE4} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
+		{26A2D162-B98F-41FC-9319-0B298EC9062D} = {6E880279-968F-4A8E-ABCF-82E932224AFA}
+		{89971713-7D65-4AAD-8270-FD821E8C38DE} = {26A2D162-B98F-41FC-9319-0B298EC9062D}
+		{59D48BB9-BAA6-4520-BD3F-5DF6602D1E32} = {D9C1140C-2308-4F0A-A67A-1EB3A0851748}
+		{78C11A28-1090-4138-8E1F-BBB89058690A} = {D9C1140C-2308-4F0A-A67A-1EB3A0851748}
+		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F} = {78C11A28-1090-4138-8E1F-BBB89058690A}
+		{CFFAB969-EB0D-4FB4-903B-76563CEBDF77} = {22F62AE1-9111-403D-96D8-ABAFCA2741F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55DF7FD0-1173-436B-A083-BA4573F2777A}

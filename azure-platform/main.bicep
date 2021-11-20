@@ -1,33 +1,45 @@
 targetScope = 'subscription'
 
-param appservicename string
+param projectname string
 
 @secure()
 param apiKey string
 
 var location = 'westeurope'
+var databaseName = '${projectname}-logs'
 
 resource resourcegroup 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: appservicename
+  name: projectname
   location: location
 }
 
+module cosmosDb 'resources/cosmos-db.bicep' = {
+  scope: resourcegroup
+  name: '${projectname}-cosmos'
+  params: {
+    databaseName: databaseName
+  }
+}
+
 module appserviceplan './resources/app-service-plan.bicep' = {
-  name: '${appservicename}-plan'
+  name: '${projectname}-plan'
   scope: resourcegroup
   params: {
     location: location
-    appservicename: appservicename
+    appservicename: projectname
   }
 }
 
 module appservice './resources/app-service.bicep' = {
-  name: appservicename
+  name: projectname
   scope: resourcegroup
   params: {
+    cosmosKey: cosmosDb.outputs.key
+    cosmosAccount: cosmosDb.outputs.documentEndpoint
+    databaseName: databaseName
     appserviceplanId: appserviceplan.outputs.appServicePlanId
     location: location
-    appservicename: appservicename
+    appservicename: projectname
     apiKey: apiKey
   }
 }
