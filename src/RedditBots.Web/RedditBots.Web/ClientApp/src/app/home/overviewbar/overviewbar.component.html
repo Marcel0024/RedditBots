@@ -1,0 +1,64 @@
+<div class="col-lg-2 col-12"></div>
+<div class="col-lg-8 col-12">
+  <div class="alert"
+       [class.alert-light-success]="
+      currentConnectionStatus === connectionStatus.connected
+    "
+       [class.alert-light-warning]="
+      currentConnectionStatus === connectionStatus.reconnecting
+    "
+       [class.alert-danger]="
+      currentConnectionStatus === connectionStatus.disconnected
+    ">
+    <div class="row d-flex justify-content-between align-content-center w-100">
+      <div class="col-lg-4 col-12 align-self-center text-center">
+        <label class="flikker font-weight-bold"
+               *ngIf="currentConnectionStatus === connectionStatus.connected">
+          Streaming logs ...
+        </label>
+        <label class="flikker font-weight-bold"
+               *ngIf="currentConnectionStatus === connectionStatus.reconnecting">
+          Reconnecting ...
+        </label>
+        <label class="flikker font-weight-bold"
+               *ngIf="currentConnectionStatus === connectionStatus.disconnected">
+          Disconnected ...
+        </label>
+      </div>
+      <div class="col-lg-4 col-12 text-center">
+        <div class="col-12 d-none">
+          <span>Viewers: {{ totalViewers }} </span>
+        </div>
+        <div class="col-12">
+          <span>Last log: {{ lastLogTime }}</span>
+        </div>
+        <div class="col-12">
+          <span>LPS: {{ lps }}</span>
+        </div>
+      </div>
+      <div class="col-lg-4 col-12 align-self-center text-center">
+        <span class="wrap-text">
+          <a href="https://github.com/Marcel0024/RedditBots" target="_blank">https://github.com/marcel0024/RedditBots</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-2 col-12 d-lg-flex justify-content-start">
+  <div class="d-flex justify-content-center">
+    <div>
+      <a class="btn btn-sm btn-default btn btn-outline-light"
+         data-toggle="collapse"
+         role="button"
+         aria-expanded="true"
+         aria-controls="settingsRow"
+         (click)="toggleSettingsMenu()">
+        {{
+          displaySettingsMenu
+            ? "Hide advanced settings"
+            : "Show advanced settings"
+        }}
+      </a>
+    </div>
+  </div>
+</div>

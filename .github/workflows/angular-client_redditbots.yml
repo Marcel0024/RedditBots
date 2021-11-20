@@ -2,7 +2,7 @@ name: RedditBots.Web Deploy
 
 env:
   AZURE_WEBAPP_NAME: redditbots
-  CLIENT_APP_LOCATION: ./src/RedditBots.Web/ClientApp
+  CLIENT_APP_LOCATION: ./src/RedditBots.Web/RedditBots.Web/ClientApp
   NODE_VERSION: '14.17.x'     
   DOTNET_VERSION: '6.x'
 
@@ -39,7 +39,7 @@ jobs:
         region: westeurope
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         template: azure-platform/main.bicep
-        parameters: appservicename=${{ env.AZURE_WEBAPP_NAME }} apiKey=${{ secrets.API_SECRET }}
+        parameters: projectname=${{ env.AZURE_WEBAPP_NAME }} apiKey=${{ secrets.API_SECRET }}
         
     - name: Azure Logout
       run: az logout
@@ -80,7 +80,7 @@ jobs:
       - name: dotnet build
         run: dotnet build --configuration Release --no-restore
       - name: dotnet publish
-        run: dotnet publish -c Release -o Release -r win-x64 --self-contained
+        run: dotnet publish -c Release -o Release -r win-x64 --self-contained true
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
