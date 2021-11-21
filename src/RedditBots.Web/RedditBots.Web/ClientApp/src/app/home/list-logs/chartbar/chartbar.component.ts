@@ -15,7 +15,7 @@ export class ChartbarComponent implements AfterViewInit, OnDestroy {
       backgroundColor: "#f0fff1",
       borderColor: "#aeff7b",
       data: [],
-      label: "Incoming logs",
+      label: "Total incoming logs",
     },
   ]
 

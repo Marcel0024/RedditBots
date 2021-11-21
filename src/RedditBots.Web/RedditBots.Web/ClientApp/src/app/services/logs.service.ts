@@ -32,10 +32,6 @@ export class LogsService {
     setInterval(() => this.updateLastLogTimeAgo(), 1000);
   }
 
-  setLPS(value: number): void {
-    this.currentLPS$.emit(value);
-  }
-
   private subscribeToEvents(): void {
     this.userSettingsService.stateChange$.subscribe(() => {
       this.updateScreenData();
@@ -77,7 +73,7 @@ export class LogsService {
       message: incomingLog.message,
       logLevel: incomingLog.logLevel,
       logDateTimeISO: incomingLog.logDateTime,
-      logDateTime: DateTime.fromISO(incomingLog.logDateTime).toLocaleString(DateTime.DATETIME_SHORT),
+      logDateTime: incomingLog.logDateTime ? DateTime.fromISO(incomingLog.logDateTime).toLocaleString(DateTime.DATETIME_SHORT) : '',
       url: this.getUrl(this.getDisplayName(incomingLog.logName)),
     }
   }
@@ -104,6 +100,9 @@ export class LogsService {
   }
 
   private getLastLogTimeAgo(date: any): string {
+    if (!date) {
+      return '';
+    }
     const dateTime = DateTime.fromISO(date);
     const diff = dateTime.diffNow().shiftTo(...this.units);
     const unit = this.units.find((unit) => diff.get(unit) !== 0);
