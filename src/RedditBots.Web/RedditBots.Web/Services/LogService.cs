@@ -30,7 +30,9 @@ public class LogService
             Level = Enum.Parse<LogLevel>(entry.LogLevel),
             Application = entry.LogName,
             Message = entry.Message,
-            DateTime = DateTime.ParseExact(entry.LogDateTime, "o", CultureInfo.InvariantCulture)
+            DateTime = string.IsNullOrWhiteSpace(entry.LogDateTime) 
+                ? DateTime.UtcNow 
+                : DateTime.ParseExact(entry.LogDateTime, "o", CultureInfo.InvariantCulture)
         });
 
         await _dbContext.SaveChangesAsync();
