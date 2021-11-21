@@ -1,12 +1,15 @@
 .new-border {
   border: 3px solid black;
+  border-radius: 5px;
 }
 
 .card-body {
   padding-top: 1em;
   padding-bottom: 0.6em;
+  background-color: var(--log-backgroundcolor);
+  color: var(--font-color);
 }
 
 .date {
-  font-size: small;
+  font-size: smaller;
 }

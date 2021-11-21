@@ -1,3 +1,7 @@
 .wrap-text {
   word-wrap: break-word;
 }
+
+a {
+  color: #007bff;
+}

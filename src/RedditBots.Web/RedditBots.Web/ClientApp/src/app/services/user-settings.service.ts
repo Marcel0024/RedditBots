@@ -57,6 +57,11 @@ export class UserSettingsService {
     this.saveSettingsAndBroadcast();
   }
 
+  toggleDarkMode(value: boolean): void {
+    this.state.isDarkMode = value;
+    this.saveSettingsAndBroadcast();
+  }
+
   getBotSetting(name: string): BotSetting {
     return this.state.botSettings.find((botSetting) => botSetting.name === name);
   }
@@ -93,11 +98,12 @@ export class UserSettingsService {
     return this.state;
   }
 
-  private createDefaultSettings() {
+  private createDefaultSettings(): void {
     this.state = {
       desktopNotificationIsOn: false,
       displaySettingsMenu: false,
       displayDebugLogs: false,
+      isDarkMode: true,
       botSettings: [],
     };
 

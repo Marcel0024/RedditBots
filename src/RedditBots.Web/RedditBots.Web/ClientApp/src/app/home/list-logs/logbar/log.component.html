@@ -9,9 +9,11 @@
     <div class="card-body">
       <div class="row d-flex justify-content-between">
         <span>
-          <a *ngIf="this.log.url" href="{{log.url}}" target="_blank">{{log.logName}} </a>
-          <span *ngIf="!this.log.url">{{log.logName}} </span>
-          <span *ngIf="log.logDateTime" class="date"> {{log.logDateTime}}</span>
+          <strong>
+            <a *ngIf="this.log.url" href="{{log.url}}" target="_blank">{{log.logName}} </a>
+            <span *ngIf="!this.log.url">{{log.logName}} </span>
+          </strong>
+          <span *ngIf="log.logDateTime" class="date" title="{{log.logDateTimeLong}}"> {{log.logDateTime}}</span>
         </span>
         <div class="badge"
              [class.badge-default]="log.logLevel === 'Trace'"

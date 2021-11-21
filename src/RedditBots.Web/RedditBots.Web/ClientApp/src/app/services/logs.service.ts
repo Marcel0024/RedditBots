@@ -16,15 +16,13 @@ export class LogsService {
   lastLogTime$ = new EventEmitter<string>();
   currentLPS$ = new EventEmitter<number>(); // Logs per second
 
-
   constructor(
     private signalR: SignalrService,
     private userSettingsService: UserSettingsService,
     private http: HttpClient) {
 
     this.subscribeToEvents();
-    this.getLastLogs();
-    this.updateScreenData();
+    this.getLastLogsAndUpdateScreen();
 
     setInterval(() => {
       this.updateLastLogTimeAgo();
@@ -34,9 +32,9 @@ export class LogsService {
     }, 1000);
   }
 
-  getLastLogs(): void {
+  getLastLogsAndUpdateScreen(): void {
     this.http.get('/api/getlastlogs').subscribe((result: { logs: any[] }) => {
-      this.allLogs = result.logs.map(l => {
+      this.allLogs = [...this.allLogs, ...result.logs.map(l => {
         const log = this.processIncomingLog(l)
 
         if (!this.userSettingsService.hasBotSetting(log.logName)) {
@@ -44,7 +42,8 @@ export class LogsService {
         }
 
         return log;
-      })
+      })];
+      this.updateScreenData();
     });
   }
 
@@ -89,6 +88,9 @@ export class LogsService {
       message: incomingLog.message,
       logLevel: incomingLog.logLevel,
       logDateTimeISO: incomingLog.logDateTime,
+      logDateTimeLong: incomingLog.logDateTime
+        ? DateTime.fromISO(incomingLog.logDateTime).toFormat('FFF')
+        : '',
       logDateTime: incomingLog.logDateTime ? DateTime.fromISO(incomingLog.logDateTime).toLocaleString(DateTime.DATETIME_SHORT) : '',
       url: this.getUrl(this.getDisplayName(incomingLog.logName)),
     }

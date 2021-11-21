@@ -19,6 +19,15 @@
         <label class="font-weight-bold">Global settings</label>
         <div class="custom-control custom-toggle my-2">
           <input type="checkbox"
+                 id="darkmode"
+                 name="darkmode"
+                 class="custom-control-input"
+                 [(ngModel)]="displayDarkMode"
+                 (change)="toggleDarkMode($event)" />
+          <label class="custom-control-label" for="darkmode">Dark mode</label>
+        </div>
+        <div class="custom-control custom-toggle my-2">
+          <input type="checkbox"
                  id="notification"
                  name="notification"
                  class="custom-control-input"

@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: #f8f9fa;
+  background-color: var(--background-color);
 }
 
 @keyframes blinker {
@@ -30,4 +30,8 @@ body {
 .alert-light-warning {
   background-color: #fffcf0;
   border-left: 4px solid #ffe97b;
+}
+
+a {
+  color: var(--link-color)
 }

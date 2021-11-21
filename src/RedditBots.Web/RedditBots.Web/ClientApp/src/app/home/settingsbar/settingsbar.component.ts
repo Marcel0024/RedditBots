@@ -9,6 +9,7 @@ import { BotSetting } from "../../interfaces/botsetting";
 export class SettingsbarComponent {
   @Input("display-settings-menu") displaySettingsMenu!: boolean;
   @Input("display-debug-logs") displayDebugLogs!: boolean;
+  @Input("display-dark-mode") displayDarkMode!: boolean;
   @Input("receive-desktop-notification") receiveDesktopNotifs!: boolean;
   @Input("bot-settings") botSettings!: BotSetting[];
 
@@ -18,6 +19,8 @@ export class SettingsbarComponent {
     new EventEmitter<boolean>();
   @Output("bot-setting-change") botSettingChange =
     new EventEmitter<BotSetting>();
+  @Output("dark-mode-change") darkModeChange =
+    new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -31,5 +34,9 @@ export class SettingsbarComponent {
 
   updateBotSetting(botSetting: any): void {
     this.botSettingChange.next(botSetting);
+  }
+
+  toggleDarkMode(value: any): void {
+    this.darkModeChange.next(value.target.checked);
   }
 }

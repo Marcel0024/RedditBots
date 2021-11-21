@@ -3,15 +3,17 @@
                    (toggle-settings-menu-change)="toggleSettingsMenu($event)"
                    [display-settings-menu]="state.displaySettingsMenu"
                    [last-log-time]="lastLogTime"></app-overviewbar>
-  <app-settingsbar class="row pt-2"
+  <app-settingsbar class="row"
                    [bot-settings]="state.botSettings"
                    [display-settings-menu]="state.displaySettingsMenu"
                    [display-debug-logs]="state.displayDebugLogs"
+                   [display-dark-mode]="state.isDarkMode"
                    [receive-desktop-notification]="state.desktopNotificationIsOn"
                    (bot-setting-change)="updateBotSetting($event)"
                    (display-debug-logs-change)="toggleDebugLogs($event)"
+                   (dark-mode-change)="toggleDarkMode($event)"
                    (receive-notification-change)="toggleReceiveDesktopNotififcations($event)"></app-settingsbar>
 </div>
-<div class="container" style="background-color: white">
+<div class="container logs-container" >
   <app-list-logs [logs]="logs"></app-list-logs>
 </div>

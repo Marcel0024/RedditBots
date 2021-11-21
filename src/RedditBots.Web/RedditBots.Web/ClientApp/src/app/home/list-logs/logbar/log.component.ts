@@ -14,10 +14,12 @@ export class LogComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.showNEWStyling = true;
+    if (this.log.notify) {
+      this.showNEWStyling = true;
 
-    setTimeout(() => {
-      this.showNEWStyling = false;
-    }, 1500);
+      setTimeout(() => {
+        this.showNEWStyling = false;
+      }, 2000);
+    }
   }
 }
