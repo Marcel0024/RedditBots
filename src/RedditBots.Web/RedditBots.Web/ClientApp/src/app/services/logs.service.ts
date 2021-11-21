@@ -20,14 +20,11 @@ export class LogsService {
   constructor(
     private signalR: SignalrService,
     private userSettingsService: UserSettingsService,
-    http: HttpClient) {
+    private http: HttpClient) {
 
     this.subscribeToEvents();
-
-    http.get('/api/getlastlogs').subscribe((result: { logs: any[] }) => {
-      this.allLogs = result.logs.map(l => this.processIncomingLog(l));
-      this.updateScreenData();
-    })
+    this.getLastLogs();
+    this.updateScreenData();
 
     setInterval(() => {
       this.updateLastLogTimeAgo();
@@ -35,6 +32,20 @@ export class LogsService {
 
       this.totalIncomingLogs = 0;
     }, 1000);
+  }
+
+  getLastLogs(): void {
+    this.http.get('/api/getlastlogs').subscribe((result: { logs: any[] }) => {
+      this.allLogs = result.logs.map(l => {
+        const log = this.processIncomingLog(l)
+
+        if (!this.userSettingsService.hasBotSetting(log.logName)) {
+          this.userSettingsService.addBotSetting(log.logName)
+        }
+
+        return log;
+      })
+    });
   }
 
   private subscribeToEvents(): void {
