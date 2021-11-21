@@ -9,13 +9,13 @@ import { UserSettingsService } from "./user-settings.service";
   providedIn: "root",
 })
 export class LogsService {
-  public TotalLogs: number = 0; // consumed by the chart
-
   allLogs: Log[] = [];
+  totalIncomingLogs: number = 0; // Resets every second
 
   logsStream$ = new EventEmitter<Log[]>();
   lastLogTime$ = new EventEmitter<string>();
   currentLPS$ = new EventEmitter<number>(); // Logs per second
+
 
   constructor(
     private signalR: SignalrService,
@@ -29,7 +29,12 @@ export class LogsService {
       this.updateScreenData();
     })
 
-    setInterval(() => this.updateLastLogTimeAgo(), 1000);
+    setInterval(() => {
+      this.updateLastLogTimeAgo();
+      this.currentLPS$.emit(this.totalIncomingLogs);
+
+      this.totalIncomingLogs = 0;
+    }, 1000);
   }
 
   private subscribeToEvents(): void {
@@ -37,7 +42,7 @@ export class LogsService {
       this.updateScreenData();
     });
     this.signalR.logReceived$.subscribe((incomingLog: any) => {
-      this.TotalLogs++;
+      this.totalIncomingLogs++;
 
       // fix camel case issues from MessagePack
       const fixedLog = {

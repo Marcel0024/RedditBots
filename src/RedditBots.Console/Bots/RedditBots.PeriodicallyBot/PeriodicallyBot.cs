@@ -33,7 +33,8 @@ public class PeriodicallyBot : BackgroundService
         _logger = logger;
         _env = env;
         _periodicallyBotSettings = periodicallyBotSettings.Value;
-        _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PeriodicallyBot)) ?? throw new ArgumentNullException("No bot settings found");
+        _botSetting = monitorSettings.Value.Settings.Find(ms => ms.BotName == nameof(PeriodicallyBot))
+            ?? throw new ArgumentNullException("No bot settings found");
 
         _redditClient = new RedditClient(_botSetting.AppId, _botSetting.RefreshToken, _botSetting.AppSecret);
     }
@@ -44,15 +45,15 @@ public class PeriodicallyBot : BackgroundService
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            await _hibernateUntilNextRun(stoppingToken);
+            await HibernateUntilNextRun(stoppingToken);
 
             _logger.LogInformation($"I have awoken");
 
-            _executeTasks();
+            await ExecuteTasksAsync();
         }
     }
 
-    private async Task _hibernateUntilNextRun(CancellationToken stoppingToken)
+    private async Task HibernateUntilNextRun(CancellationToken stoppingToken)
     {
         var now = DateTime.UtcNow;
         var tomorrow = now.AddDays(1);
@@ -70,7 +71,7 @@ public class PeriodicallyBot : BackgroundService
         await Task.Delay(timeUntilNextRun, stoppingToken);
     }
 
-    private void _executeTasks()
+    private async Task ExecuteTasksAsync()
     {
         var now = DateTime.UtcNow;
 
@@ -79,12 +80,12 @@ public class PeriodicallyBot : BackgroundService
             if (task.DayOfTheMonth == now.Day
                 && task.TaskType == TaskType.PostToCSharpMonthlyThread)
             {
-                _postToCSharpMonthlyThread(now);
+                await PostToCSharpMonthlyThreadAsync(now);
             }
         }
     }
 
-    private void _postToCSharpMonthlyThread(DateTime now)
+    private async Task PostToCSharpMonthlyThreadAsync(DateTime now)
     {
         var posts = _redditClient.Subreddit("CSharp").Posts.Hot;
         var post = posts.FirstOrDefault(p => p.Author == "AutoModerator"
@@ -98,24 +99,16 @@ public class PeriodicallyBot : BackgroundService
         }
 
         var replyText = new StringBuilder()
-            .Append("I've been working on a Console Application that can run multiple reddit bots (now also with a discord bot) AND have the logs streamed to a web app (an angular app), which you can monitor live.")
-            .Append("The bots themselves are not that interesting but building them has been fun. It currently has 3 bots running on it and it's hosted on a Raspberry Pi")
+            .Append("A while ago i created some reddit bots that runs on a console application. It was nice for a while then i decided to host them on a Raspberry Pi.")
             .Append("\n\n")
-            .Append("Each bot is a BackgroundService and with a custom ILogger i send all logs via http to a site, which streams it to a client with SignalR, of course everything in .NET 6")
-            .Append("\n\n")
-            .Append($"The Console is hosted in Docker and auto-deployed to the pi via Azure Pipelines")
-            .Append("\n\n")
-            .Append($"The logs website is deployed with the help of Bicep templates to Azure with Github Actions")
+            .Append("Now they auto deploy to the raspberry pi, and i have a web app that receives all the logs from the console and saves them to a CosmosDb and streams them to the browser via SignalR. Now i only need a good idea for a bot...")
             .Append("\n\n")
             .Append($"The repo is here: https://github.com/Marcel0024/RedditBots and the live logs can be viewed here: https://RedditBots.azurewebsites.net")
             .Append("\n\n")
-            .Append("Things i touched so far: A bit a of docker, Angular (still beginner), typescript, npm in it's whole, RxJs, YAML, Github Actions, Azure Devops pipelines, Reddit API, .NET Generic Host Builder, some threading issues, SignalR, how ILogger works, some Bootstrap and css stuff, localstorage, I also had to setup my Rasperry Pi as a build agent on Azure, Bicep (big one), Azure CLI, also some linux.")
-            .Append("Most of this is just built for learning purposes, if i can only get a nice a idea for a bot....")
-            .Append("\n\n")
-            .Append($"Any feedback is welcome!")
+            .Append($"Everything in .NET 6 & Any feedback is welcome!")
             .ToString();
 
-        post.Reply(replyText);
+        await post.ReplyAsync(replyText);
 
         _logger.LogInformation($"Posted comment in r/{post.Subreddit} - {post.Title}");
     }

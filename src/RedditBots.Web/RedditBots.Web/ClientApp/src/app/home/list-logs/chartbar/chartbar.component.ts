@@ -10,21 +10,16 @@ import { LogsService } from "../../../services/logs.service";
   styleUrls: ["./chartbar.component.css"],
 })
 export class ChartbarComponent implements AfterViewInit, OnDestroy {
-  datasets: any[] = [
-    {
-      backgroundColor: "#f0fff1",
-      borderColor: "#aeff7b",
-      data: [],
-      label: "Total incoming logs",
-    },
-  ]
-
   @ViewChild('incomminglogchart') chartCanvas!: ElementRef;
   private chart: Chart | undefined;
 
-  constructor(private logsService: LogsService,) {
+  currentLPS: number = 0;
+
+  constructor(logsService: LogsService) {
     Chart.register(...registerables);
     Chart.register(ChartStreaming);
+
+    logsService.currentLPS$.subscribe(lps => this.currentLPS = lps)
   }
 
   ngAfterViewInit(): void {
@@ -39,7 +34,14 @@ export class ChartbarComponent implements AfterViewInit, OnDestroy {
     this.chart = new Chart(this.chartCanvas.nativeElement, {
       type: 'line',
       data: {
-        datasets: this.datasets
+        datasets: [
+          {
+            backgroundColor: "#f0fff1",
+            borderColor: "#aeff7b",
+            data: [],
+            label: "Total incoming logs",
+          },
+        ]
       },
       options: {
         scales: {
@@ -55,8 +57,7 @@ export class ChartbarComponent implements AfterViewInit, OnDestroy {
               pause: false,
               ttl: undefined,
               onRefresh: chart => {
-                chart.data.datasets[0].data.push({ x: Date.now(), y: this.logsService.TotalLogs });
-                this.logsService.TotalLogs = 0;
+                chart.data.datasets[0].data.push({ x: Date.now(), y: this.currentLPS });
               }
             }
           },
