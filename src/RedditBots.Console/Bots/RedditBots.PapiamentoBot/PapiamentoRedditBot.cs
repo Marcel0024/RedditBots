@@ -86,8 +86,8 @@ public class PapiamentoRedditBot : AbstractPapiamentoBot
 
         if (response.MistakeFound)
         {
-            if (response.Mistake.Wrong.Contains("ñ") &&
-                new Random().Next(0, 6) == 0) // Don't be too spammy
+            if (response.Mistake.Right.Contains("ñ") &&
+                new Random().Next(0, 5) == 0) // Don't be too spammy
             {
                 comment.Reply(_buildCommentReply(comment, response.Mistake));
             }
