@@ -31,7 +31,11 @@ public abstract class BackgroundService : IHostedService, IDisposable
     {
         if (BotSetting.IsEnabled)
         {
-            ExecutingTask = Task.Run(() => ExecuteAsync(_stoppingCts.Token), cancellationToken).ContinueWith((t) =>
+            ExecutingTask = Task.Run(() =>
+            {
+                Logger.LogInformation("Starting.");
+                ExecuteAsync(_stoppingCts.Token);
+            }, cancellationToken).ContinueWith((t) =>
             {
                 if (t.IsFaulted)
                 {
