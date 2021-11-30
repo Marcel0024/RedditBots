@@ -1,14 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RedditBots.Framework;
-using RedditBots.HanzeMemesBot;
+using RedditBots.Bots.CheerfulBot;
+using RedditBots.Bots.HanzeMemesBot;
+using RedditBots.Bots.PapiamentoBot;
+using RedditBots.Bots.PeriodicallyBot;
+using RedditBots.Libraries.BotFramework;
 using RedditBots.Libraries.Logging;
-using RedditBots.PapiamentoBot;
-using RedditBots.PeriodicallyBot;
 using System.IO;
 
 var builder = Host.CreateDefaultBuilder(args);
+
 builder.ConfigureHostConfiguration(configHost =>
     {
         configHost.AddJsonFile(Path.Combine("Settings", "papiamentobotsettings.json"));
@@ -21,12 +22,12 @@ builder.ConfigureHostConfiguration(configHost =>
 
 builder.ConfigureServices((hostContext, services) =>
    {
-       services.Configure<MonitorSettings>(hostContext.Configuration.GetSection(nameof(MonitorSettings)));
+       services.AddRedditBotFramework(hostContext.Configuration);
 
        services.AddHanzeMemesBot();
-       services.AddPeriodicallyBot(hostContext);
-       services.AddPapiamentoBot(hostContext);
-       //services.AddCheerfulBot();
+       services.AddPeriodicallyBot(hostContext.Configuration);
+       services.AddPapiamentoBot(hostContext.Configuration);
+       services.AddCheerfulBot();
    });
 
 builder.Build().Run();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace RedditBots.HanzeMemesBot;
+namespace RedditBots.Bots.HanzeMemesBot;
 
 public static class IServiceCollectionExtensions
 {

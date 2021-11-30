@@ -1,4 +1,4 @@
-﻿namespace RedditBots.PapiamentoBot.Models;
+﻿namespace RedditBots.Bots.PapiamentoBot.Models;
 
 public class Request
 {

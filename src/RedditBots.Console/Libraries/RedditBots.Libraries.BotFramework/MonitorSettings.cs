@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RedditBots.Framework;
+namespace RedditBots.Libraries.BotFramework;
 
 public class MonitorSettings
 {
@@ -9,6 +9,8 @@ public class MonitorSettings
 
 public class BotSetting
 {
+    public bool IsEnabled { get; set; }
+
     public string BotName { get; set; }
 
     public string AppSecret { get; set; }

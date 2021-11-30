@@ -18,7 +18,6 @@ public class HttpLoggerService
     {
         _clientFactory = clientFactory;
         _options = options.Value;
-
         _baseUri = new Uri(_options.Uri);
     }
 
@@ -34,7 +33,7 @@ public class HttpLoggerService
             client.DefaultRequestHeaders.Add("X-APIKEY", _options.ApiKey);
         }
 
-        using StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+        using StringContent content = new(json, Encoding.UTF8, "application/json");
 
         (await client.PostAsync("", content, cancellationToken))
             .EnsureSuccessStatusCode();

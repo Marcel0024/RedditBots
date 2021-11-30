@@ -9,15 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Console", "src\R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bots", "Bots", "{04D07CC5-C444-4DD1-9B3A-E3F520F264A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PeriodicallyBot", "src\RedditBots.Console\Bots\RedditBots.PeriodicallyBot\RedditBots.PeriodicallyBot.csproj", "{C203A8BD-BF16-4B69-8295-1DD345F71EE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Bots.PeriodicallyBot", "src\RedditBots.Console\Bots\RedditBots.Bots.PeriodicallyBot\RedditBots.Bots.PeriodicallyBot.csproj", "{C203A8BD-BF16-4B69-8295-1DD345F71EE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.PapiamentoBot", "src\RedditBots.Console\Bots\RedditBots.PapiamentoBot\RedditBots.PapiamentoBot.csproj", "{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Bots.PapiamentoBot", "src\RedditBots.Console\Bots\RedditBots.Bots.PapiamentoBot\RedditBots.Bots.PapiamentoBot.csproj", "{E62A6474-2DB4-4CF3-8955-577AE6D3BC28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.HanzeMemesBot", "src\RedditBots.Console\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj", "{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Bots.HanzeMemesBot", "src\RedditBots.Console\Bots\RedditBots.Bots.HanzeMemesBot\RedditBots.Bots.HanzeMemesBot.csproj", "{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Framework", "src\RedditBots.Console\Bots\RedditBots.Framework\RedditBots.Framework.csproj", "{922A874C-C2E3-4812-842D-349E0ED19AA7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.CheerfulBot", "src\RedditBots.Console\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj", "{77053B50-2F8A-4547-8C80-232AB2EA1FE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Bots.CheerfulBot", "src\RedditBots.Console\Bots\RedditBots.Bots.CheerfulBot\RedditBots.Bots.CheerfulBot.csproj", "{77053B50-2F8A-4547-8C80-232AB2EA1FE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{26A2D162-B98F-41FC-9319-0B298EC9062D}"
 EndProject
@@ -53,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditBots.Libraries.BotFramework", "src\RedditBots.Console\Libraries\RedditBots.Libraries.BotFramework\RedditBots.Libraries.BotFramework.csproj", "{47866B2B-C27F-4F68-97E4-55571563AFA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,10 +75,6 @@ Global
 		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{922A874C-C2E3-4812-842D-349E0ED19AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77053B50-2F8A-4547-8C80-232AB2EA1FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -95,6 +91,10 @@ Global
 		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47866B2B-C27F-4F68-97E4-55571563AFA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47866B2B-C27F-4F68-97E4-55571563AFA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47866B2B-C27F-4F68-97E4-55571563AFA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47866B2B-C27F-4F68-97E4-55571563AFA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,7 +105,6 @@ Global
 		{C203A8BD-BF16-4B69-8295-1DD345F71EE1} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
 		{E62A6474-2DB4-4CF3-8955-577AE6D3BC28} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
 		{EA9913FB-42DE-494C-AFCA-BEA02FDBC35F} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
-		{922A874C-C2E3-4812-842D-349E0ED19AA7} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
 		{77053B50-2F8A-4547-8C80-232AB2EA1FE4} = {04D07CC5-C444-4DD1-9B3A-E3F520F264A9}
 		{26A2D162-B98F-41FC-9319-0B298EC9062D} = {6E880279-968F-4A8E-ABCF-82E932224AFA}
 		{89971713-7D65-4AAD-8270-FD821E8C38DE} = {26A2D162-B98F-41FC-9319-0B298EC9062D}
@@ -113,6 +112,7 @@ Global
 		{78C11A28-1090-4138-8E1F-BBB89058690A} = {D9C1140C-2308-4F0A-A67A-1EB3A0851748}
 		{1ECB0C48-1DD4-41FD-AC26-52F685FA425F} = {78C11A28-1090-4138-8E1F-BBB89058690A}
 		{CFFAB969-EB0D-4FB4-903B-76563CEBDF77} = {22F62AE1-9111-403D-96D8-ABAFCA2741F3}
+		{47866B2B-C27F-4F68-97E4-55571563AFA4} = {26A2D162-B98F-41FC-9319-0B298EC9062D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55DF7FD0-1173-436B-A083-BA4573F2777A}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace RedditBots.CheerfulBot
+namespace RedditBots.Bots.CheerfulBot
 {
     public static class IServiceCollectionExtensions
     {

@@ -1,38 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <UserSecretsId>RedditBots.console</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<UserSecretsId>RedditBots.console</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Bots\RedditBots.CheerfulBot\RedditBots.CheerfulBot.csproj" />
-    <ProjectReference Include="..\Bots\RedditBots.Framework\RedditBots.Framework.csproj" />
-    <ProjectReference Include="..\Bots\RedditBots.HanzeMemesBot\RedditBots.HanzeMemesBot.csproj" />
-	  <ProjectReference Include="..\Bots\RedditBots.PapiamentoBot\RedditBots.PapiamentoBot.csproj" />
-	  <ProjectReference Include="..\Bots\RedditBots.PeriodicallyBot\RedditBots.PeriodicallyBot.csproj" />
-	  <ProjectReference Include="..\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Bots\RedditBots.Bots.CheerfulBot\RedditBots.Bots.CheerfulBot.csproj" />
+		<ProjectReference Include="..\Bots\RedditBots.Bots.HanzeMemesBot\RedditBots.Bots.HanzeMemesBot.csproj" />
+		<ProjectReference Include="..\Bots\RedditBots.Bots.PapiamentoBot\RedditBots.Bots.PapiamentoBot.csproj" />
+		<ProjectReference Include="..\Bots\RedditBots.Bots.PeriodicallyBot\RedditBots.Bots.PeriodicallyBot.csproj" />
+		<ProjectReference Include="..\Libraries\RedditBots.Libraries.BotFramework\RedditBots.Libraries.BotFramework.csproj" />
+		<ProjectReference Include="..\Libraries\RedditBots.Libraries.Logging\RedditBots.Libraries.Logging.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Settings\papiamentobotsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Settings\periodicallybotsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Settings\papiamentobotsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Settings\periodicallybotsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

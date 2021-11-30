@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <ProjectReference Include="..\..\Libraries\RedditBots.Libraries.BotFramework\RedditBots.Libraries.BotFramework.csproj" />
   </ItemGroup>
 
 </Project>
