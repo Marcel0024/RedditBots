@@ -1,6 +1,4 @@
-﻿
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using RedditBots.Bots.PapiamentoBot.Models;
 using RedditBots.Bots.PapiamentoBot.Settings;
 using System;
@@ -11,12 +9,10 @@ namespace RedditBots.Bots.PapiamentoBot.Services
     public class PapiamentoService
     {
         private static readonly char[] _charactersToTrim = new char[] { '?', '.', ',', '!', ' ', '“', '”', '‘', '(', ')' };
-        private readonly ILogger<PapiamentoService> _logger;
         private readonly PapiamentoBotSettings _papiamentoBotSettings;
 
-        public PapiamentoService(ILogger<PapiamentoService> logger, IOptions<PapiamentoBotSettings> papiamentoBotSettings)
+        public PapiamentoService(IOptions<PapiamentoBotSettings> papiamentoBotSettings)
         {
-            _logger = logger;
             _papiamentoBotSettings = papiamentoBotSettings.Value;
         }
 
@@ -32,12 +28,11 @@ namespace RedditBots.Bots.PapiamentoBot.Services
                 return Response.Empty();
             }
 
-            if (!VerifyLanguage(allWords))
+            if (!VerifyLanguage(allWords, out string percentagePapiamento))
             {
                 return Response.Empty();
             }
 
-            _logger.LogInformation($"Verified papiamento in {request.From}: \"{request.Content}\"");
 
             if (!ContainsGrammarMistake(allWords, out Word mistake))
             {
@@ -46,11 +41,12 @@ namespace RedditBots.Bots.PapiamentoBot.Services
 
             return new Response
             {
-                Mistake = mistake
+                Mistake = mistake,
+                PercentagePapiamento = percentagePapiamento
             };
         }
 
-        private bool VerifyLanguage(string[] allWords)
+        private bool VerifyLanguage(string[] allWords, out string percentageRounded)
         {
             double totalMatchingWords = allWords.Count(commentWord =>
             {
@@ -63,7 +59,7 @@ namespace RedditBots.Bots.PapiamentoBot.Services
 
             // Language is verified if more then LanguageDetectionPercentage (percentage) of the words match the know words
             var percentageMatchWords = totalMatchingWords * 100 / allWords.Length;
-            var percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
+            percentageRounded = Math.Round(percentageMatchWords, 2, MidpointRounding.AwayFromZero).ToString("0.00");
 
             if (percentageMatchWords <= _papiamentoBotSettings.LanguageDetectionPercentage)
             {
@@ -71,7 +67,6 @@ namespace RedditBots.Bots.PapiamentoBot.Services
             }
             else
             {
-                _logger.LogDebug($"Papiamento detected with {percentageRounded}% of {allWords.Length} words. Threshold: {_papiamentoBotSettings.LanguageDetectionPercentage}%.");
                 return true;
             }
         }
@@ -96,12 +91,8 @@ namespace RedditBots.Bots.PapiamentoBot.Services
 
             if (mistake != null)
             {
-                _logger.LogInformation($"Grammar mistake found: {mistake.Wrong}");
-
                 return true;
             }
-
-            _logger.LogInformation($"No grammar mistake found");
 
             return false;
         }

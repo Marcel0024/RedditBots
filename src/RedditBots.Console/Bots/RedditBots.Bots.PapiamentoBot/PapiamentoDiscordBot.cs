@@ -35,6 +35,7 @@ public class PapiamentoDiscordBot : DiscordBackgroundService
 
         if (response.MistakeFound())
         {
+            Logger.LogInformation($"Papiamento mistake found with {response.PercentagePapiamento}% words recognized. Leaving comment for word {response.Mistake.Wrong}.");
             var replyText = string.Format(BotSetting.DefaultReplyMessage, message.Author.Mention, response.Mistake.Wrong, response.Mistake.Right);
 
             await message.Channel.SendMessageAsync(replyText);

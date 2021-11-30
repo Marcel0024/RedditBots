@@ -17,8 +17,8 @@ public class PapiamentoRedditBot : RedditBotBackgroundService
     protected override bool MonitorComments => true;
 
     public PapiamentoRedditBot(
-        ILogger<PapiamentoRedditBot> logger, 
-        IOptions<MonitorSettings> monitorSettings, 
+        ILogger<PapiamentoRedditBot> logger,
+        IOptions<MonitorSettings> monitorSettings,
         PapiamentoService papiamentoService)
         : base(logger, monitorSettings)
     {
@@ -57,6 +57,8 @@ public class PapiamentoRedditBot : RedditBotBackgroundService
 
         if (response.MistakeFound())
         {
+            Logger.LogInformation($"Papiamento mistake found with {response.PercentagePapiamento}% words recognized. Leaving comment for word {response.Mistake.Wrong}.");
+           
             if (response.Mistake.Right.Contains("ñ") &&
                 new Random().Next(0, 4) == 0) // Don't be too spammy
             {
