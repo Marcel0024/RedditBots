@@ -60,7 +60,7 @@ public class PapiamentoRedditBot : RedditBotBackgroundService
             Logger.LogInformation($"Papiamento mistake found with {response.PercentagePapiamento}% words recognized. Leaving comment for word {response.Mistake.Wrong}.");
            
             if (response.Mistake.Right.Contains("ñ") &&
-                new Random().Next(0, 4) == 0) // Don't be too spammy
+                new Random().Next(0, 3) == 0) // Don't be too spammy
             {
                 comment.Reply(BuildCommentReply(comment, response.Mistake));
             }
