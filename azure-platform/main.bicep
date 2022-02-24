@@ -1,11 +1,11 @@
 targetScope = 'subscription'
 
 param projectname string
+param location string = 'westeurope'
 
 @secure()
 param apiKey string
 
-var location = 'westeurope'
 var databaseName = '${projectname}-logs'
 
 resource resourcegroup 'Microsoft.Resources/resourceGroups@2021-01-01' = {
