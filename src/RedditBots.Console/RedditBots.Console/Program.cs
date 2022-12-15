@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using RedditBots.Bots.CheerfulBot;
-using RedditBots.Bots.HanzeMemesBot;
-using RedditBots.Bots.PapiamentoBot;
-using RedditBots.Bots.PeriodicallyBot;
+using RedditBots.Console.Bots.CheerfulBot;
+using RedditBots.Console.Bots.HanzeMemesBot;
+using RedditBots.Console.Bots.PapiamentoBot;
+using RedditBots.Console.Bots.PeriodicallyBot;
 using RedditBots.Libraries.BotFramework;
 using RedditBots.Libraries.Logging;
 using System.IO;

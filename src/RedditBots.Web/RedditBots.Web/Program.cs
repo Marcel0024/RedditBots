@@ -52,7 +52,7 @@ app.UseStaticFiles(new StaticFileOptions()
         cnt.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue
         {
             Public = true,
-            MaxAge = TimeSpan.FromDays(app.Environment.IsDevelopment() ? 0 : 7)
+            MaxAge = TimeSpan.FromDays(app.Environment.IsDevelopment() ? 0 : 60)
         };
     }
 });
