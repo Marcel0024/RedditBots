@@ -44,5 +44,6 @@ resource appservice 'Microsoft.Web/sites@2022-09-01' = {
       netFrameworkVersion: 'v7.0'
     }
     clientAffinityEnabled: false
+    httpsOnly: true
   }
 }
