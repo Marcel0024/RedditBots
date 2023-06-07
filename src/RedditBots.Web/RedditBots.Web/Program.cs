@@ -31,7 +31,7 @@ builder.Services.AddSpaStaticFiles(configuration =>
 //{
     builder.Configuration.AddAzureKeyVault(
         new Uri(builder.Configuration["KeyVault:Uri"]),
-        new DefaultAzureCredential());
+        new ManagedIdentityCredential());
 //}
 
 builder.Services.AddDbContext<LogsDbContext>(options => options.UseCosmos(
