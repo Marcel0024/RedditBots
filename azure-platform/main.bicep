@@ -5,6 +5,9 @@ param apiKey string
 param projectname string
 param location string = 'westeurope'
 
+param linuxFxVersion string = 'DOTNETCORE|7.0' // az webapp list-runtimes --os linux -o table
+param runableDllName string = 'RedditBots.Web.dll'
+
 var databaseName = '${projectname}-logs'
 var vaultName = '${projectname}-keyvault'
 
@@ -68,6 +71,9 @@ module appservice './resources/app-service.bicep' = {
     appserviceplanId: appserviceplan.outputs.appServicePlanId
     location: location
     appservicename: projectname
+
+    linuxFxVersion: linuxFxVersion
+    runableDllName: runableDllName
 
     cosmosAccount: cosmosDb.outputs.documentEndpoint
     databaseName: databaseName

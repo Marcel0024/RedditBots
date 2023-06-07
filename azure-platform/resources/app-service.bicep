@@ -1,6 +1,8 @@
 param appserviceplanId string
 param location string
 param appservicename string
+param linuxFxVersion string
+param runableDllName string
 
 param cosmosAccount string
 param databaseName string
@@ -17,25 +19,27 @@ resource appservice 'Microsoft.Web/sites@2022-09-01' = {
     customDomainVerificationId: 'DNS Record verification'
     enabled: true
     siteConfig: {
+      linuxFxVersion: linuxFxVersion
+      appCommandLine: 'dotnet ${runableDllName}'
       appSettings: [
         {
           name: 'ASPNETCORE_ENVIRONMENT'
           value: 'Production'
         }
         {
-          name: 'Logging:LogLevel:Default'
+          name: 'Logging__LogLevel__Default'
           value: 'Information'
         }
         {
-          name: 'CosmosDb:Account'
+          name: 'CosmosDb__Account'
           value: cosmosAccount
         }
         {
-          name: 'CosmosDb:DatabaseName'
+          name: 'CosmosDb__DatabaseName'
           value: databaseName
         }
         {
-          name: 'KeyVault:Uri'
+          name: 'KeyVault__Uri'
           value: vaultUri
         }
       ]

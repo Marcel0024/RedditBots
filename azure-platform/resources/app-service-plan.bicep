@@ -5,6 +5,7 @@ resource appserviceplan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: '${appservicename}-plan'
   location: location
   properties: {
+    reserved: true
     perSiteScaling: false
   }
   sku: {
@@ -12,6 +13,7 @@ resource appserviceplan 'Microsoft.Web/serverfarms@2022-09-01' = {
     tier: 'Basic'
     capacity: 1
   }
+  kind: 'linux'
 }
 
 output appServicePlanId string = appserviceplan.id
