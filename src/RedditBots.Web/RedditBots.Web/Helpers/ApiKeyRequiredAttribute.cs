@@ -11,7 +11,7 @@ public class ApiKeyRequiredAttribute : ActionFilterAttribute
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var appSettings = context.HttpContext.RequestServices.GetRequiredService<IOptions<AppSettings>>().Value;
+        var appSettings = context.HttpContext.RequestServices.GetRequiredService<AppSettings>();
 
         context.HttpContext.Request.Headers.TryGetValue(API_KEY_HEADER_NAME, out var apiKeyHeaderValues);
         var requestApiKey = apiKeyHeaderValues.FirstOrDefault();
