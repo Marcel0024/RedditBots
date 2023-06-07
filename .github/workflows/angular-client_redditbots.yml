@@ -1,5 +1,9 @@
 name: RedditBots.Web Deploy
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   AZURE_WEBAPP_NAME: redditbots
   CLIENT_APP_LOCATION: ./src/RedditBots.Web/RedditBots.Web/ClientApp
