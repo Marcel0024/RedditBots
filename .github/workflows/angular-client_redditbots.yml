@@ -3,6 +3,7 @@ name: RedditBots.Web Deploy
 env:
   AZURE_WEBAPP_NAME: redditbots
   CLIENT_APP_LOCATION: ./src/RedditBots.Web/RedditBots.Web/ClientApp
+  SERVER_APP_LOCATION: ./src/RedditBots.Web/RedditBots.Web/RedditBots.Web.csproj
   NODE_VERSION: '16.x'     
   DOTNET_VERSION: '7.x'
 
@@ -27,7 +28,8 @@ jobs:
     - name: Azure Login
       uses: Azure/login@v1.1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }} # for my future self: az ad sp create-for-rbac --name [name] --sdk-auth
+        # for future me: az ad sp create-for-rbac --name "{namehere}" --role Contributor --scopes /subscriptions/{subscriptionId} --sdk-auth
+        creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
     - name: Checkout files
       uses: actions/checkout@main
@@ -80,7 +82,7 @@ jobs:
       - name: dotnet build
         run: dotnet build --configuration Release --no-restore
       - name: dotnet publish
-        run: dotnet publish -c Release -o Release -r win-x64 --self-contained true
+        run: dotnet publish ${{ env.SERVER_APP_LOCATION }} -c Release -o Release -r win-x64 --self-contained true
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
