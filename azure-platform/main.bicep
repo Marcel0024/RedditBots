@@ -27,7 +27,7 @@ module setApiKey 'resources/keyvault-set-secret.bicep' = {
   scope: resourcegroup
   params: {
     keyVaultName: vaultName
-    secretName: 'logsApiKey'
+    secretName: 'AppSettings--logsApiKey'
     contentType: 'Secret Key'
     secretValue: apiKey
   }

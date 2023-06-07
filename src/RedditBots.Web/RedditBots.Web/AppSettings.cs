@@ -2,5 +2,5 @@
 
 public class AppSettings
 {
-    public string ApiKey { get; set; }
+    public string LogsApiKey { get; set; }
 }

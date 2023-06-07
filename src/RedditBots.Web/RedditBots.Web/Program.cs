@@ -17,6 +17,7 @@ using RedditBots.Web.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<LogService>();
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR().AddMessagePackProtocol();
@@ -36,13 +37,8 @@ if (!builder.Environment.IsDevelopment())
 
 builder.Services.AddDbContext<LogsDbContext>(options => options.UseCosmos(
     accountEndpoint: builder.Configuration["CosmosDb:Account"],
-    accountKey: builder.Configuration["cosmosDbKey"],
+    accountKey: builder.Configuration["cosmosDb:Key"],
     databaseName: builder.Configuration["CosmosDb:DatabaseName"]));
-
-builder.Services.AddSingleton(typeof(AppSettings), new AppSettings
-{
-    ApiKey = builder.Configuration["logsApiKey"]
-});
 
 var app = builder.Build();
 

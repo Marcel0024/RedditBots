@@ -46,7 +46,7 @@ module setCosmosConnectionString 'keyvault-set-secret.bicep' = {
   name: 'setCosmosConnectionString'
   params: {
     keyVaultName: keyvaultName
-    secretName: 'cosmosDbKey'
+    secretName: 'cosmosDb--Key'
     contentType: 'Cosmos DB Primary Master Key'
     secretValue: cosmosAccount.listKeys().primaryMasterKey
   }

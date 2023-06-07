@@ -11,12 +11,12 @@ public class ApiKeyRequiredAttribute : ActionFilterAttribute
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var appSettings = context.HttpContext.RequestServices.GetRequiredService<AppSettings>();
+        var appSettings = context.HttpContext.RequestServices.GetRequiredService<IOptions<AppSettings>>().Value;
 
         context.HttpContext.Request.Headers.TryGetValue(API_KEY_HEADER_NAME, out var apiKeyHeaderValues);
         var requestApiKey = apiKeyHeaderValues.FirstOrDefault();
 
-        if (requestApiKey == null || appSettings.ApiKey != requestApiKey)
+        if (requestApiKey == null || appSettings.LogsApiKey != requestApiKey)
         {
             context.Result = new UnauthorizedObjectResult("Invalid ApiKey");
         }
