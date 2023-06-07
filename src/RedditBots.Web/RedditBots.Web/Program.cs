@@ -27,12 +27,12 @@ builder.Services.AddSpaStaticFiles(configuration =>
     configuration.RootPath = "ClientApp/dist";
 });
 
-//if (!builder.Environment.IsDevelopment())
-//{
+if (!builder.Environment.IsDevelopment())
+{
     builder.Configuration.AddAzureKeyVault(
         new Uri(builder.Configuration["KeyVault:Uri"]),
         new ManagedIdentityCredential());
-//}
+}
 
 builder.Services.AddDbContext<LogsDbContext>(options => options.UseCosmos(
     accountEndpoint: builder.Configuration["CosmosDb:Account"],
