@@ -27,10 +27,9 @@ import { SettingsbarComponent } from "./home/settingsbar/settingsbar.component";
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(
-      [{ path: "", component: HomeComponent, pathMatch: "full" }],
-      { relativeLinkResolution: "legacy" }
-    ),
+    RouterModule.forRoot([
+      { path: "", component: HomeComponent, pathMatch: "full" },
+    ]),
   ],
   bootstrap: [AppComponent],
 })
