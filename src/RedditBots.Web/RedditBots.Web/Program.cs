@@ -31,7 +31,7 @@ if (!builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddAzureKeyVault(
         new Uri(builder.Configuration["KeyVault:Uri"]),
-        new ManagedIdentityCredential());
+        new DefaultAzureCredential());
 }
 
 builder.Services.AddDbContext<LogsDbContext>(options => options.UseCosmos(
