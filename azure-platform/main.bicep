@@ -1,10 +1,9 @@
 targetScope = 'subscription'
 
-param projectname string
-param location string = 'westeurope'
-
 @secure()
 param apiKey string
+param projectname string
+param location string = 'westeurope'
 
 var databaseName = '${projectname}-logs'
 var vaultName = '${projectname}-keyvault'
@@ -77,4 +76,17 @@ module appservice './resources/app-service.bicep' = {
   dependsOn: [
     appserviceplan
   ]
+}
+
+module appserviceKeyVaultAccess './resources/keyvault-access.bicep' = {
+  scope: resourcegroup
+  name: 'keyVaultAccessPolicyDeploy'
+  dependsOn: [
+    keyvault
+    appservice
+  ]
+  params: {
+    keyVaultName: vaultName
+    webAppPrincipalId: appservice.outputs.principalId
+  }
 }

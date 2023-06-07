@@ -9,6 +9,9 @@ param vaultUri string
 resource appservice 'Microsoft.Web/sites@2022-09-01' = {
   name: appservicename
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     serverFarmId: appserviceplanId
     customDomainVerificationId: 'DNS Record verification'
@@ -42,8 +45,11 @@ resource appservice 'Microsoft.Web/sites@2022-09-01' = {
       http20Enabled: true
       autoHealEnabled: true
       netFrameworkVersion: 'v7.0'
+      ftpsState: 'Disabled'
     }
     clientAffinityEnabled: false
     httpsOnly: true
   }
 }
+
+output principalId string = appservice.identity.principalId
