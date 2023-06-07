@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using RedditBots.Web.Settings;
 
 namespace RedditBots.Web.Helpers;
 

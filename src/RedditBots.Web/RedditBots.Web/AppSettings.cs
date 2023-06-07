@@ -1,4 +1,4 @@
-﻿namespace RedditBots.Web.Settings;
+﻿namespace RedditBots.Web;
 
 public class AppSettings
 {

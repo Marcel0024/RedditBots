@@ -3,21 +3,21 @@ name: RedditBots.Web Deploy
 env:
   AZURE_WEBAPP_NAME: redditbots
   CLIENT_APP_LOCATION: ./src/RedditBots.Web/RedditBots.Web/ClientApp
-  NODE_VERSION: '14.17.x'     
-  DOTNET_VERSION: '6.x'
+  NODE_VERSION: '16.x'     
+  DOTNET_VERSION: '7.x'
 
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
   workflow_dispatch:
   
 jobs:
   deploy_platform_resources:
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-20.04
 
     steps:
@@ -30,7 +30,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }} # for my future self: az ad sp create-for-rbac --name [name] --sdk-auth
 
     - name: Checkout files
-      uses: actions/checkout@master
+      uses: actions/checkout@main
 
     - name: Azure deploy
       uses: azure/arm-deploy@v1
@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Azure Login
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         uses: Azure/login@v1.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -84,11 +84,11 @@ jobs:
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: Release
 
       - name: Azure Logout
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: az logout

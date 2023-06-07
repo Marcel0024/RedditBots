@@ -1,18 +1,21 @@
+using Azure.Core;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
+using RedditBots.Web;
 using RedditBots.Web.Data;
 using RedditBots.Web.Helpers;
 using RedditBots.Web.Hubs;
-using RedditBots.Web.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 builder.Services.AddScoped<LogService>();
 
 builder.Services.AddControllersWithViews();
@@ -24,10 +27,22 @@ builder.Services.AddSpaStaticFiles(configuration =>
     configuration.RootPath = "ClientApp/dist";
 });
 
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri(builder.Configuration["KeyVault:Uri"]),
+        new DefaultAzureCredential());
+}
+
 builder.Services.AddDbContext<LogsDbContext>(options => options.UseCosmos(
     accountEndpoint: builder.Configuration["CosmosDb:Account"],
-    accountKey: builder.Configuration["CosmosDb:Key"],
+    accountKey: builder.Configuration["cosmosDbKey"],
     databaseName: builder.Configuration["CosmosDb:DatabaseName"]));
+
+builder.Services.AddSingleton(typeof(AppSettings), new AppSettings
+{
+    ApiKey = builder.Configuration["logsApiKey"]
+});
 
 var app = builder.Build();
 
@@ -64,11 +79,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseRouting();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<LogHub>("/loghub");
-    endpoints.MapControllers();
-});
+app.MapHub<LogHub>("/loghub");
+app.MapControllers();
 
 app.UseSpa(spa =>
 {

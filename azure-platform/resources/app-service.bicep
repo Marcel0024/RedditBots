@@ -1,13 +1,12 @@
 param appserviceplanId string
 param location string
 param appservicename string
-param apiKey string
 
-param cosmosKey string
 param cosmosAccount string
 param databaseName string
+param vaultUri string
 
-resource appservice 'Microsoft.Web/sites@2020-12-01' = {
+resource appservice 'Microsoft.Web/sites@2022-09-01' = {
   name: appservicename
   location: location
   properties: {
@@ -17,18 +16,6 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
     siteConfig: {
       appSettings: [
         {
-          name: 'CosmosDb:Account'
-          value: cosmosAccount
-        }
-        {
-          name: 'CosmosDb:Key'
-          value: cosmosKey
-        }
-        {
-          name: 'CosmosDb:DatabaseName'
-          value: databaseName
-        }
-        {
           name: 'ASPNETCORE_ENVIRONMENT'
           value: 'Production'
         }
@@ -37,8 +24,16 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
           value: 'Information'
         }
         {
-          name: 'AppSettings:apiKey'
-          value: apiKey
+          name: 'CosmosDb:Account'
+          value: cosmosAccount
+        }
+        {
+          name: 'CosmosDb:DatabaseName'
+          value: databaseName
+        }
+        {
+          name: 'KeyVault:Uri'
+          value: vaultUri
         }
       ]
       use32BitWorkerProcess: false
@@ -46,7 +41,7 @@ resource appservice 'Microsoft.Web/sites@2020-12-01' = {
       alwaysOn: true
       http20Enabled: true
       autoHealEnabled: true
-      netFrameworkVersion: 'v6.0'
+      netFrameworkVersion: 'v7.0'
     }
     clientAffinityEnabled: false
   }

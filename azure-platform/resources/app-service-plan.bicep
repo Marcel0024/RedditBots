@@ -1,7 +1,7 @@
 param location string
 param appservicename string
 
-resource appserviceplan 'Microsoft.Web/serverfarms@2019-08-01' = {
+resource appserviceplan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: '${appservicename}-plan'
   location: location
   properties: {
