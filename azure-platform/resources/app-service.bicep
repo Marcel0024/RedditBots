@@ -52,15 +52,4 @@ resource appservice 'Microsoft.Web/sites@2022-09-01' = {
   }
 }
 
-resource webSiteConnectionStrings 'Microsoft.Web/sites/config@2020-06-01' = {
-  parent: appservice
-  name: 'connectionstrings'
-  properties: {
-    DefaultConnection: {
-      value: '@Microsoft.KeyVault(SecretUri=${vaultUri}/secrets/aiConnectionString)'
-      type: 'SQLAzure'
-    }
-  }
-}
-
 output principalId string = appservice.identity.principalId

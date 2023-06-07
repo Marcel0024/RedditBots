@@ -27,12 +27,12 @@ builder.Services.AddSpaStaticFiles(configuration =>
     configuration.RootPath = "ClientApp/dist";
 });
 
-//if (!builder.Environment.IsDevelopment())
-//{
+if (!builder.Environment.IsDevelopment())
+{
     builder.Configuration.AddAzureKeyVault(
         new Uri(builder.Configuration["KeyVault:Uri"]),
         new DefaultAzureCredential());
-//}
+}
 
 builder.Services.AddDbContext<LogsDbContext>(options => options.UseCosmos(
     accountEndpoint: builder.Configuration["CosmosDb:Account"],
@@ -86,10 +86,10 @@ app.UseSpa(spa =>
 {
     spa.Options.SourcePath = "ClientApp";
 
-    //if (app.Environment.IsDevelopment())
-    //{
-    //    spa.UseAngularCliServer(npmScript: "start");
-    //}
+    if (app.Environment.IsDevelopment())
+    {
+        spa.UseAngularCliServer(npmScript: "start");
+    }
 });
 
 app.Run();

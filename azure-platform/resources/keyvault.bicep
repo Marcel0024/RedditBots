@@ -13,7 +13,6 @@ resource keyvault 'Microsoft.KeyVault/vaults@2023-02-01' = {
       name: 'standard'
     }
     enableRbacAuthorization: false
-    publicNetworkAccess: 'disabled'
     enablePurgeProtection: true
     accessPolicies: []
   }
