@@ -20,7 +20,7 @@ resource appservice 'Microsoft.Web/sites@2022-09-01' = {
       appSettings: [
         {
           name: 'ASPNETCORE_ENVIRONMENT'
-          value: 'Production'
+          value: 'Development'
         }
         {
           name: 'Logging:LogLevel:Default'

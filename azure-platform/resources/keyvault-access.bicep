@@ -9,9 +9,6 @@ resource keyVaultAccess 'Microsoft.KeyVault/vaults/accessPolicies@2023-02-01' = 
         tenantId: subscription().tenantId
         objectId: webAppPrincipalId
         permissions: {
-          keys: [
-            'get'
-          ]
           secrets: [
             'get'
             'list'
