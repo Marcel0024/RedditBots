@@ -86,7 +86,7 @@ jobs:
       - name: dotnet build
         run: dotnet build --configuration Release --no-restore
       - name: dotnet publish
-        run: dotnet publish ${{ env.SERVER_APP_LOCATION }} -c Release -o Release -r win-x64 --self-contained true
+        run: dotnet publish ${{ env.SERVER_APP_LOCATION }} -c Release -o Release --arch x64 --self-contained true
 
       - name: Deploy to Azure 
         uses: azure/webapps-deploy@v2
